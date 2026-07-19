@@ -1,0 +1,56 @@
+# Virtual environments
+**/.venv/
+**/venv/
+**/env/
+**/__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+
+# Model weights & large binary assets (download separately)
+tools/Wav2Lip/checkpoints/
+tools/Wav2Lip/gfpgan_weights/
+tools/ProPainter/
+CodeFormer/
+ComfyUI_windows_portable/
+
+# User data & runtime outputs (not source code)
+autoVSL/uploads/
+autoVSL/output/
+autoVSL/outputs/
+video-studio/jobs/jobs.json
+video-studio/jobs/logs/
+
+# Development & runtime
+.env
+.DS_Store
+*.log
+*.tmp
+temp/
+.claude/launch.json
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+Thumbs.db
+.DS_Store
+
+*.mp3
+*.tar.gz
+*.zip
+output/
+courses/
+bm.json
+fin.json
+j.json
+mj.json
+st.json
+dubbing-studio/models/
+dubbing-studio/outputs/
+subtitle-studio/files/
+subtitle-studio/output/
+video-studio/config.json

@@ -1,0 +1,48 @@
+{
+  "settings": {
+    "negative_prompt": "text overlays, captions, subtitles, on-screen words, logos, brand names, product labels, pill bottles, prescription medication, capsules, hospital, clinic, doctors, lab coats, medical imagery, IV, thermometer, oversaturated colors, cartoon, animation, distorted hands, extra fingers, deformed face, watermark, stock-photo staged grin, glossy commercial gloss, drunk stumbling, party scene, teenagers, harsh daylight, studio backdrop",
+    "aspect_ratio": "9:16"
+  },
+  "shots": [
+    {
+      "id": 1,
+      "filename": "shot-01.mp4",
+      "prompt": "Vertical 9:16. A relatable 48-year-old woman leans on a lived-in kitchen counter at dusk, half-full glass of red wine beside her hand. She looks directly into the camera, warm and honest, a small knowing shrug. Soft golden evening light through a window behind her, cozy home kitchen slightly out of focus. Handheld, chest-up framing, shallow depth of field, natural documentary/UGC feel, intimate confessional mood."
+    },
+    {
+      "id": 2,
+      "filename": "shot-02.mp4",
+      "prompt": "Vertical 9:16. Slow push-in on the wine glass on the counter, warm lamplight glinting through the red liquid, condensation and a faint ring on the wood. Cozy dim kitchen bokeh behind. The light gradually cools and dims as the shot progresses, evening tipping toward night. Macro-leaning, cinematic, quiet and contemplative mood, natural light."
+    },
+    {
+      "id": 3,
+      "filename": "shot-03.mp4",
+      "prompt": "Vertical 9:16. Same woman lying awake in a dark bedroom at 3am, eyes open, staring at the ceiling, faint cool moonlight from a window. One hand rests flat on her chest. Stillness broken only by her subtle breathing. Overhead-angled and side framing, deep shadows, cool blue night palette, restless quiet tension, handheld intimacy."
+    },
+    {
+      "id": 4,
+      "filename": "shot-04.mp4",
+      "prompt": "Vertical 9:16. Woman back at the kitchen counter, arms folded, a tired half-smile, shaking her head gently at the camera as if letting the viewer off the hook. Warm evening light returns, softer now. Empty wine glass pushed slightly away from her. Handheld chest-up, shallow focus, honest and disarming documentary tone."
+    },
+    {
+      "id": 5,
+      "filename": "shot-05.mp4",
+      "prompt": "Vertical 9:16. Close two-shot moment: the woman's hands open a small resealable pouch and tip one deep-magenta flame-shaped gummy into her palm at the counter. Warm evening kitchen light, the same glass now beside her filled with water or herbal tea instead of wine. Handheld, tactile close focus on hands and gummy, natural UGC texture, hopeful discovery mood."
+    },
+    {
+      "id": 6,
+      "filename": "shot-06.mp4",
+      "prompt": "Vertical 9:16. The single magenta gummy set down on the counter right next to the glass of tea, then a plain printed document sheet unfolds beside the pouch under the lamp. The woman's finger traces down the page. Warm steady evening light, cozy kitchen bokeh. Insert-style close-ups intercut with her calm face glancing down, handheld documentary feel, reassuring and grounded mood."
+    },
+    {
+      "id": 7,
+      "filename": "shot-07.mp4",
+      "prompt": "Vertical 9:16. Bright clear morning: the same woman at the kitchen counter in soft daylight, holding a mug of coffee, genuinely laughing at something off-camera, relaxed shoulders, unhurried and present. Airy natural light through the window, warm and saturated compared to earlier night scenes. Handheld chest-up, shallow focus, joyful lived-in documentary mood."
+    },
+    {
+      "id": 8,
+      "filename": "shot-08.mp4",
+      "prompt": "Vertical 9:16. Evening again: the woman sinks onto her living-room couch with a visible exhale, feet tucked up, holding the glass of tea, soft lamp glow around her. She looks to camera with a settled, content half-smile. Beside her on the side table sit the unbranded pouch and the lab sheet. Warm cozy low light, handheld intimate framing, calm resolved end-of-day mood."
+    }
+  ]
+}

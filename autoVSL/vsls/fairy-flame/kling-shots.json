@@ -1,0 +1,50 @@
+{
+  "settings": {
+    "aspect_ratio": "9:16",
+    "resolution": "720p",
+    "duration_seconds": "5-10",
+    "negative_prompt": "neon, fast cuts, glossy skin, fake smiles, stock footage energy, hard sell, before/after split screen, EDM"
+  },
+  "shots": [
+    {
+      "id": 1,
+      "filename": "shot-01.mp4",
+      "prompt": "Man in his 40s sits on edge of bed at dawn, soft blue window light, rubs his face slowly, looks up with faint hope. Handheld, shallow depth of field, warm filmic grain. No text."
+    },
+    {
+      "id": 2,
+      "filename": "shot-02.mp4",
+      "prompt": "POV inside a car, morning sun streaming through windshield, man's hand taps the steering wheel, faint smile breaks across his face. Warm lens flare, soft handheld feel."
+    },
+    {
+      "id": 3,
+      "filename": "shot-03.mp4",
+      "prompt": "Warm family dinner table, practical lamp light, man in soft henley laughs genuinely — caught off guard. Family softly blurred around him. Filmic, slightly desaturated."
+    },
+    {
+      "id": 4,
+      "filename": "shot-04.mp4",
+      "prompt": "Morning kitchen, woman hands man a coffee mug, touches his arm gently, he looks lighter, shoulders relaxed. Warm golden light, quiet domestic realism."
+    },
+    {
+      "id": 5,
+      "filename": "shot-05.mp4",
+      "prompt": "Man stands at a window holding a coffee mug, calm, looking outside. Fog slowly lifting in the background. Still, meditative. Shallow DOF, warm tones."
+    },
+    {
+      "id": 6,
+      "filename": "shot-06.mp4",
+      "prompt": "Slow push-in on man's face, seated outside at dusk, eyes glassy with quiet emotion. Golden hour backlight, cinematic, no dialogue."
+    },
+    {
+      "id": 7,
+      "filename": "shot-07.mp4",
+      "prompt": "Man and young daughter (8–10) on a couch, she looks up at him, he freezes with emotion and pulls her into a hug. Warm interior light, soft and intimate."
+    },
+    {
+      "id": 8,
+      "filename": "shot-08.mp4",
+      "prompt": "Clean wooden tabletop, soft warm side light, a small product bag and one gummy resting in an open palm. Minimal, editorial product shot."
+    }
+  ]
+}

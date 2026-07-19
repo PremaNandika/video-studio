@@ -1,0 +1,25 @@
+.venv/
+.env
+.history/
+
+# ffmpeg assembly temp files
+output/.work-*/
+
+# macOS
+.DS_Store
+
+# research raw scrape dumps (large, reprocessable locally)
+research/raw/
+research/**/raw/
+
+# editor render artifacts (finished videos land on Desktop)
+output/
+
+# dashboard uploads (source videos + local transcripts)
+uploads/
+
+# dashboard soft-deleted items
+.trash/
+
+# local personal settings
+.claude/settings.local.json

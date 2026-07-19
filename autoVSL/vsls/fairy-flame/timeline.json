@@ -1,0 +1,85 @@
+{
+  "name": "Fairy Flame — 30-Day Microdose VSL",
+  "aspect_ratio": "9:16",
+  "fps": 30,
+  "target_duration_seconds": 60,
+  "media_root": "vsls/fairy-flame/media",
+  "tracks": {
+    "video": 0,
+    "voiceover": 1,
+    "music": 2
+  },
+  "music": {
+    "file": "music/background.mp3",
+    "volume": 0.15,
+    "fade_in_seconds": 2,
+    "fade_out_seconds": 3,
+    "duck_under_vo": true,
+    "duck_volume": 0.08
+  },
+  "segments": [
+    {
+      "shot": 1,
+      "video": "video/shot-01.mp4",
+      "vo": "audio/vo-01.mp3",
+      "vo_text": "This is what would happen if you microdosed for 30 days.",
+      "notes": "Open on bed scene. Let VO breathe before cut."
+    },
+    {
+      "shot": 2,
+      "video": "video/shot-02.mp4",
+      "vo": "audio/vo-02.mp3",
+      "vo_text": "About 5 days in, you're driving and a song comes on and you actually feel it. Not just hear it. Feel it.",
+      "notes": "Cut on driving beat / wheel tap."
+    },
+    {
+      "shot": 3,
+      "video": "video/shot-03.mp4",
+      "vo": "audio/vo-03.mp3",
+      "vo_text": "You're at dinner and you catch yourself laughing — really laughing — for the first time in months. Nobody else notices yet. But you do. Something turned back on.",
+      "notes": "Hold on genuine laugh moment."
+    },
+    {
+      "shot": 4,
+      "video": "video/shot-04.mp4",
+      "vo": "audio/vo-04.mp3",
+      "vo_text": "By week two, your wife says you seem lighter. Your buddy at work asks what happened. Nothing happened. You just woke up and didn't have to force yourself through the morning.",
+      "notes": "Warm kitchen intimacy."
+    },
+    {
+      "shot": 5,
+      "video": "video/shot-05.mp4",
+      "vo": "audio/vo-05.mp3",
+      "vo_text": "The fog you didn't even know was there starts to lift. You're not running on coffee and willpower anymore. You're actually present.",
+      "notes": "Match fog-lifting visual to 'fog lifts' line."
+    },
+    {
+      "shot": 6,
+      "video": "video/shot-06.mp4",
+      "vo": "audio/vo-06.mp3",
+      "vo_text": "After 30 days, it hits you. You haven't felt like this in years. The flat, gray, going-through-the-motions version of you — that wasn't you. That was your brain running on fumes.",
+      "notes": "Slow push-in. Emotional peak."
+    },
+    {
+      "shot": 7,
+      "video": "video/shot-07.mp4",
+      "vo": "audio/vo-07.mp3",
+      "vo_text": "Your daughter looks at you and says, Dad, you're being fun again. And that one sentence makes everything worth it.",
+      "notes": "Hug lands on 'worth it'."
+    },
+    {
+      "shot": 8,
+      "video": "video/shot-08.mp4",
+      "vo": "audio/vo-08.mp3",
+      "vo_text": "Fairy Flame microdose gummies. Precisely dosed. Lab tested. No tripping. Just one gummy on your dose days. Go to fairyflame.com. This might be how you start feeling like yourself again.",
+      "notes": "Product shot. Hold CTA on screen 2s after VO ends."
+    }
+  ],
+  "edit_rules": [
+    "Trim each video clip to match VO duration — video can extend slightly past VO end for breathing room",
+    "No hard cuts — prefer 0.3–0.5s cross-dissolves between emotional beats",
+    "Keep music under VO at all times",
+    "No on-screen text unless product packaging is visible in shot 8",
+    "Export 9:16 MP4 H.264"
+  ]
+}

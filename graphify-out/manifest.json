@@ -1,0 +1,2132 @@
+{
+  "D:\\Projects\\Video AI editing\\bm.json": {
+    "mtime": 1783914583.0,
+    "ast_hash": "06df545ed2a1c87ced01d08e4d643334",
+    "semantic_hash": "06df545ed2a1c87ced01d08e4d643334"
+  },
+  "D:\\Projects\\Video AI editing\\fin.json": {
+    "mtime": 1783940114.0,
+    "ast_hash": "e9905702fb752e6fedab9a4f52a84832",
+    "semantic_hash": "e9905702fb752e6fedab9a4f52a84832"
+  },
+  "D:\\Projects\\Video AI editing\\j.json": {
+    "mtime": 1784059818.0,
+    "ast_hash": "83776cc949c485df981d05a8ed601568",
+    "semantic_hash": "83776cc949c485df981d05a8ed601568"
+  },
+  "D:\\Projects\\Video AI editing\\mj.json": {
+    "mtime": 1784161507.0,
+    "ast_hash": "69e2819b72b617ca422062376ec9e921",
+    "semantic_hash": "69e2819b72b617ca422062376ec9e921"
+  },
+  "D:\\Projects\\Video AI editing\\st.json": {
+    "mtime": 1783938508.0,
+    "ast_hash": "00ec87492809b06b668789da93ad48a0",
+    "semantic_hash": "00ec87492809b06b668789da93ad48a0"
+  },
+  "D:\\Projects\\Video AI editing\\.claude\\settings.local.json": {
+    "mtime": 1784204997.0,
+    "ast_hash": "eeba2fb9519e135728410b189cd8dbeb",
+    "semantic_hash": "eeba2fb9519e135728410b189cd8dbeb"
+  },
+  "D:\\Projects\\Video AI editing\\autoVSL\\.claude\\launch.json": {
+    "mtime": 1783580962.0,
+    "ast_hash": "5c3941139aa1484712c024d37e3ac464",
+    "semantic_hash": "5c3941139aa1484712c024d37e3ac464"
+  },
+  "D:\\Projects\\Video AI editing\\autoVSL\\banks\\liitt-brand-kit.json": {
+    "mtime": 1784202153.0,
+    "ast_hash": "c926d6e84a3cc5b26c5b7ef278699a39",
+    "semantic_hash": "c926d6e84a3cc5b26c5b7ef278699a39"
+  },
+  "D:\\Projects\\Video AI editing\\autoVSL\\dashboard\\caption.py": {
+    "mtime": 1784349464.0,
+    "ast_hash": "0c21f6e47cd3406ae6c5cde587f863cc",
+    "semantic_hash": "0c21f6e47cd3406ae6c5cde587f863cc"
+  },
+  "D:\\Projects\\Video AI editing\\autoVSL\\dashboard\\dub.py": {
+    "mtime": 1784136463.0,
+    "ast_hash": "6ef09e08e0c6140008b6bde45ec13bf3",
+    "semantic_hash": "6ef09e08e0c6140008b6bde45ec13bf3"
+  },
+  "D:\\Projects\\Video AI editing\\autoVSL\\dashboard\\erase_subs.py": {
+    "mtime": 1783845154.0,
+    "ast_hash": "fa9eb617eb3b8625b7c80cf5ab0dabcd",
+    "semantic_hash": "fa9eb617eb3b8625b7c80cf5ab0dabcd"
+  },
+  "D:\\Projects\\Video AI editing\\autoVSL\\dashboard\\local_dub.py": {
+    "mtime": 1784349216.0,
+    "ast_hash": "8f024e5fb29784fcc97737c860f3e0cd",
+    "semantic_hash": "8f024e5fb29784fcc97737c860f3e0cd"
+  },
+  "D:\\Projects\\Video AI editing\\autoVSL\\dashboard\\server.py": {
+    "mtime": 1784347630.0,
+    "ast_hash": "af871693ae12664dce4602e750e36349",
+    "semantic_hash": "af871693ae12664dce4602e750e36349"
+  },
+  "D:\\Projects\\Video AI editing\\autoVSL\\dashboard\\subclean.py": {
+    "mtime": 1783785251.0,
+    "ast_hash": "65a542a10b7d51819f4370229435ed41",
+    "semantic_hash": "65a542a10b7d51819f4370229435ed41"
+  },
+  "D:\\Projects\\Video AI editing\\autoVSL\\products\\fairy-flame\\manifest.json": {
+    "mtime": 1783518157.0,
+    "ast_hash": "0d8222564141a16163cc00c2dc953604",
+    "semantic_hash": "0d8222564141a16163cc00c2dc953604"
+  },
+  "D:\\Projects\\Video AI editing\\autoVSL\\scripts\\apify_run.sh": {
+    "mtime": 1783518574.0,
+    "ast_hash": "c30d64868184bfe56b6872606234ccf9",
+    "semantic_hash": "c30d64868184bfe56b6872606234ccf9"
+  },
+  "D:\\Projects\\Video AI editing\\autoVSL\\scripts\\assemble-vsl.sh": {
+    "mtime": 1783518572.0,
+    "ast_hash": "f00d9034bd724f3f1cc32aef5d5db43b",
+    "semantic_hash": "f00d9034bd724f3f1cc32aef5d5db43b"
+  },
+  "D:\\Projects\\Video AI editing\\autoVSL\\scripts\\check-media.sh": {
+    "mtime": 1783518567.0,
+    "ast_hash": "15576db89ecea303a00a2b2de14d5a59",
+    "semantic_hash": "15576db89ecea303a00a2b2de14d5a59"
+  },
+  "D:\\Projects\\Video AI editing\\autoVSL\\scripts\\comfyui_client.py": {
+    "mtime": 1784046869.0,
+    "ast_hash": "4bc752432c29759b5f17847ddf0a5fc0",
+    "semantic_hash": "4bc752432c29759b5f17847ddf0a5fc0"
+  },
+  "D:\\Projects\\Video AI editing\\autoVSL\\scripts\\comfyui_studio.py": {
+    "mtime": 1784141473.0,
+    "ast_hash": "c6025efd9cce9536a3092c71fb9e778b",
+    "semantic_hash": "c6025efd9cce9536a3092c71fb9e778b"
+  },
+  "D:\\Projects\\Video AI editing\\autoVSL\\scripts\\comfyui_workflows.py": {
+    "mtime": 1784046883.0,
+    "ast_hash": "8cb43e724fa48de3a3aa636e97a8d427",
+    "semantic_hash": "8cb43e724fa48de3a3aa636e97a8d427"
+  },
+  "D:\\Projects\\Video AI editing\\autoVSL\\scripts\\generate-video-local.py": {
+    "mtime": 1784041106.0,
+    "ast_hash": "ff91029dcbc8b519ead8422e91a005f7",
+    "semantic_hash": "ff91029dcbc8b519ead8422e91a005f7"
+  },
+  "D:\\Projects\\Video AI editing\\autoVSL\\scripts\\generate-video.py": {
+    "mtime": 1783600385.0,
+    "ast_hash": "b2201968c37e4e54dc98b1be1b6ac2df",
+    "semantic_hash": "b2201968c37e4e54dc98b1be1b6ac2df"
+  },
+  "D:\\Projects\\Video AI editing\\autoVSL\\scripts\\generate-video.sh": {
+    "mtime": 1783518564.0,
+    "ast_hash": "6d439b74012377b53b2b4c122b278681",
+    "semantic_hash": "6d439b74012377b53b2b4c122b278681"
+  },
+  "D:\\Projects\\Video AI editing\\autoVSL\\scripts\\generate-vo.py": {
+    "mtime": 1783518157.0,
+    "ast_hash": "4d26cdb29536cfac5f6003a4065e2efb",
+    "semantic_hash": "4d26cdb29536cfac5f6003a4065e2efb"
+  },
+  "D:\\Projects\\Video AI editing\\autoVSL\\scripts\\generate-vo.sh": {
+    "mtime": 1783518562.0,
+    "ast_hash": "38563e10b28298c4a3291922b265c2bf",
+    "semantic_hash": "38563e10b28298c4a3291922b265c2bf"
+  },
+  "D:\\Projects\\Video AI editing\\autoVSL\\scripts\\print-prompts.sh": {
+    "mtime": 1783518570.0,
+    "ast_hash": "39f47b2502d01b11e6d0eb3561c9dbca",
+    "semantic_hash": "39f47b2502d01b11e6d0eb3561c9dbca"
+  },
+  "D:\\Projects\\Video AI editing\\autoVSL\\scripts\\script-swap-duo.py": {
+    "mtime": 1783518157.0,
+    "ast_hash": "2e8265a190ae347657ead92e5c8947f5",
+    "semantic_hash": "2e8265a190ae347657ead92e5c8947f5"
+  },
+  "D:\\Projects\\Video AI editing\\autoVSL\\scripts\\script-swap.py": {
+    "mtime": 1784044237.0,
+    "ast_hash": "3242ac89463e9f6868b3b38341dd16f1",
+    "semantic_hash": "3242ac89463e9f6868b3b38341dd16f1"
+  },
+  "D:\\Projects\\Video AI editing\\autoVSL\\scripts\\vsl-render.py": {
+    "mtime": 1783518157.0,
+    "ast_hash": "2ea57565b74bd842c0b6b661b856eee1",
+    "semantic_hash": "2ea57565b74bd842c0b6b661b856eee1"
+  },
+  "D:\\Projects\\Video AI editing\\autoVSL\\templates\\product-template\\manifest.json": {
+    "mtime": 1783518157.0,
+    "ast_hash": "dfafa5719ae1d9e27fc4ed0c674918ea",
+    "semantic_hash": "dfafa5719ae1d9e27fc4ed0c674918ea"
+  },
+  "D:\\Projects\\Video AI editing\\autoVSL\\templates\\vsl-template\\timeline.json": {
+    "mtime": 1783518157.0,
+    "ast_hash": "2ea7e7bff5928b86bc04f4063e7ba778",
+    "semantic_hash": "2ea7e7bff5928b86bc04f4063e7ba778"
+  },
+  "D:\\Projects\\Video AI editing\\autoVSL\\vsls\\fairy-flame\\elevenlabs-vo.json": {
+    "mtime": 1783518157.0,
+    "ast_hash": "44061b047b3a3dc6eb333b685602dc5f",
+    "semantic_hash": "44061b047b3a3dc6eb333b685602dc5f"
+  },
+  "D:\\Projects\\Video AI editing\\autoVSL\\vsls\\fairy-flame\\kling-shots.json": {
+    "mtime": 1783518157.0,
+    "ast_hash": "73b3957298a79c43a3eb790e9fbbf371",
+    "semantic_hash": "73b3957298a79c43a3eb790e9fbbf371"
+  },
+  "D:\\Projects\\Video AI editing\\autoVSL\\vsls\\fairy-flame\\timeline.json": {
+    "mtime": 1783518157.0,
+    "ast_hash": "b30593a63fca4eb1a44cffda9b733f88",
+    "semantic_hash": "b30593a63fca4eb1a44cffda9b733f88"
+  },
+  "D:\\Projects\\Video AI editing\\autoVSL\\vsls\\wine-angle-v1\\elevenlabs-vo.json": {
+    "mtime": 1783659563.0,
+    "ast_hash": "15e00bd51dbbad6440d106dc90d8002d",
+    "semantic_hash": "15e00bd51dbbad6440d106dc90d8002d"
+  },
+  "D:\\Projects\\Video AI editing\\autoVSL\\vsls\\wine-angle-v1\\kling-shots.json": {
+    "mtime": 1783659563.0,
+    "ast_hash": "8212f66496e5c946165f05bbe0278444",
+    "semantic_hash": "8212f66496e5c946165f05bbe0278444"
+  },
+  "D:\\Projects\\Video AI editing\\autoVSL\\vsls\\wine-angle-v1\\timeline.json": {
+    "mtime": 1783659563.0,
+    "ast_hash": "7fba81ce9ac11ce9655772a86e281471",
+    "semantic_hash": "7fba81ce9ac11ce9655772a86e281471"
+  },
+  "D:\\Projects\\Video AI editing\\course_pipeline\\distill.py": {
+    "mtime": 1783491912.0,
+    "ast_hash": "f5fb5d5974a3985ff6926c1ab0e0b38b",
+    "semantic_hash": "f5fb5d5974a3985ff6926c1ab0e0b38b"
+  },
+  "D:\\Projects\\Video AI editing\\course_pipeline\\transcribe.py": {
+    "mtime": 1783490271.0,
+    "ast_hash": "85dc2bffe5dc4d9f9656199b07e68217",
+    "semantic_hash": "85dc2bffe5dc4d9f9656199b07e68217"
+  },
+  "D:\\Projects\\Video AI editing\\dubbing-studio\\app.py": {
+    "mtime": 1784045880.0,
+    "ast_hash": "2423cc8be6526457903c70164ed41407",
+    "semantic_hash": "2423cc8be6526457903c70164ed41407"
+  },
+  "D:\\Projects\\Video AI editing\\dubbing-studio\\download_model.py": {
+    "mtime": 1784015729.0,
+    "ast_hash": "7eb742a30b9dad50212c2c6abe0b6327",
+    "semantic_hash": "7eb742a30b9dad50212c2c6abe0b6327"
+  },
+  "D:\\Projects\\Video AI editing\\dubbing-studio\\lipsync.py": {
+    "mtime": 1784045561.0,
+    "ast_hash": "bf9565ebe5b2fbd0dd84f0f81a6f6019",
+    "semantic_hash": "bf9565ebe5b2fbd0dd84f0f81a6f6019"
+  },
+  "D:\\Projects\\Video AI editing\\dubbing-studio\\models\\tts\\tts_models--multilingual--multi-dataset--xtts_v2\\config.json": {
+    "mtime": 1784016199.0,
+    "ast_hash": "5811a186257c1450175882c261f23a23",
+    "semantic_hash": "5811a186257c1450175882c261f23a23"
+  },
+  "D:\\Projects\\Video AI editing\\dubbing-studio\\models\\tts\\tts_models--multilingual--multi-dataset--xtts_v2\\vocab.json": {
+    "mtime": 1784016199.0,
+    "ast_hash": "8c51c19af683bbf71268428156d1c52a",
+    "semantic_hash": "8c51c19af683bbf71268428156d1c52a"
+  },
+  "D:\\Projects\\Video AI editing\\subtitle-studio\\erase_subs.py": {
+    "mtime": 1784053548.0,
+    "ast_hash": "31061d756dcaafa54117840360041bdd",
+    "semantic_hash": "31061d756dcaafa54117840360041bdd"
+  },
+  "D:\\Projects\\Video AI editing\\subtitle-studio\\fin.json": {
+    "mtime": 1783943180.0,
+    "ast_hash": "ffb46e6373038a83626492c9e2a76d7f",
+    "semantic_hash": "ffb46e6373038a83626492c9e2a76d7f"
+  },
+  "D:\\Projects\\Video AI editing\\subtitle-studio\\j.json": {
+    "mtime": 1783940799.0,
+    "ast_hash": "74294d4961571c85d63a7f9f9bffe694",
+    "semantic_hash": "74294d4961571c85d63a7f9f9bffe694"
+  },
+  "D:\\Projects\\Video AI editing\\subtitle-studio\\recaption.py": {
+    "mtime": 1784062508.0,
+    "ast_hash": "e9e4b4e10b62b4405044977e837380d2",
+    "semantic_hash": "e9e4b4e10b62b4405044977e837380d2"
+  },
+  "D:\\Projects\\Video AI editing\\subtitle-studio\\server.py": {
+    "mtime": 1784160770.0,
+    "ast_hash": "a57fe4688a9723d9dcc4f8dc4da746e7",
+    "semantic_hash": "a57fe4688a9723d9dcc4f8dc4da746e7"
+  },
+  "D:\\Projects\\Video AI editing\\subtitle-studio\\st.json": {
+    "mtime": 1783940402.0,
+    "ast_hash": "b5a9bd59a13bb4b76337a4b6da94f9a7",
+    "semantic_hash": "b5a9bd59a13bb4b76337a4b6da94f9a7"
+  },
+  "D:\\Projects\\Video AI editing\\subtitle-studio\\subclean.py": {
+    "mtime": 1783853353.0,
+    "ast_hash": "65a542a10b7d51819f4370229435ed41",
+    "semantic_hash": "65a542a10b7d51819f4370229435ed41"
+  },
+  "D:\\Projects\\Video AI editing\\subtitle-studio\\tags.json": {
+    "mtime": 1784139520.0,
+    "ast_hash": "46424df4a88d8d1f13f00127b541687c",
+    "semantic_hash": "46424df4a88d8d1f13f00127b541687c"
+  },
+  "D:\\Projects\\Video AI editing\\subtitle-studio\\.claude\\settings.local.json": {
+    "mtime": 1784172136.0,
+    "ast_hash": "df34e8ad38d4b2bb9927e40ea22c85f5",
+    "semantic_hash": "df34e8ad38d4b2bb9927e40ea22c85f5"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\vsr\\gui.py": {
+    "mtime": 1784155621.0,
+    "ast_hash": "47b130a84356501014ddc30342e6ee6f",
+    "semantic_hash": "47b130a84356501014ddc30342e6ee6f"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\vsr\\test-box.json": {
+    "mtime": 1784156487.0,
+    "ast_hash": "840f4cad3114d7ec68e547e727836a0c",
+    "semantic_hash": "840f4cad3114d7ec68e547e727836a0c"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\vsr\\backend\\config.py": {
+    "mtime": 1784155611.0,
+    "ast_hash": "f1fae954e25ec438225ea666fe5efdb9",
+    "semantic_hash": "f1fae954e25ec438225ea666fe5efdb9"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\vsr\\backend\\main.py": {
+    "mtime": 1784155614.0,
+    "ast_hash": "0fd1c32ec189fb5fc66ef9a6f37a5364",
+    "semantic_hash": "0fd1c32ec189fb5fc66ef9a6f37a5364"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\vsr\\backend\\__init__.py": {
+    "mtime": 1784155611.0,
+    "ast_hash": "0d9e05884939caef805cf87a6958f191",
+    "semantic_hash": "0d9e05884939caef805cf87a6958f191"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\vsr\\backend\\inpaint\\lama_inpaint.py": {
+    "mtime": 1784155614.0,
+    "ast_hash": "3835c48ef4b9cb9b859276a35ea7c41b",
+    "semantic_hash": "3835c48ef4b9cb9b859276a35ea7c41b"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\vsr\\backend\\inpaint\\opencv_inpaint.py": {
+    "mtime": 1784155614.0,
+    "ast_hash": "b56386918ac405316be22bdb32e0db7a",
+    "semantic_hash": "b56386918ac405316be22bdb32e0db7a"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\vsr\\backend\\inpaint\\propainter_inpaint.py": {
+    "mtime": 1784155614.0,
+    "ast_hash": "9669587ff797742e9feaa47a6da91b73",
+    "semantic_hash": "9669587ff797742e9feaa47a6da91b73"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\vsr\\backend\\inpaint\\sttn_auto_inpaint.py": {
+    "mtime": 1784156205.0,
+    "ast_hash": "9679b5c0bf8a96362ac0d367bd14a175",
+    "semantic_hash": "9679b5c0bf8a96362ac0d367bd14a175"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\vsr\\backend\\inpaint\\sttn_det_inpaint.py": {
+    "mtime": 1784155614.0,
+    "ast_hash": "7dad629506ce3652ef5692e3943edcda",
+    "semantic_hash": "7dad629506ce3652ef5692e3943edcda"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\vsr\\backend\\inpaint\\__init__.py": {
+    "mtime": 1784155614.0,
+    "ast_hash": "d41d8cd98f00b204e9800998ecf8427e",
+    "semantic_hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\vsr\\backend\\inpaint\\sttn\\auto_sttn.py": {
+    "mtime": 1784155614.0,
+    "ast_hash": "42c2d2d067aa435fcb0bd3f8c8f4b826",
+    "semantic_hash": "42c2d2d067aa435fcb0bd3f8c8f4b826"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\vsr\\backend\\inpaint\\sttn\\network_sttn.py": {
+    "mtime": 1784155614.0,
+    "ast_hash": "f26aeed29313c301eda5632daaa2b961",
+    "semantic_hash": "f26aeed29313c301eda5632daaa2b961"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\vsr\\backend\\inpaint\\utils\\lama_util.py": {
+    "mtime": 1784155614.0,
+    "ast_hash": "80b07c1261c46fed4bf64caf1a09d219",
+    "semantic_hash": "80b07c1261c46fed4bf64caf1a09d219"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\vsr\\backend\\inpaint\\utils\\spectral_norm.py": {
+    "mtime": 1784155614.0,
+    "ast_hash": "adfafc6d22c82b5ba59805eb121a53fb",
+    "semantic_hash": "adfafc6d22c82b5ba59805eb121a53fb"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\vsr\\backend\\inpaint\\utils\\sttn_utils.py": {
+    "mtime": 1784155614.0,
+    "ast_hash": "c6c75354fb91e8513c7609fc53520bbd",
+    "semantic_hash": "c6c75354fb91e8513c7609fc53520bbd"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\vsr\\backend\\inpaint\\utils\\utils.py": {
+    "mtime": 1784155614.0,
+    "ast_hash": "ffc33d7093059a02401e3d888834dbf5",
+    "semantic_hash": "ffc33d7093059a02401e3d888834dbf5"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\vsr\\backend\\inpaint\\utils\\__init__.py": {
+    "mtime": 1784155614.0,
+    "ast_hash": "fdb711dc35c5ef81c7e148b593cbba1a",
+    "semantic_hash": "fdb711dc35c5ef81c7e148b593cbba1a"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\vsr\\backend\\inpaint\\video\\core\\dataset.py": {
+    "mtime": 1784155614.0,
+    "ast_hash": "53159ced570b76eced669b4c7496bac4",
+    "semantic_hash": "53159ced570b76eced669b4c7496bac4"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\vsr\\backend\\inpaint\\video\\core\\dist.py": {
+    "mtime": 1784155614.0,
+    "ast_hash": "a76cd8c049d4e3b95eb5c801e767167a",
+    "semantic_hash": "a76cd8c049d4e3b95eb5c801e767167a"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\vsr\\backend\\inpaint\\video\\core\\loss.py": {
+    "mtime": 1784155614.0,
+    "ast_hash": "591b31af0f6dd5afd5f032558c21cc2e",
+    "semantic_hash": "591b31af0f6dd5afd5f032558c21cc2e"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\vsr\\backend\\inpaint\\video\\core\\lr_scheduler.py": {
+    "mtime": 1784155614.0,
+    "ast_hash": "31fd14424c09af754adffbd36cd2596d",
+    "semantic_hash": "31fd14424c09af754adffbd36cd2596d"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\vsr\\backend\\inpaint\\video\\core\\metrics.py": {
+    "mtime": 1784155614.0,
+    "ast_hash": "4bc083ccd78146fa813a623fd73ff4e0",
+    "semantic_hash": "4bc083ccd78146fa813a623fd73ff4e0"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\vsr\\backend\\inpaint\\video\\core\\prefetch_dataloader.py": {
+    "mtime": 1784155614.0,
+    "ast_hash": "d5563cb74af7b1411ff175ba9cd926bc",
+    "semantic_hash": "d5563cb74af7b1411ff175ba9cd926bc"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\vsr\\backend\\inpaint\\video\\core\\trainer.py": {
+    "mtime": 1784155614.0,
+    "ast_hash": "e6fef1fd8bbbbad3e80ac52fb2bdf3f7",
+    "semantic_hash": "e6fef1fd8bbbbad3e80ac52fb2bdf3f7"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\vsr\\backend\\inpaint\\video\\core\\trainer_flow_w_edge.py": {
+    "mtime": 1784155614.0,
+    "ast_hash": "c826fde0cc041481d3e7d5008f434790",
+    "semantic_hash": "c826fde0cc041481d3e7d5008f434790"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\vsr\\backend\\inpaint\\video\\core\\utils.py": {
+    "mtime": 1784155614.0,
+    "ast_hash": "fd1c243fc45bbb4c90c3c08478cc0e21",
+    "semantic_hash": "fd1c243fc45bbb4c90c3c08478cc0e21"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\vsr\\backend\\inpaint\\video\\model\\misc.py": {
+    "mtime": 1784155614.0,
+    "ast_hash": "19c399bd5f167627eed00abd16b9451c",
+    "semantic_hash": "19c399bd5f167627eed00abd16b9451c"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\vsr\\backend\\inpaint\\video\\model\\propainter.py": {
+    "mtime": 1784155614.0,
+    "ast_hash": "5b3a4fc76cac6a23937dbd7018084617",
+    "semantic_hash": "5b3a4fc76cac6a23937dbd7018084617"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\vsr\\backend\\inpaint\\video\\model\\recurrent_flow_completion.py": {
+    "mtime": 1784155614.0,
+    "ast_hash": "39107e9ed5d0c00bf6b5af6329019d1d",
+    "semantic_hash": "39107e9ed5d0c00bf6b5af6329019d1d"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\vsr\\backend\\inpaint\\video\\model\\vgg_arch.py": {
+    "mtime": 1784155614.0,
+    "ast_hash": "b4bfb3de409326f3dd4e5c40eebea005",
+    "semantic_hash": "b4bfb3de409326f3dd4e5c40eebea005"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\vsr\\backend\\inpaint\\video\\model\\__init__.py": {
+    "mtime": 1784155614.0,
+    "ast_hash": "81051bcc2cf1bedf378224b0a93e2877",
+    "semantic_hash": "81051bcc2cf1bedf378224b0a93e2877"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\vsr\\backend\\inpaint\\video\\model\\canny\\canny_filter.py": {
+    "mtime": 1784155614.0,
+    "ast_hash": "c80fb65eb4336754c773c04682270ce7",
+    "semantic_hash": "c80fb65eb4336754c773c04682270ce7"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\vsr\\backend\\inpaint\\video\\model\\canny\\filter.py": {
+    "mtime": 1784155614.0,
+    "ast_hash": "baeb9436903d1edba300e82e8f913b3e",
+    "semantic_hash": "baeb9436903d1edba300e82e8f913b3e"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\vsr\\backend\\inpaint\\video\\model\\canny\\gaussian.py": {
+    "mtime": 1784155614.0,
+    "ast_hash": "f49b3a7cf59aeca168bfc28d0a11994b",
+    "semantic_hash": "f49b3a7cf59aeca168bfc28d0a11994b"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\vsr\\backend\\inpaint\\video\\model\\canny\\kernels.py": {
+    "mtime": 1784155614.0,
+    "ast_hash": "23d219a0c586668a3526df25d82925cf",
+    "semantic_hash": "23d219a0c586668a3526df25d82925cf"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\vsr\\backend\\inpaint\\video\\model\\canny\\sobel.py": {
+    "mtime": 1784155614.0,
+    "ast_hash": "8b8b7b067a1ad445a321f47337db3f71",
+    "semantic_hash": "8b8b7b067a1ad445a321f47337db3f71"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\vsr\\backend\\inpaint\\video\\model\\modules\\base_module.py": {
+    "mtime": 1784155614.0,
+    "ast_hash": "95a6ce417bf03b95786b7c6b1b4e0645",
+    "semantic_hash": "95a6ce417bf03b95786b7c6b1b4e0645"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\vsr\\backend\\inpaint\\video\\model\\modules\\deformconv.py": {
+    "mtime": 1784155614.0,
+    "ast_hash": "9a13cfb3480e9a3cc9aa23617dbed55c",
+    "semantic_hash": "9a13cfb3480e9a3cc9aa23617dbed55c"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\vsr\\backend\\inpaint\\video\\model\\modules\\flow_comp_raft.py": {
+    "mtime": 1784155614.0,
+    "ast_hash": "dab23bedffe765f2803472851b4f8432",
+    "semantic_hash": "dab23bedffe765f2803472851b4f8432"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\vsr\\backend\\inpaint\\video\\model\\modules\\flow_loss_utils.py": {
+    "mtime": 1784155614.0,
+    "ast_hash": "3b8fb467c901ed1c0c1e8c95101f21e5",
+    "semantic_hash": "3b8fb467c901ed1c0c1e8c95101f21e5"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\vsr\\backend\\inpaint\\video\\model\\modules\\sparse_transformer.py": {
+    "mtime": 1784155614.0,
+    "ast_hash": "16d07abc8e6f080108e330754305419b",
+    "semantic_hash": "16d07abc8e6f080108e330754305419b"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\vsr\\backend\\inpaint\\video\\model\\modules\\spectral_norm.py": {
+    "mtime": 1784155614.0,
+    "ast_hash": "17cf24b27e738b5679bc2ef48dc4a846",
+    "semantic_hash": "17cf24b27e738b5679bc2ef48dc4a846"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\vsr\\backend\\inpaint\\video\\raft\\corr.py": {
+    "mtime": 1784155614.0,
+    "ast_hash": "167e58e37bbf8f270ecf095dc82dff57",
+    "semantic_hash": "167e58e37bbf8f270ecf095dc82dff57"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\vsr\\backend\\inpaint\\video\\raft\\datasets.py": {
+    "mtime": 1784155614.0,
+    "ast_hash": "fd469736ffc40edf5ae049aa6a7db9eb",
+    "semantic_hash": "fd469736ffc40edf5ae049aa6a7db9eb"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\vsr\\backend\\inpaint\\video\\raft\\demo.py": {
+    "mtime": 1784155614.0,
+    "ast_hash": "634744c0c228ef9153b3927027bd566a",
+    "semantic_hash": "634744c0c228ef9153b3927027bd566a"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\vsr\\backend\\inpaint\\video\\raft\\extractor.py": {
+    "mtime": 1784155614.0,
+    "ast_hash": "d73e72f9f4224ae3051e0bd0a32238e5",
+    "semantic_hash": "d73e72f9f4224ae3051e0bd0a32238e5"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\vsr\\backend\\inpaint\\video\\raft\\raft.py": {
+    "mtime": 1784155614.0,
+    "ast_hash": "deb746b4bddbf5f57ae1ef58790e39f4",
+    "semantic_hash": "deb746b4bddbf5f57ae1ef58790e39f4"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\vsr\\backend\\inpaint\\video\\raft\\update.py": {
+    "mtime": 1784155614.0,
+    "ast_hash": "f15420bb2378806e87b35633f55fdac5",
+    "semantic_hash": "f15420bb2378806e87b35633f55fdac5"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\vsr\\backend\\inpaint\\video\\raft\\__init__.py": {
+    "mtime": 1784155614.0,
+    "ast_hash": "e9d27144ebe334973338c6534bfeeb3d",
+    "semantic_hash": "e9d27144ebe334973338c6534bfeeb3d"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\vsr\\backend\\inpaint\\video\\raft\\utils\\augmentor.py": {
+    "mtime": 1784155614.0,
+    "ast_hash": "f10682cb809180e58fbbe3b5f4dfae23",
+    "semantic_hash": "f10682cb809180e58fbbe3b5f4dfae23"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\vsr\\backend\\inpaint\\video\\raft\\utils\\flow_viz.py": {
+    "mtime": 1784155614.0,
+    "ast_hash": "c665cbd2abd503b8bb70638ff9e7cdb4",
+    "semantic_hash": "c665cbd2abd503b8bb70638ff9e7cdb4"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\vsr\\backend\\inpaint\\video\\raft\\utils\\flow_viz_pt.py": {
+    "mtime": 1784155614.0,
+    "ast_hash": "c8629aa73e096abd290968481fee1913",
+    "semantic_hash": "c8629aa73e096abd290968481fee1913"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\vsr\\backend\\inpaint\\video\\raft\\utils\\frame_utils.py": {
+    "mtime": 1784155614.0,
+    "ast_hash": "edc91bb9ed6c1bfd688c046f2d934aa1",
+    "semantic_hash": "edc91bb9ed6c1bfd688c046f2d934aa1"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\vsr\\backend\\inpaint\\video\\raft\\utils\\utils.py": {
+    "mtime": 1784155614.0,
+    "ast_hash": "a9588b8c67871605f67cdd238a522cc4",
+    "semantic_hash": "a9588b8c67871605f67cdd238a522cc4"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\vsr\\backend\\inpaint\\video\\raft\\utils\\__init__.py": {
+    "mtime": 1784155614.0,
+    "ast_hash": "b45d3e4b176be0b2a16b6e996e3ea071",
+    "semantic_hash": "b45d3e4b176be0b2a16b6e996e3ea071"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\vsr\\backend\\models\\V5\\ch_det\\config.json": {
+    "mtime": 1784155614.0,
+    "ast_hash": "c8fb48f2ce1596dfa5050b1afc813e22",
+    "semantic_hash": "c8fb48f2ce1596dfa5050b1afc813e22"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\vsr\\backend\\models\\V5\\ch_det\\inference.json": {
+    "mtime": 1784155614.0,
+    "ast_hash": "f890667e8d12d076e1b374140ebee8aa",
+    "semantic_hash": "f890667e8d12d076e1b374140ebee8aa"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\vsr\\backend\\models\\V5\\ch_det_fast\\config.json": {
+    "mtime": 1784155615.0,
+    "ast_hash": "4985851bed1bcd0591cba4ca38e03e5b",
+    "semantic_hash": "4985851bed1bcd0591cba4ca38e03e5b"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\vsr\\backend\\models\\V5\\ch_det_fast\\inference.json": {
+    "mtime": 1784155615.0,
+    "ast_hash": "39edb5672983206c80ab69aaf41f7054",
+    "semantic_hash": "39edb5672983206c80ab69aaf41f7054"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\vsr\\backend\\scenedetect\\frame_timecode.py": {
+    "mtime": 1784155621.0,
+    "ast_hash": "c6ba7e9303238e1d58fda7ca3b7a1388",
+    "semantic_hash": "c6ba7e9303238e1d58fda7ca3b7a1388"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\vsr\\backend\\scenedetect\\platform.py": {
+    "mtime": 1784155621.0,
+    "ast_hash": "d1188464619a694a2007e9bf95ea5ac4",
+    "semantic_hash": "d1188464619a694a2007e9bf95ea5ac4"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\vsr\\backend\\scenedetect\\scene_detector.py": {
+    "mtime": 1784155621.0,
+    "ast_hash": "81f8d5468d65bc3336a8b9adf0bbb923",
+    "semantic_hash": "81f8d5468d65bc3336a8b9adf0bbb923"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\vsr\\backend\\scenedetect\\scene_manager.py": {
+    "mtime": 1784155621.0,
+    "ast_hash": "5bde8f0d75b9386c624a1cf951f47186",
+    "semantic_hash": "5bde8f0d75b9386c624a1cf951f47186"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\vsr\\backend\\scenedetect\\stats_manager.py": {
+    "mtime": 1784155621.0,
+    "ast_hash": "2fb122a09306be5620b3ca708db86c33",
+    "semantic_hash": "2fb122a09306be5620b3ca708db86c33"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\vsr\\backend\\scenedetect\\video_manager.py": {
+    "mtime": 1784155621.0,
+    "ast_hash": "4e81bbfc27e5aac1c72b60fac55578ee",
+    "semantic_hash": "4e81bbfc27e5aac1c72b60fac55578ee"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\vsr\\backend\\scenedetect\\video_splitter.py": {
+    "mtime": 1784155621.0,
+    "ast_hash": "17dacf6c7788b43f0c73f0f43770a5e5",
+    "semantic_hash": "17dacf6c7788b43f0c73f0f43770a5e5"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\vsr\\backend\\scenedetect\\video_stream.py": {
+    "mtime": 1784155621.0,
+    "ast_hash": "702f8891253430edc33a7d118789f033",
+    "semantic_hash": "702f8891253430edc33a7d118789f033"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\vsr\\backend\\scenedetect\\_scene_loader.py": {
+    "mtime": 1784155621.0,
+    "ast_hash": "83919ee40184c1db0ab0623cd7548f28",
+    "semantic_hash": "83919ee40184c1db0ab0623cd7548f28"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\vsr\\backend\\scenedetect\\__init__.py": {
+    "mtime": 1784155621.0,
+    "ast_hash": "d9b3656639d04dc00d8a32c96f1f5f8a",
+    "semantic_hash": "d9b3656639d04dc00d8a32c96f1f5f8a"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\vsr\\backend\\scenedetect\\__main__.py": {
+    "mtime": 1784155621.0,
+    "ast_hash": "57cf3fec5b0a81f979be592faf8de884",
+    "semantic_hash": "57cf3fec5b0a81f979be592faf8de884"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\vsr\\backend\\scenedetect\\backends\\moviepy.py": {
+    "mtime": 1784155621.0,
+    "ast_hash": "15d2c63eea0d06f0ecc2a2b4d50b2536",
+    "semantic_hash": "15d2c63eea0d06f0ecc2a2b4d50b2536"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\vsr\\backend\\scenedetect\\backends\\opencv.py": {
+    "mtime": 1784155621.0,
+    "ast_hash": "320229114aa3452b8adfd035391a6aad",
+    "semantic_hash": "320229114aa3452b8adfd035391a6aad"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\vsr\\backend\\scenedetect\\backends\\pyav.py": {
+    "mtime": 1784155621.0,
+    "ast_hash": "1d78eece032e5ba507a72b3bd5806f7b",
+    "semantic_hash": "1d78eece032e5ba507a72b3bd5806f7b"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\vsr\\backend\\scenedetect\\backends\\__init__.py": {
+    "mtime": 1784155621.0,
+    "ast_hash": "837401c723b50cacaab4b88318a583f0",
+    "semantic_hash": "837401c723b50cacaab4b88318a583f0"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\vsr\\backend\\scenedetect\\detectors\\adaptive_detector.py": {
+    "mtime": 1784155621.0,
+    "ast_hash": "f964f78fdc935a18c97f50bc6a92b64f",
+    "semantic_hash": "f964f78fdc935a18c97f50bc6a92b64f"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\vsr\\backend\\scenedetect\\detectors\\content_detector.py": {
+    "mtime": 1784155621.0,
+    "ast_hash": "ff69692c89126fd64eed5f8c8180a1bf",
+    "semantic_hash": "ff69692c89126fd64eed5f8c8180a1bf"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\vsr\\backend\\scenedetect\\detectors\\motion_detector.py": {
+    "mtime": 1784155621.0,
+    "ast_hash": "2e7bf6dab6092bea38a76a7b856a6d62",
+    "semantic_hash": "2e7bf6dab6092bea38a76a7b856a6d62"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\vsr\\backend\\scenedetect\\detectors\\threshold_detector.py": {
+    "mtime": 1784155621.0,
+    "ast_hash": "9110ab486efa3d10b40cb8f12504aef6",
+    "semantic_hash": "9110ab486efa3d10b40cb8f12504aef6"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\vsr\\backend\\scenedetect\\detectors\\__init__.py": {
+    "mtime": 1784155621.0,
+    "ast_hash": "44a7a7ed08f5193c4c56a2f4bace9570",
+    "semantic_hash": "44a7a7ed08f5193c4c56a2f4bace9570"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\vsr\\backend\\scenedetect\\_cli\\config.py": {
+    "mtime": 1784155621.0,
+    "ast_hash": "e7c3d7bec78b6ce536cee908f449e8bb",
+    "semantic_hash": "e7c3d7bec78b6ce536cee908f449e8bb"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\vsr\\backend\\scenedetect\\_cli\\context.py": {
+    "mtime": 1784155621.0,
+    "ast_hash": "0d0d2802cd7dffdaa6d28e3203f5ae53",
+    "semantic_hash": "0d0d2802cd7dffdaa6d28e3203f5ae53"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\vsr\\backend\\scenedetect\\_cli\\controller.py": {
+    "mtime": 1784155621.0,
+    "ast_hash": "209b71ce9baecacb121f386253653719",
+    "semantic_hash": "209b71ce9baecacb121f386253653719"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\vsr\\backend\\scenedetect\\_cli\\__init__.py": {
+    "mtime": 1784155621.0,
+    "ast_hash": "85cc3b19a6a31f38c1a15f8486723505",
+    "semantic_hash": "85cc3b19a6a31f38c1a15f8486723505"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\vsr\\backend\\scenedetect\\_thirdparty\\simpletable.py": {
+    "mtime": 1784155621.0,
+    "ast_hash": "eb5f60997b3f4b56f645963302e1755a",
+    "semantic_hash": "eb5f60997b3f4b56f645963302e1755a"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\vsr\\backend\\scenedetect\\_thirdparty\\__init__.py": {
+    "mtime": 1784155621.0,
+    "ast_hash": "fc971f9c7f7a7acf686bb01a7f6c9002",
+    "semantic_hash": "fc971f9c7f7a7acf686bb01a7f6c9002"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\vsr\\backend\\tools\\args_handler.py": {
+    "mtime": 1784155621.0,
+    "ast_hash": "be27e6e1dee45f7c2949c4ce3f66205b",
+    "semantic_hash": "be27e6e1dee45f7c2949c4ce3f66205b"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\vsr\\backend\\tools\\common_tools.py": {
+    "mtime": 1784155621.0,
+    "ast_hash": "067bb3707b3eba911a7f25ac9897ac5c",
+    "semantic_hash": "067bb3707b3eba911a7f25ac9897ac5c"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\vsr\\backend\\tools\\constant.py": {
+    "mtime": 1784155621.0,
+    "ast_hash": "8a74e4b7740a90f7db36d4383518b9ae",
+    "semantic_hash": "8a74e4b7740a90f7db36d4383518b9ae"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\vsr\\backend\\tools\\ffmpeg_cli.py": {
+    "mtime": 1784155621.0,
+    "ast_hash": "1c73c94c7187797aa4038d16884f79be",
+    "semantic_hash": "1c73c94c7187797aa4038d16884f79be"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\vsr\\backend\\tools\\hardware_accelerator.py": {
+    "mtime": 1784155621.0,
+    "ast_hash": "aca540302c838e1c83828d97e967f2cd",
+    "semantic_hash": "aca540302c838e1c83828d97e967f2cd"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\vsr\\backend\\tools\\inpaint_tools.py": {
+    "mtime": 1784155621.0,
+    "ast_hash": "59cec4e917bc50f0c79c37a45669d163",
+    "semantic_hash": "59cec4e917bc50f0c79c37a45669d163"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\vsr\\backend\\tools\\makedist.py": {
+    "mtime": 1784155621.0,
+    "ast_hash": "0e4487b6362f44bce4f5260d363baf06",
+    "semantic_hash": "0e4487b6362f44bce4f5260d363baf06"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\vsr\\backend\\tools\\merge_video.py": {
+    "mtime": 1784155621.0,
+    "ast_hash": "45cad1bafcaa8d4c827a3e9a04fd1e3d",
+    "semantic_hash": "45cad1bafcaa8d4c827a3e9a04fd1e3d"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\vsr\\backend\\tools\\model_config.py": {
+    "mtime": 1784155621.0,
+    "ast_hash": "f86f18d6f391a053a56d15760a9d43ca",
+    "semantic_hash": "f86f18d6f391a053a56d15760a9d43ca"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\vsr\\backend\\tools\\ocr.py": {
+    "mtime": 1784155621.0,
+    "ast_hash": "ec9f842f8ae0b22370bd5e87e62490a5",
+    "semantic_hash": "ec9f842f8ae0b22370bd5e87e62490a5"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\vsr\\backend\\tools\\process_manager.py": {
+    "mtime": 1784155621.0,
+    "ast_hash": "35867d59e362bc21842851a2a42e37d4",
+    "semantic_hash": "35867d59e362bc21842851a2a42e37d4"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\vsr\\backend\\tools\\subtitle_detect.py": {
+    "mtime": 1784155621.0,
+    "ast_hash": "ac1788e0b577fbe824c515ccb9e05408",
+    "semantic_hash": "ac1788e0b577fbe824c515ccb9e05408"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\vsr\\backend\\tools\\subtitle_remover_remote_call.py": {
+    "mtime": 1784155621.0,
+    "ast_hash": "7487ea7ef628a7a5ac6c03cfe224e27b",
+    "semantic_hash": "7487ea7ef628a7a5ac6c03cfe224e27b"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\vsr\\backend\\tools\\theme_listener.py": {
+    "mtime": 1784155621.0,
+    "ast_hash": "95d1f722ea49f09c8cf1f01f1c7aa933",
+    "semantic_hash": "95d1f722ea49f09c8cf1f01f1c7aa933"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\vsr\\backend\\tools\\version_service.py": {
+    "mtime": 1784155621.0,
+    "ast_hash": "5cda2af536c29ea1a55f36f9aa73ef12",
+    "semantic_hash": "5cda2af536c29ea1a55f36f9aa73ef12"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\vsr\\backend\\tools\\video_io.py": {
+    "mtime": 1784160233.0,
+    "ast_hash": "7427d5ac4f7ead166f437d30d4a05b65",
+    "semantic_hash": "7427d5ac4f7ead166f437d30d4a05b65"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\vsr\\backend\\tools\\concurrent\\future.py": {
+    "mtime": 1784155621.0,
+    "ast_hash": "93bc8711e48b9b4c526688535733802d",
+    "semantic_hash": "93bc8711e48b9b4c526688535733802d"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\vsr\\backend\\tools\\concurrent\\task.py": {
+    "mtime": 1784155621.0,
+    "ast_hash": "062e7f9463f2b28f01cfca8420f45dc9",
+    "semantic_hash": "062e7f9463f2b28f01cfca8420f45dc9"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\vsr\\backend\\tools\\concurrent\\task_manager.py": {
+    "mtime": 1784155621.0,
+    "ast_hash": "df470bf720c2145b6cd27e3b79c74d96",
+    "semantic_hash": "df470bf720c2145b6cd27e3b79c74d96"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\vsr\\backend\\tools\\concurrent\\__init__.py": {
+    "mtime": 1784155621.0,
+    "ast_hash": "25809e22b8f97d40c8b0ef5f35e6362a",
+    "semantic_hash": "25809e22b8f97d40c8b0ef5f35e6362a"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\vsr\\backend\\tools\\train\\dataset_sttn.py": {
+    "mtime": 1784155621.0,
+    "ast_hash": "142c461ebac221cdd01c08084b9bf233",
+    "semantic_hash": "142c461ebac221cdd01c08084b9bf233"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\vsr\\backend\\tools\\train\\loss_sttn.py": {
+    "mtime": 1784155621.0,
+    "ast_hash": "143505686438c0d2bb76752f8c15a85d",
+    "semantic_hash": "143505686438c0d2bb76752f8c15a85d"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\vsr\\backend\\tools\\train\\trainer_sttn.py": {
+    "mtime": 1784155621.0,
+    "ast_hash": "e135a1987a5bd17b86edc74b598b56f9",
+    "semantic_hash": "e135a1987a5bd17b86edc74b598b56f9"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\vsr\\backend\\tools\\train\\train_sttn.py": {
+    "mtime": 1784155621.0,
+    "ast_hash": "578e2d98f38af872d90c3c704c57abbc",
+    "semantic_hash": "578e2d98f38af872d90c3c704c57abbc"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\vsr\\backend\\tools\\train\\utils_sttn.py": {
+    "mtime": 1784155621.0,
+    "ast_hash": "5524314648578ec3552464fe6ab60a35",
+    "semantic_hash": "5524314648578ec3552464fe6ab60a35"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\vsr\\backend\\tools\\train\\configs_sttn\\davis.json": {
+    "mtime": 1784155621.0,
+    "ast_hash": "72d38a245ccd9e23ad58a3d3d3a72380",
+    "semantic_hash": "72d38a245ccd9e23ad58a3d3d3a72380"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\vsr\\backend\\tools\\train\\configs_sttn\\youtube-vos.json": {
+    "mtime": 1784155621.0,
+    "ast_hash": "1bf125c5e67be91ff5626f1f9ccf9232",
+    "semantic_hash": "1bf125c5e67be91ff5626f1f9ccf9232"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\vsr\\backend\\tools\\train\\datasets_sttn\\davis\\test.json": {
+    "mtime": 1784155621.0,
+    "ast_hash": "e0879de2a283d55f2a7c337ef4da6aca",
+    "semantic_hash": "e0879de2a283d55f2a7c337ef4da6aca"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\vsr\\backend\\tools\\train\\datasets_sttn\\davis\\train.json": {
+    "mtime": 1784155621.0,
+    "ast_hash": "fc66c9f1f00ecfd6e10ec6a388ce12df",
+    "semantic_hash": "fc66c9f1f00ecfd6e10ec6a388ce12df"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\vsr\\backend\\tools\\train\\datasets_sttn\\youtube-vos\\test.json": {
+    "mtime": 1784155621.0,
+    "ast_hash": "1d7e5b056ef1d358124495e944e7c3f2",
+    "semantic_hash": "1d7e5b056ef1d358124495e944e7c3f2"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\vsr\\backend\\tools\\train\\datasets_sttn\\youtube-vos\\train.json": {
+    "mtime": 1784155621.0,
+    "ast_hash": "534b463e887e6539f143289d0132a5a8",
+    "semantic_hash": "534b463e887e6539f143289d0132a5a8"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\vsr\\config\\config.json": {
+    "mtime": 1784156344.0,
+    "ast_hash": "5d780e2a19b20c56ca40aec9f458acaa",
+    "semantic_hash": "5d780e2a19b20c56ca40aec9f458acaa"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\vsr\\ui\\advanced_setting_interface.py": {
+    "mtime": 1784155622.0,
+    "ast_hash": "1163a73f90c23b05b8d5e68b2bd17aaf",
+    "semantic_hash": "1163a73f90c23b05b8d5e68b2bd17aaf"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\vsr\\ui\\home_interface.py": {
+    "mtime": 1784155622.0,
+    "ast_hash": "3a8f6baf6233ce32c5a6c8bddb784810",
+    "semantic_hash": "3a8f6baf6233ce32c5a6c8bddb784810"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\vsr\\ui\\setting_interface.py": {
+    "mtime": 1784155622.0,
+    "ast_hash": "6445d7d55d89ae6251ee6bd99076d47a",
+    "semantic_hash": "6445d7d55d89ae6251ee6bd99076d47a"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\vsr\\ui\\component\\task_list_component.py": {
+    "mtime": 1784155622.0,
+    "ast_hash": "610f303e321a6a9bfc62e99fb7ac8a0a",
+    "semantic_hash": "610f303e321a6a9bfc62e99fb7ac8a0a"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\vsr\\ui\\component\\video_display_component.py": {
+    "mtime": 1784155622.0,
+    "ast_hash": "bfc39b29e7f064bb6558e34a2395aa3f",
+    "semantic_hash": "bfc39b29e7f064bb6558e34a2395aa3f"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\vsr\\ui\\icon\\my_fluent_icon.py": {
+    "mtime": 1784155622.0,
+    "ast_hash": "96148da0f1c1a1ec48745e98752e54dd",
+    "semantic_hash": "96148da0f1c1a1ec48745e98752e54dd"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\Wav2Lip\\audio.py": {
+    "mtime": 1784024498.0,
+    "ast_hash": "3afefb3b802fc632ee4e4f83e56a7bfd",
+    "semantic_hash": "3afefb3b802fc632ee4e4f83e56a7bfd"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\Wav2Lip\\color_syncnet_train.py": {
+    "mtime": 1784024353.0,
+    "ast_hash": "3ee9c8a51add6e56d793df65aa96ad8a",
+    "semantic_hash": "3ee9c8a51add6e56d793df65aa96ad8a"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\Wav2Lip\\gfpgan_enhance.py": {
+    "mtime": 1784032694.0,
+    "ast_hash": "c4d50e112f4460bc8b493b19c6c51e11",
+    "semantic_hash": "c4d50e112f4460bc8b493b19c6c51e11"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\Wav2Lip\\hparams.py": {
+    "mtime": 1784024353.0,
+    "ast_hash": "3df264244ee63af53a8310c0f5094a86",
+    "semantic_hash": "3df264244ee63af53a8310c0f5094a86"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\Wav2Lip\\hq_wav2lip_train.py": {
+    "mtime": 1784024353.0,
+    "ast_hash": "7815f20d3982990b27953220c63d91fa",
+    "semantic_hash": "7815f20d3982990b27953220c63d91fa"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\Wav2Lip\\inference.py": {
+    "mtime": 1784348467.0,
+    "ast_hash": "f801aaf3799118315f7e9606a2e3d059",
+    "semantic_hash": "f801aaf3799118315f7e9606a2e3d059"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\Wav2Lip\\preprocess.py": {
+    "mtime": 1784024353.0,
+    "ast_hash": "69a128e8a69ba3eb05a25ae43635ebea",
+    "semantic_hash": "69a128e8a69ba3eb05a25ae43635ebea"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\Wav2Lip\\wav2lip_train.py": {
+    "mtime": 1784024353.0,
+    "ast_hash": "769a2e7f46c04df96ddad2e14b0402b4",
+    "semantic_hash": "769a2e7f46c04df96ddad2e14b0402b4"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\Wav2Lip\\evaluation\\gen_videos_from_filelist.py": {
+    "mtime": 1784024353.0,
+    "ast_hash": "c95ea73a81d37d2b35b36bb862e5425b",
+    "semantic_hash": "c95ea73a81d37d2b35b36bb862e5425b"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\Wav2Lip\\evaluation\\real_videos_inference.py": {
+    "mtime": 1784024353.0,
+    "ast_hash": "e66a2e1658aaa9f11176fe5627f13c1e",
+    "semantic_hash": "e66a2e1658aaa9f11176fe5627f13c1e"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\Wav2Lip\\evaluation\\scores_LSE\\calculate_scores_LRS.py": {
+    "mtime": 1784024353.0,
+    "ast_hash": "59229682a703eded7e7a65fafd9298b2",
+    "semantic_hash": "59229682a703eded7e7a65fafd9298b2"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\Wav2Lip\\evaluation\\scores_LSE\\calculate_scores_real_videos.py": {
+    "mtime": 1784024353.0,
+    "ast_hash": "b9e137cf3fed21e7152171172e242b6f",
+    "semantic_hash": "b9e137cf3fed21e7152171172e242b6f"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\Wav2Lip\\evaluation\\scores_LSE\\calculate_scores_real_videos.sh": {
+    "mtime": 1784024353.0,
+    "ast_hash": "078e5a5ddb8468a2f81589c8530455f4",
+    "semantic_hash": "078e5a5ddb8468a2f81589c8530455f4"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\Wav2Lip\\evaluation\\scores_LSE\\SyncNetInstance_calc_scores.py": {
+    "mtime": 1784024353.0,
+    "ast_hash": "978cc672217e68f392069e817a396f08",
+    "semantic_hash": "978cc672217e68f392069e817a396f08"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\Wav2Lip\\face_detection\\api.py": {
+    "mtime": 1784024353.0,
+    "ast_hash": "f4200c4ea0724cd8627d752d6ed4407e",
+    "semantic_hash": "f4200c4ea0724cd8627d752d6ed4407e"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\Wav2Lip\\face_detection\\models.py": {
+    "mtime": 1784024353.0,
+    "ast_hash": "76aeb944d56e72f5af37f161f7b39380",
+    "semantic_hash": "76aeb944d56e72f5af37f161f7b39380"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\Wav2Lip\\face_detection\\utils.py": {
+    "mtime": 1784024353.0,
+    "ast_hash": "2da02a84f0738998034a8d329b7702d8",
+    "semantic_hash": "2da02a84f0738998034a8d329b7702d8"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\Wav2Lip\\face_detection\\__init__.py": {
+    "mtime": 1784024353.0,
+    "ast_hash": "5df6fa260d2be93d63d0d051c5075d80",
+    "semantic_hash": "5df6fa260d2be93d63d0d051c5075d80"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\Wav2Lip\\face_detection\\detection\\core.py": {
+    "mtime": 1784024353.0,
+    "ast_hash": "d77139e0e047bbc6cadfda123a9aefea",
+    "semantic_hash": "d77139e0e047bbc6cadfda123a9aefea"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\Wav2Lip\\face_detection\\detection\\__init__.py": {
+    "mtime": 1784024353.0,
+    "ast_hash": "7bd6cce3a4d9e12da05d732febca2476",
+    "semantic_hash": "7bd6cce3a4d9e12da05d732febca2476"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\Wav2Lip\\face_detection\\detection\\sfd\\bbox.py": {
+    "mtime": 1784024353.0,
+    "ast_hash": "2d231f461b27d6c0ff35d079d032bfb9",
+    "semantic_hash": "2d231f461b27d6c0ff35d079d032bfb9"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\Wav2Lip\\face_detection\\detection\\sfd\\detect.py": {
+    "mtime": 1784024353.0,
+    "ast_hash": "cc103b84a103f7a5be642612eba029de",
+    "semantic_hash": "cc103b84a103f7a5be642612eba029de"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\Wav2Lip\\face_detection\\detection\\sfd\\net_s3fd.py": {
+    "mtime": 1784024353.0,
+    "ast_hash": "87202e5b090830e52885b2b0168fbc18",
+    "semantic_hash": "87202e5b090830e52885b2b0168fbc18"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\Wav2Lip\\face_detection\\detection\\sfd\\sfd_detector.py": {
+    "mtime": 1784024353.0,
+    "ast_hash": "f6d585cb690e0cc774746f89ad1a9ebc",
+    "semantic_hash": "f6d585cb690e0cc774746f89ad1a9ebc"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\Wav2Lip\\face_detection\\detection\\sfd\\__init__.py": {
+    "mtime": 1784024353.0,
+    "ast_hash": "a8f208025f2638e803582c2848732b82",
+    "semantic_hash": "a8f208025f2638e803582c2848732b82"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\Wav2Lip\\models\\conv.py": {
+    "mtime": 1784024353.0,
+    "ast_hash": "f1372f74e7e379ccc020538629f7d830",
+    "semantic_hash": "f1372f74e7e379ccc020538629f7d830"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\Wav2Lip\\models\\syncnet.py": {
+    "mtime": 1784024353.0,
+    "ast_hash": "c83c4ccc45e81ef14a09c37eecba6642",
+    "semantic_hash": "c83c4ccc45e81ef14a09c37eecba6642"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\Wav2Lip\\models\\wav2lip.py": {
+    "mtime": 1784024353.0,
+    "ast_hash": "0eb9b8526f7b6df192d3032b7ca9968b",
+    "semantic_hash": "0eb9b8526f7b6df192d3032b7ca9968b"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\Wav2Lip\\models\\__init__.py": {
+    "mtime": 1784024353.0,
+    "ast_hash": "8bdade9a580a69d142211f4e92b1ff87",
+    "semantic_hash": "8bdade9a580a69d142211f4e92b1ff87"
+  },
+  "D:\\Projects\\Video AI editing\\video-studio\\config.json": {
+    "mtime": 1784205831.0,
+    "ast_hash": "7da834a5d23272b3281905f927983d22",
+    "semantic_hash": "7da834a5d23272b3281905f927983d22"
+  },
+  "D:\\Projects\\Video AI editing\\video-studio\\app\\jobs.py": {
+    "mtime": 1784180593.0,
+    "ast_hash": "89e289b213c51983261575cbfb67374a",
+    "semantic_hash": "89e289b213c51983261575cbfb67374a"
+  },
+  "D:\\Projects\\Video AI editing\\video-studio\\app\\server.py": {
+    "mtime": 1784349217.0,
+    "ast_hash": "49da6550ebc5234bf9c5a7e2dcd8bd14",
+    "semantic_hash": "49da6550ebc5234bf9c5a7e2dcd8bd14"
+  },
+  "D:\\Projects\\Video AI editing\\video-studio\\app\\brand_templates\\meta-1x1-pain-mirror.json": {
+    "mtime": 1784191683.0,
+    "ast_hash": "6ac4183cce6a5c7b4b2966f8d90cd244",
+    "semantic_hash": "6ac4183cce6a5c7b4b2966f8d90cd244"
+  },
+  "D:\\Projects\\Video AI editing\\video-studio\\app\\engines\\brand_content.py": {
+    "mtime": 1784191637.0,
+    "ast_hash": "ec7858fb486b824e4cdb57ee5dfd89d7",
+    "semantic_hash": "ec7858fb486b824e4cdb57ee5dfd89d7"
+  },
+  "D:\\Projects\\Video AI editing\\video-studio\\app\\engines\\compositor.py": {
+    "mtime": 1784191537.0,
+    "ast_hash": "77e331bdccd3792a12fb3255c5b81494",
+    "semantic_hash": "77e331bdccd3792a12fb3255c5b81494"
+  },
+  "D:\\Projects\\Video AI editing\\video-studio\\app\\engines\\dubsync_repair.py": {
+    "mtime": 1784181373.0,
+    "ast_hash": "14b28271ec14be60a7984b5b7453cc9f",
+    "semantic_hash": "14b28271ec14be60a7984b5b7453cc9f"
+  },
+  "D:\\Projects\\Video AI editing\\video-studio\\app\\engines\\frame_swap.py": {
+    "mtime": 1784222977.0,
+    "ast_hash": "694e9484b905a5937c04a50ffa1dadff",
+    "semantic_hash": "694e9484b905a5937c04a50ffa1dadff"
+  },
+  "D:\\Projects\\Video AI editing\\video-studio\\app\\engines\\object_repair.py": {
+    "mtime": 1784220743.0,
+    "ast_hash": "f46ee9be8fdf34ad9dcbc0fcfe4d543d",
+    "semantic_hash": "f46ee9be8fdf34ad9dcbc0fcfe4d543d"
+  },
+  "D:\\Projects\\Video AI editing\\video-studio\\app\\engines\\visual_repair.py": {
+    "mtime": 1784219508.0,
+    "ast_hash": "af14b270e36fb615b42b0bdeee91298b",
+    "semantic_hash": "af14b270e36fb615b42b0bdeee91298b"
+  },
+  "D:\\Projects\\Video AI editing\\video-studio\\app\\static\\vs-nav.js": {
+    "mtime": 1784347534.0,
+    "ast_hash": "3f9fc6f67564b41972e223b03c2b7e88",
+    "semantic_hash": "3f9fc6f67564b41972e223b03c2b7e88"
+  },
+  "D:\\Projects\\Video AI editing\\comet-assistant-instructions.md": {
+    "mtime": 1783156933.0,
+    "ast_hash": "ef1b02c028684604e6d730c8ac401b32",
+    "semantic_hash": "ef1b02c028684604e6d730c8ac401b32"
+  },
+  "D:\\Projects\\Video AI editing\\PROJECT-SUMMARY.md": {
+    "mtime": 1784361645.0,
+    "ast_hash": "d67cb78b67011b19c6f786edd1216890",
+    "semantic_hash": "d67cb78b67011b19c6f786edd1216890"
+  },
+  "D:\\Projects\\Video AI editing\\SETUP.md": {
+    "mtime": 1784367913.0,
+    "ast_hash": "94a020cb75496857caa3e89a02d7e077",
+    "semantic_hash": "94a020cb75496857caa3e89a02d7e077"
+  },
+  "D:\\Projects\\Video AI editing\\autoVSL\\README.md": {
+    "mtime": 1783518157.0,
+    "ast_hash": "13aa221b1eb82599985a58a9c37ffb8f",
+    "semantic_hash": "13aa221b1eb82599985a58a9c37ffb8f"
+  },
+  "D:\\Projects\\Video AI editing\\autoVSL\\requirements.txt": {
+    "mtime": 1783518157.0,
+    "ast_hash": "b0c058a917112d453320b63c92bca056",
+    "semantic_hash": "b0c058a917112d453320b63c92bca056"
+  },
+  "D:\\Projects\\Video AI editing\\autoVSL\\.claude\\agents\\bloodhound.md": {
+    "mtime": 1783518157.0,
+    "ast_hash": "cd5879584015d16129cd405cca998f37",
+    "semantic_hash": "cd5879584015d16129cd405cca998f37"
+  },
+  "D:\\Projects\\Video AI editing\\autoVSL\\.claude\\agents\\brand-architect.md": {
+    "mtime": 1783518157.0,
+    "ast_hash": "eb1fae30367a44555737157d7aa9226c",
+    "semantic_hash": "eb1fae30367a44555737157d7aa9226c"
+  },
+  "D:\\Projects\\Video AI editing\\autoVSL\\.claude\\agents\\prospector.md": {
+    "mtime": 1783518157.0,
+    "ast_hash": "5e44aa923cb33db337cb33392c229129",
+    "semantic_hash": "5e44aa923cb33db337cb33392c229129"
+  },
+  "D:\\Projects\\Video AI editing\\autoVSL\\.claude\\skills\\bloodhound\\SKILL.md": {
+    "mtime": 1783518157.0,
+    "ast_hash": "b1f4c4dc6eb0dcd9f9c7f6e57739ac6c",
+    "semantic_hash": "b1f4c4dc6eb0dcd9f9c7f6e57739ac6c"
+  },
+  "D:\\Projects\\Video AI editing\\autoVSL\\.claude\\skills\\brand-platform-builder\\SKILL.md": {
+    "mtime": 1783518157.0,
+    "ast_hash": "c454ccb23e2eea5c2a42a6b2d469f122",
+    "semantic_hash": "c454ccb23e2eea5c2a42a6b2d469f122"
+  },
+  "D:\\Projects\\Video AI editing\\autoVSL\\.claude\\skills\\brand-platform-builder\\references\\brand-kit-spec.md": {
+    "mtime": 1783518157.0,
+    "ast_hash": "fab73270defb03be85af920deff0b4b6",
+    "semantic_hash": "fab73270defb03be85af920deff0b4b6"
+  },
+  "D:\\Projects\\Video AI editing\\autoVSL\\.claude\\skills\\brand-platform-builder\\references\\deliverable-templates.md": {
+    "mtime": 1783518157.0,
+    "ast_hash": "4449315fec683d3f828b13ad487ea0f1",
+    "semantic_hash": "4449315fec683d3f828b13ad487ea0f1"
+  },
+  "D:\\Projects\\Video AI editing\\autoVSL\\.claude\\skills\\brand-platform-builder\\references\\raindrop-method.md": {
+    "mtime": 1783518157.0,
+    "ast_hash": "9f2c0d2edfbe1f589309f1a416908e1b",
+    "semantic_hash": "9f2c0d2edfbe1f589309f1a416908e1b"
+  },
+  "D:\\Projects\\Video AI editing\\autoVSL\\.claude\\skills\\prospector\\SKILL.md": {
+    "mtime": 1783518157.0,
+    "ast_hash": "253275a17a82c603917953441091f8da",
+    "semantic_hash": "253275a17a82c603917953441091f8da"
+  },
+  "D:\\Projects\\Video AI editing\\autoVSL\\.claude\\skills\\prospector\\references\\apify-playbook.md": {
+    "mtime": 1783518157.0,
+    "ast_hash": "dd5d53367c284dc1c6751eaf6e927d15",
+    "semantic_hash": "dd5d53367c284dc1c6751eaf6e927d15"
+  },
+  "D:\\Projects\\Video AI editing\\autoVSL\\.claude\\skills\\prospector\\references\\output-schemas.md": {
+    "mtime": 1783518157.0,
+    "ast_hash": "f11c9f64767a11bed90246a62b8f4137",
+    "semantic_hash": "f11c9f64767a11bed90246a62b8f4137"
+  },
+  "D:\\Projects\\Video AI editing\\autoVSL\\.claude\\skills\\prospector\\references\\research-frameworks.md": {
+    "mtime": 1783518157.0,
+    "ast_hash": "2ce3c4e8328b5188ad61cf49a6db1dad",
+    "semantic_hash": "2ce3c4e8328b5188ad61cf49a6db1dad"
+  },
+  "D:\\Projects\\Video AI editing\\autoVSL\\.claude\\skills\\vsl\\SKILL.md": {
+    "mtime": 1783518157.0,
+    "ast_hash": "530a2b0699c4105a5f3ec1f5dfada475",
+    "semantic_hash": "530a2b0699c4105a5f3ec1f5dfada475"
+  },
+  "D:\\Projects\\Video AI editing\\autoVSL\\.claude\\skills\\vsl-editor\\SKILL.md": {
+    "mtime": 1783518157.0,
+    "ast_hash": "aa4409a21e4fa473c4766480a5a62a8d",
+    "semantic_hash": "aa4409a21e4fa473c4766480a5a62a8d"
+  },
+  "D:\\Projects\\Video AI editing\\autoVSL\\.claude\\skills\\vsl-upsell\\SKILL.md": {
+    "mtime": 1783518157.0,
+    "ast_hash": "c9dbebc4acbdb63414c327a03a4ec681",
+    "semantic_hash": "c9dbebc4acbdb63414c327a03a4ec681"
+  },
+  "D:\\Projects\\Video AI editing\\autoVSL\\banks\\README.md": {
+    "mtime": 1783518157.0,
+    "ast_hash": "bae7698baceed045ffb5cae83c5fc5fc",
+    "semantic_hash": "bae7698baceed045ffb5cae83c5fc5fc"
+  },
+  "D:\\Projects\\Video AI editing\\autoVSL\\dashboard\\static\\creator.html": {
+    "mtime": 1784359810.0,
+    "ast_hash": "d8040bb4a8c4451f87d9047396986381",
+    "semantic_hash": "d8040bb4a8c4451f87d9047396986381"
+  },
+  "D:\\Projects\\Video AI editing\\autoVSL\\dashboard\\static\\dubbing.html": {
+    "mtime": 1784160799.0,
+    "ast_hash": "541bfde9f97b520f098d8004e2a0e1b7",
+    "semantic_hash": "541bfde9f97b520f098d8004e2a0e1b7"
+  },
+  "D:\\Projects\\Video AI editing\\autoVSL\\dashboard\\static\\eraser.html": {
+    "mtime": 1784018300.0,
+    "ast_hash": "4a3db179a5b736d45c8786ffdc84f007",
+    "semantic_hash": "4a3db179a5b736d45c8786ffdc84f007"
+  },
+  "D:\\Projects\\Video AI editing\\autoVSL\\dashboard\\static\\index.html": {
+    "mtime": 1784347283.0,
+    "ast_hash": "d4a71d61d24f027fd623f8fcb6912d02",
+    "semantic_hash": "d4a71d61d24f027fd623f8fcb6912d02"
+  },
+  "D:\\Projects\\Video AI editing\\autoVSL\\dashboard\\static\\qc.html": {
+    "mtime": 1784161215.0,
+    "ast_hash": "1c1b32c50b767cc9ea8681098cf664ac",
+    "semantic_hash": "1c1b32c50b767cc9ea8681098cf664ac"
+  },
+  "D:\\Projects\\Video AI editing\\autoVSL\\dashboard\\static\\studio.html": {
+    "mtime": 1784141530.0,
+    "ast_hash": "3456874bddf62cb7916ae72c775f4dda",
+    "semantic_hash": "3456874bddf62cb7916ae72c775f4dda"
+  },
+  "D:\\Projects\\Video AI editing\\autoVSL\\dashboard\\static\\subtitles.html": {
+    "mtime": 1784360182.0,
+    "ast_hash": "239d92f9d494fa58c1c14bd9b76828be",
+    "semantic_hash": "239d92f9d494fa58c1c14bd9b76828be"
+  },
+  "D:\\Projects\\Video AI editing\\autoVSL\\docs\\AGENTS.md": {
+    "mtime": 1783518157.0,
+    "ast_hash": "4b657ca7af59815dc9e4fa3a1f9ff08a",
+    "semantic_hash": "4b657ca7af59815dc9e4fa3a1f9ff08a"
+  },
+  "D:\\Projects\\Video AI editing\\autoVSL\\docs\\DEV-README.md": {
+    "mtime": 1783518157.0,
+    "ast_hash": "7ea1b18cafbf7a3894470d071e9b74e9",
+    "semantic_hash": "7ea1b18cafbf7a3894470d071e9b74e9"
+  },
+  "D:\\Projects\\Video AI editing\\autoVSL\\docs\\free-generation.md": {
+    "mtime": 1783518157.0,
+    "ast_hash": "e0df07fe4b5a9a81cbf197d621131161",
+    "semantic_hash": "e0df07fe4b5a9a81cbf197d621131161"
+  },
+  "D:\\Projects\\Video AI editing\\autoVSL\\docs\\results-feedback.md": {
+    "mtime": 1783518157.0,
+    "ast_hash": "5f488ec1308ab866f2e04ed3bfa07653",
+    "semantic_hash": "5f488ec1308ab866f2e04ed3bfa07653"
+  },
+  "D:\\Projects\\Video AI editing\\autoVSL\\framework\\README.md": {
+    "mtime": 1783518157.0,
+    "ast_hash": "d22d65863d3c0d8a9338cbc8720ecf43",
+    "semantic_hash": "d22d65863d3c0d8a9338cbc8720ecf43"
+  },
+  "D:\\Projects\\Video AI editing\\autoVSL\\framework\\angle-library\\winning-angles.md": {
+    "mtime": 1783518157.0,
+    "ast_hash": "6e2f52b0260181c97123a2350255ddd6",
+    "semantic_hash": "6e2f52b0260181c97123a2350255ddd6"
+  },
+  "D:\\Projects\\Video AI editing\\autoVSL\\framework\\stages\\1-product-intake\\kickoff-prompt.md": {
+    "mtime": 1783518157.0,
+    "ast_hash": "fa753f5b5d471349af4c6d682f9617c8",
+    "semantic_hash": "fa753f5b5d471349af4c6d682f9617c8"
+  },
+  "D:\\Projects\\Video AI editing\\autoVSL\\framework\\stages\\1-product-intake\\offer-doc-template.md": {
+    "mtime": 1783518157.0,
+    "ast_hash": "431c6cd53c5a5e2ac6c4df68ed9d039b",
+    "semantic_hash": "431c6cd53c5a5e2ac6c4df68ed9d039b"
+  },
+  "D:\\Projects\\Video AI editing\\autoVSL\\framework\\stages\\1-product-intake\\README.md": {
+    "mtime": 1783518157.0,
+    "ast_hash": "477f04dc51ae323c511928dfe8ae31af",
+    "semantic_hash": "477f04dc51ae323c511928dfe8ae31af"
+  },
+  "D:\\Projects\\Video AI editing\\autoVSL\\framework\\stages\\1-product-intake\\story-extraction.md": {
+    "mtime": 1783518157.0,
+    "ast_hash": "5a73b6428ce46f0c41f152c490ce44f2",
+    "semantic_hash": "5a73b6428ce46f0c41f152c490ce44f2"
+  },
+  "D:\\Projects\\Video AI editing\\autoVSL\\framework\\stages\\2-avatar-research\\kindergarten-pitch-prompt.md": {
+    "mtime": 1783518157.0,
+    "ast_hash": "af964456695570d93c5fcc9970822a96",
+    "semantic_hash": "af964456695570d93c5fcc9970822a96"
+  },
+  "D:\\Projects\\Video AI editing\\autoVSL\\framework\\stages\\2-avatar-research\\lowest-hanging-fruit-prompt.md": {
+    "mtime": 1783518157.0,
+    "ast_hash": "ca17ff143e4d3137254d9330eeee5577",
+    "semantic_hash": "ca17ff143e4d3137254d9330eeee5577"
+  },
+  "D:\\Projects\\Video AI editing\\autoVSL\\framework\\stages\\2-avatar-research\\monster-market-prompt.md": {
+    "mtime": 1783518157.0,
+    "ast_hash": "0446fda84f24fa118f292541a9cc782b",
+    "semantic_hash": "0446fda84f24fa118f292541a9cc782b"
+  },
+  "D:\\Projects\\Video AI editing\\autoVSL\\framework\\stages\\2-avatar-research\\README.md": {
+    "mtime": 1783518157.0,
+    "ast_hash": "015377574d4c2dbf2249d56dc7a25e75",
+    "semantic_hash": "015377574d4c2dbf2249d56dc7a25e75"
+  },
+  "D:\\Projects\\Video AI editing\\autoVSL\\framework\\stages\\3-angles\\banger-angle-generator-prompt.md": {
+    "mtime": 1783518157.0,
+    "ast_hash": "117eb14a4320310f0528b8c33e593537",
+    "semantic_hash": "117eb14a4320310f0528b8c33e593537"
+  },
+  "D:\\Projects\\Video AI editing\\autoVSL\\framework\\stages\\3-angles\\copywriter-principles-prompt.md": {
+    "mtime": 1783518157.0,
+    "ast_hash": "45cdd76ed976faa41ce43accbcd51d8c",
+    "semantic_hash": "45cdd76ed976faa41ce43accbcd51d8c"
+  },
+  "D:\\Projects\\Video AI editing\\autoVSL\\framework\\stages\\3-angles\\pick-10-best-prompt.md": {
+    "mtime": 1783518157.0,
+    "ast_hash": "4084e6ca768121e5e37dffa9b8ca2372",
+    "semantic_hash": "4084e6ca768121e5e37dffa9b8ca2372"
+  },
+  "D:\\Projects\\Video AI editing\\autoVSL\\framework\\stages\\3-angles\\README.md": {
+    "mtime": 1783518157.0,
+    "ast_hash": "45de5532234175675bce0f7b7c091473",
+    "semantic_hash": "45de5532234175675bce0f7b7c091473"
+  },
+  "D:\\Projects\\Video AI editing\\autoVSL\\framework\\stages\\4-scripts\\angle-matching-prompt.md": {
+    "mtime": 1783518157.0,
+    "ast_hash": "736911a95d2a43faf114fa3575137897",
+    "semantic_hash": "736911a95d2a43faf114fa3575137897"
+  },
+  "D:\\Projects\\Video AI editing\\autoVSL\\framework\\stages\\4-scripts\\README.md": {
+    "mtime": 1783518157.0,
+    "ast_hash": "a3e412a513148fd61a7f8084ece99b80",
+    "semantic_hash": "a3e412a513148fd61a7f8084ece99b80"
+  },
+  "D:\\Projects\\Video AI editing\\autoVSL\\framework\\stages\\4-scripts\\rewrite-prompt.md": {
+    "mtime": 1783518157.0,
+    "ast_hash": "37928d748f6c95dd42ab05afabd209af",
+    "semantic_hash": "37928d748f6c95dd42ab05afabd209af"
+  },
+  "D:\\Projects\\Video AI editing\\autoVSL\\framework\\stages\\5-shot-list\\README.md": {
+    "mtime": 1783518157.0,
+    "ast_hash": "6eeff1a11eeda8579d982794e5c40dda",
+    "semantic_hash": "6eeff1a11eeda8579d982794e5c40dda"
+  },
+  "D:\\Projects\\Video AI editing\\autoVSL\\framework\\stages\\5-shot-list\\shot-list-example.md": {
+    "mtime": 1783518157.0,
+    "ast_hash": "0769d6e6e637d637ecca9fa5e6253963",
+    "semantic_hash": "0769d6e6e637d637ecca9fa5e6253963"
+  },
+  "D:\\Projects\\Video AI editing\\autoVSL\\framework\\stages\\5-shot-list\\shot-list-prompt.md": {
+    "mtime": 1783518157.0,
+    "ast_hash": "08c6b36e659591119cf244bf4dae2c96",
+    "semantic_hash": "08c6b36e659591119cf244bf4dae2c96"
+  },
+  "D:\\Projects\\Video AI editing\\autoVSL\\framework\\swipe-file\\airmoto-skeptic-gift.md": {
+    "mtime": 1783518157.0,
+    "ast_hash": "01ebc8ade78de48d5a484c4cd42d197d",
+    "semantic_hash": "01ebc8ade78de48d5a484c4cd42d197d"
+  },
+  "D:\\Projects\\Video AI editing\\autoVSL\\framework\\swipe-file\\buddha-bracelet-manifest.md": {
+    "mtime": 1783518157.0,
+    "ast_hash": "044b13ff79b40e20807ef8849e17a63d",
+    "semantic_hash": "044b13ff79b40e20807ef8849e17a63d"
+  },
+  "D:\\Projects\\Video AI editing\\autoVSL\\framework\\swipe-file\\farmers-dog-cactus.md": {
+    "mtime": 1783518157.0,
+    "ast_hash": "a717a74333b3ab7550fa93063423c9b7",
+    "semantic_hash": "a717a74333b3ab7550fa93063423c9b7"
+  },
+  "D:\\Projects\\Video AI editing\\autoVSL\\framework\\swipe-file\\farmers-dog-founders.md": {
+    "mtime": 1783518157.0,
+    "ast_hash": "157345061ba3ded211017b59fe3e784f",
+    "semantic_hash": "157345061ba3ded211017b59fe3e784f"
+  },
+  "D:\\Projects\\Video AI editing\\autoVSL\\framework\\swipe-file\\jonathan-otto-8-root-causes.md": {
+    "mtime": 1783518157.0,
+    "ast_hash": "293b5d2c883de9057fd23ed7b3c729f8",
+    "semantic_hash": "293b5d2c883de9057fd23ed7b3c729f8"
+  },
+  "D:\\Projects\\Video AI editing\\autoVSL\\framework\\swipe-file\\jones-rd-miracle-balm.md": {
+    "mtime": 1783518157.0,
+    "ast_hash": "6aea4f5d5a071c5d22adf0dcc697d93b",
+    "semantic_hash": "6aea4f5d5a071c5d22adf0dcc697d93b"
+  },
+  "D:\\Projects\\Video AI editing\\autoVSL\\framework\\swipe-file\\mushroom-coffee-prostate.md": {
+    "mtime": 1783518157.0,
+    "ast_hash": "221d02c1f4b292207daf7cd22bddf16e",
+    "semantic_hash": "221d02c1f4b292207daf7cd22bddf16e"
+  },
+  "D:\\Projects\\Video AI editing\\autoVSL\\framework\\swipe-file\\pestie-first-house.md": {
+    "mtime": 1783518157.0,
+    "ast_hash": "28609eb861df7e8d0924705f3a484381",
+    "semantic_hash": "28609eb861df7e8d0924705f3a484381"
+  },
+  "D:\\Projects\\Video AI editing\\autoVSL\\framework\\swipe-file\\petlab-itchy-ears.md": {
+    "mtime": 1783518157.0,
+    "ast_hash": "ed9865e0d1052f9e14fba2c0b82d3e35",
+    "semantic_hash": "ed9865e0d1052f9e14fba2c0b82d3e35"
+  },
+  "D:\\Projects\\Video AI editing\\autoVSL\\framework\\swipe-file\\primal-queen-hysterectomy.md": {
+    "mtime": 1783518157.0,
+    "ast_hash": "1c998caaaf8f9178a1cf4ecddbda213f",
+    "semantic_hash": "1c998caaaf8f9178a1cf4ecddbda213f"
+  },
+  "D:\\Projects\\Video AI editing\\autoVSL\\framework\\swipe-file\\README.md": {
+    "mtime": 1783518157.0,
+    "ast_hash": "eaa764162282ebb1613ec7fc3c957dfa",
+    "semantic_hash": "eaa764162282ebb1613ec7fc3c957dfa"
+  },
+  "D:\\Projects\\Video AI editing\\autoVSL\\framework\\swipe-file\\ryze-blood-sugar-red-flags.md": {
+    "mtime": 1783518157.0,
+    "ast_hash": "922adbf979ce50f8e5b955666278c171",
+    "semantic_hash": "922adbf979ce50f8e5b955666278c171"
+  },
+  "D:\\Projects\\Video AI editing\\autoVSL\\framework\\swipe-file\\ryze-kidney-red-flags-30s.md": {
+    "mtime": 1783518157.0,
+    "ast_hash": "f1299a90436c380d4576afc6d373d7c0",
+    "semantic_hash": "f1299a90436c380d4576afc6d373d7c0"
+  },
+  "D:\\Projects\\Video AI editing\\autoVSL\\framework\\swipe-file\\ryze-this-is-what-would-happen.md": {
+    "mtime": 1783518157.0,
+    "ast_hash": "b24d6ef10459d23b654c00c58303b0d6",
+    "semantic_hash": "b24d6ef10459d23b654c00c58303b0d6"
+  },
+  "D:\\Projects\\Video AI editing\\autoVSL\\framework\\swipe-file\\reference\\full-vsl-bible.txt": {
+    "mtime": 1783518157.0,
+    "ast_hash": "f2ddbc0c130adff9aed29e50f8a6524e",
+    "semantic_hash": "f2ddbc0c130adff9aed29e50f8a6524e"
+  },
+  "D:\\Projects\\Video AI editing\\autoVSL\\products\\fairy-flame\\offer.md": {
+    "mtime": 1783518157.0,
+    "ast_hash": "8f7ea60c36356f79358d21a8c3320caf",
+    "semantic_hash": "8f7ea60c36356f79358d21a8c3320caf"
+  },
+  "D:\\Projects\\Video AI editing\\autoVSL\\products\\fairy-flame\\angles\\burned-out-mom-angles.md": {
+    "mtime": 1783518157.0,
+    "ast_hash": "0fade1e0f3051d7ff5da992399f3ed28",
+    "semantic_hash": "0fade1e0f3051d7ff5da992399f3ed28"
+  },
+  "D:\\Projects\\Video AI editing\\autoVSL\\products\\fairy-flame\\avatars\\blocked-microdoser.md": {
+    "mtime": 1783518157.0,
+    "ast_hash": "e725035516199ab3ff0f7e55a5dc21a0",
+    "semantic_hash": "e725035516199ab3ff0f7e55a5dc21a0"
+  },
+  "D:\\Projects\\Video AI editing\\autoVSL\\products\\fairy-flame\\avatars\\burned-out-mom.md": {
+    "mtime": 1783518157.0,
+    "ast_hash": "b637eb4cb42db354e9d8dbbeb9f0fe1d",
+    "semantic_hash": "b637eb4cb42db354e9d8dbbeb9f0fe1d"
+  },
+  "D:\\Projects\\Video AI editing\\autoVSL\\products\\fairy-flame\\avatars\\numbed-med-user.md": {
+    "mtime": 1783518157.0,
+    "ast_hash": "e1cfbbbe0d158b59e3a58e600979fb09",
+    "semantic_hash": "e1cfbbbe0d158b59e3a58e600979fb09"
+  },
+  "D:\\Projects\\Video AI editing\\autoVSL\\products\\fairy-flame\\avatars\\research.md": {
+    "mtime": 1783518157.0,
+    "ast_hash": "b668f1de6f91b2e0c3b9568d6046843c",
+    "semantic_hash": "b668f1de6f91b2e0c3b9568d6046843c"
+  },
+  "D:\\Projects\\Video AI editing\\autoVSL\\products\\fairy-flame\\avatars\\sober-ritual-seeker.md": {
+    "mtime": 1783518157.0,
+    "ast_hash": "8a0987e066b223d68bea061f419e2277",
+    "semantic_hash": "8a0987e066b223d68bea061f419e2277"
+  },
+  "D:\\Projects\\Video AI editing\\autoVSL\\products\\fairy-flame\\scripts\\00-angle-matching.md": {
+    "mtime": 1783518157.0,
+    "ast_hash": "b726b9caefe2ee7fde3757a342c1a3b5",
+    "semantic_hash": "b726b9caefe2ee7fde3757a342c1a3b5"
+  },
+  "D:\\Projects\\Video AI editing\\autoVSL\\products\\fairy-flame\\scripts\\01-photo-before-kids.md": {
+    "mtime": 1783518157.0,
+    "ast_hash": "ea1529889477fa009e43bcf6b394271f",
+    "semantic_hash": "ea1529889477fa009e43bcf6b394271f"
+  },
+  "D:\\Projects\\Video AI editing\\autoVSL\\products\\fairy-flame\\scripts\\02-3-signs-running-on-empty.md": {
+    "mtime": 1783518157.0,
+    "ast_hash": "4e5742777f148a7310c83a3e5eba804d",
+    "semantic_hash": "4e5742777f148a7310c83a3e5eba804d"
+  },
+  "D:\\Projects\\Video AI editing\\autoVSL\\products\\fairy-flame\\scripts\\03-husband-asked-what-changed.md": {
+    "mtime": 1783518157.0,
+    "ast_hash": "9ceb3b05f00653e3bed45a97576136a9",
+    "semantic_hash": "9ceb3b05f00653e3bed45a97576136a9"
+  },
+  "D:\\Projects\\Video AI editing\\autoVSL\\products\\fairy-flame\\scripts\\04-one-body-founder-story.md": {
+    "mtime": 1783518157.0,
+    "ast_hash": "fcf6b6595004d3d029ea9e40d98de6e4",
+    "semantic_hash": "fcf6b6595004d3d029ea9e40d98de6e4"
+  },
+  "D:\\Projects\\Video AI editing\\autoVSL\\products\\fairy-flame\\scripts\\05-wine-isnt-calming-you.md": {
+    "mtime": 1783518157.0,
+    "ast_hash": "595619ea52a76f925a8bdf71e0ec0526",
+    "semantic_hash": "595619ea52a76f925a8bdf71e0ec0526"
+  },
+  "D:\\Projects\\Video AI editing\\autoVSL\\products\\fairy-flame\\scripts\\06-photo-ten-years-ago.md": {
+    "mtime": 1783518157.0,
+    "ast_hash": "746ccadbce0b5fbc29385f01b4a2600d",
+    "semantic_hash": "746ccadbce0b5fbc29385f01b4a2600d"
+  },
+  "D:\\Projects\\Video AI editing\\autoVSL\\products\\fairy-flame\\scripts\\07-take-more-walks.md": {
+    "mtime": 1783518157.0,
+    "ast_hash": "8951f2b51a2ee2e0667c9e6eeff69acd",
+    "semantic_hash": "8951f2b51a2ee2e0667c9e6eeff69acd"
+  },
+  "D:\\Projects\\Video AI editing\\autoVSL\\products\\fairy-flame\\scripts\\08-anxiety-peaks-45-55.md": {
+    "mtime": 1783518157.0,
+    "ast_hash": "7d58d3e0efe42f79bb70f16482cd7506",
+    "semantic_hash": "7d58d3e0efe42f79bb70f16482cd7506"
+  },
+  "D:\\Projects\\Video AI editing\\autoVSL\\products\\fairy-flame\\scripts\\09-stop-coffee-for-fog.md": {
+    "mtime": 1783518157.0,
+    "ast_hash": "6d829aa367904501a1e31f7d5e829dd7",
+    "semantic_hash": "6d829aa367904501a1e31f7d5e829dd7"
+  },
+  "D:\\Projects\\Video AI editing\\autoVSL\\products\\fairy-flame\\scripts\\10-gas-station-gummies.md": {
+    "mtime": 1783518157.0,
+    "ast_hash": "08857372efd88d7025508e7eb0fa4222",
+    "semantic_hash": "08857372efd88d7025508e7eb0fa4222"
+  },
+  "D:\\Projects\\Video AI editing\\autoVSL\\products\\fairy-flame\\scripts\\11-establishment-admits-newsjack.md": {
+    "mtime": 1784354772.0,
+    "ast_hash": "144d5e6403179d7b08ad15046d8222d1",
+    "semantic_hash": "144d5e6403179d7b08ad15046d8222d1"
+  },
+  "D:\\Projects\\Video AI editing\\autoVSL\\products\\fairy-flame\\shot-lists\\master-shot-list.md": {
+    "mtime": 1783518157.0,
+    "ast_hash": "019c448bc51640190462ae66915e2027",
+    "semantic_hash": "019c448bc51640190462ae66915e2027"
+  },
+  "D:\\Projects\\Video AI editing\\autoVSL\\products\\fairy-flame\\stories\\founder-story.md": {
+    "mtime": 1783518157.0,
+    "ast_hash": "e13211a42c8003c7a69e7ca58ed25426",
+    "semantic_hash": "e13211a42c8003c7a69e7ca58ed25426"
+  },
+  "D:\\Projects\\Video AI editing\\autoVSL\\products\\fairy-flame\\upsells\\oto1-6-pouch-challenger.md": {
+    "mtime": 1783518157.0,
+    "ast_hash": "24a07c5929cbb4cf1019f05539339b6a",
+    "semantic_hash": "24a07c5929cbb4cf1019f05539339b6a"
+  },
+  "D:\\Projects\\Video AI editing\\autoVSL\\products\\fairy-flame\\upsells\\oto1-6-pouch-control.md": {
+    "mtime": 1783518157.0,
+    "ast_hash": "184c8e34b2a293c0365e36bee24b87d1",
+    "semantic_hash": "184c8e34b2a293c0365e36bee24b87d1"
+  },
+  "D:\\Projects\\Video AI editing\\autoVSL\\products\\fairy-flame\\upsells\\oto2-3-pouch-downsell.md": {
+    "mtime": 1783518157.0,
+    "ast_hash": "d342c44337bced44eaf6ba630b812f0c",
+    "semantic_hash": "d342c44337bced44eaf6ba630b812f0c"
+  },
+  "D:\\Projects\\Video AI editing\\autoVSL\\research\\agent-notes.md": {
+    "mtime": 1784155159.0,
+    "ast_hash": "227c658d52c48dd9a0272e1fbe2d9a5e",
+    "semantic_hash": "227c658d52c48dd9a0272e1fbe2d9a5e"
+  },
+  "D:\\Projects\\Video AI editing\\autoVSL\\research\\fairy-flame\\brand\\01-avatar-research.md": {
+    "mtime": 1783518157.0,
+    "ast_hash": "b63b887a08a58cce93e750e4080ca4f4",
+    "semantic_hash": "b63b887a08a58cce93e750e4080ca4f4"
+  },
+  "D:\\Projects\\Video AI editing\\autoVSL\\research\\fairy-flame\\brand\\02-category-analysis.md": {
+    "mtime": 1783518157.0,
+    "ast_hash": "3677bb3f68605a420a1e7a48178863ad",
+    "semantic_hash": "3677bb3f68605a420a1e7a48178863ad"
+  },
+  "D:\\Projects\\Video AI editing\\autoVSL\\research\\fairy-flame\\brand\\03-brand-platform.md": {
+    "mtime": 1783518157.0,
+    "ast_hash": "b1aa480fad823981d9eaba053a67b9fb",
+    "semantic_hash": "b1aa480fad823981d9eaba053a67b9fb"
+  },
+  "D:\\Projects\\Video AI editing\\autoVSL\\research\\fairy-flame\\brand\\04-mascot-concepts.md": {
+    "mtime": 1783518157.0,
+    "ast_hash": "2cbd03d92a7be9e92a05468af7cd237d",
+    "semantic_hash": "2cbd03d92a7be9e92a05468af7cd237d"
+  },
+  "D:\\Projects\\Video AI editing\\autoVSL\\research\\fairy-flame\\brand\\05-brand-kit-spec.md": {
+    "mtime": 1783518157.0,
+    "ast_hash": "f22148d667c93c19f6bf521458b450ff",
+    "semantic_hash": "f22148d667c93c19f6bf521458b450ff"
+  },
+  "D:\\Projects\\Video AI editing\\autoVSL\\research\\fairy-flame\\brand\\06-creative-territories.md": {
+    "mtime": 1783518157.0,
+    "ast_hash": "92dc8faf6034a4e28a2d73b6a3672753",
+    "semantic_hash": "92dc8faf6034a4e28a2d73b6a3672753"
+  },
+  "D:\\Projects\\Video AI editing\\autoVSL\\research\\fairy-flame\\brand\\sources\\ad-census-2026-07-07.md": {
+    "mtime": 1783518157.0,
+    "ast_hash": "969ab5d95df1432bebd6e501b9e4f3da",
+    "semantic_hash": "969ab5d95df1432bebd6e501b9e4f3da"
+  },
+  "D:\\Projects\\Video AI editing\\autoVSL\\research\\fairy-flame\\brand\\sources\\voc-mining-2026-07-08.md": {
+    "mtime": 1783518157.0,
+    "ast_hash": "229f0c280dd6d4387e13f8846e4d760a",
+    "semantic_hash": "229f0c280dd6d4387e13f8846e4d760a"
+  },
+  "D:\\Projects\\Video AI editing\\autoVSL\\templates\\product-template\\offer.md": {
+    "mtime": 1783518157.0,
+    "ast_hash": "431c6cd53c5a5e2ac6c4df68ed9d039b",
+    "semantic_hash": "431c6cd53c5a5e2ac6c4df68ed9d039b"
+  },
+  "D:\\Projects\\Video AI editing\\autoVSL\\templates\\vsl-template\\brief.md": {
+    "mtime": 1783518157.0,
+    "ast_hash": "b53259fb1c511089dff38f0ed1c99ef7",
+    "semantic_hash": "b53259fb1c511089dff38f0ed1c99ef7"
+  },
+  "D:\\Projects\\Video AI editing\\autoVSL\\vsls\\fairy-flame\\brief.md": {
+    "mtime": 1783518157.0,
+    "ast_hash": "83c291711279235d41539577748add4b",
+    "semantic_hash": "83c291711279235d41539577748add4b"
+  },
+  "D:\\Projects\\Video AI editing\\autoVSL\\vsls\\fairy-flame\\suno-music.txt": {
+    "mtime": 1783518157.0,
+    "ast_hash": "e1a132a9e164eb8efbcf8ca2f6ce5290",
+    "semantic_hash": "e1a132a9e164eb8efbcf8ca2f6ce5290"
+  },
+  "D:\\Projects\\Video AI editing\\autoVSL\\vsls\\wine-angle-v1\\brief.md": {
+    "mtime": 1783659563.0,
+    "ast_hash": "08c075761483ef63f50d2872a8e8c744",
+    "semantic_hash": "08c075761483ef63f50d2872a8e8c744"
+  },
+  "D:\\Projects\\Video AI editing\\course_pipeline\\README.md": {
+    "mtime": 1783429194.0,
+    "ast_hash": "88e32f47dc400cf8c3fb20fc166fd572",
+    "semantic_hash": "88e32f47dc400cf8c3fb20fc166fd572"
+  },
+  "D:\\Projects\\Video AI editing\\course_pipeline\\requirements.txt": {
+    "mtime": 1783428995.0,
+    "ast_hash": "618af8718d6ad0455372c314829c0526",
+    "semantic_hash": "618af8718d6ad0455372c314829c0526"
+  },
+  "D:\\Projects\\Video AI editing\\course_pipeline\\prompts\\extract-skill-prompt.md": {
+    "mtime": 1783494127.0,
+    "ast_hash": "f66858b14b179c51dffd16c54258525e",
+    "semantic_hash": "f66858b14b179c51dffd16c54258525e"
+  },
+  "D:\\Projects\\Video AI editing\\dubbing-studio\\README.md": {
+    "mtime": 1784021117.0,
+    "ast_hash": "6ede84776beab55bb846bf82eda65c74",
+    "semantic_hash": "6ede84776beab55bb846bf82eda65c74"
+  },
+  "D:\\Projects\\Video AI editing\\dubbing-studio\\requirements.txt": {
+    "mtime": 1784045912.0,
+    "ast_hash": "4a16b06c240e91ae7f1d9c6eeda92642",
+    "semantic_hash": "4a16b06c240e91ae7f1d9c6eeda92642"
+  },
+  "D:\\Projects\\Video AI editing\\dubbing-studio\\models\\tts\\tts_models--multilingual--multi-dataset--xtts_v2\\tos_agreed.txt": {
+    "mtime": 1784015921.0,
+    "ast_hash": "e0d01f9c0cec2a3ba433542fe16ba93e",
+    "semantic_hash": "e0d01f9c0cec2a3ba433542fe16ba93e"
+  },
+  "D:\\Projects\\Video AI editing\\subtitle-studio\\DEV-HANDOFF.md": {
+    "mtime": 1784367666.0,
+    "ast_hash": "44ac868902c423649bda8c23b7efc5b2",
+    "semantic_hash": "44ac868902c423649bda8c23b7efc5b2"
+  },
+  "D:\\Projects\\Video AI editing\\subtitle-studio\\README.md": {
+    "mtime": 1783853534.0,
+    "ast_hash": "b07efdf71859423492538a8fc2f24f49",
+    "semantic_hash": "b07efdf71859423492538a8fc2f24f49"
+  },
+  "D:\\Projects\\Video AI editing\\subtitle-studio\\static\\index.html": {
+    "mtime": 1784160818.0,
+    "ast_hash": "8996b01791fbe1b74be824d23da11a51",
+    "semantic_hash": "8996b01791fbe1b74be824d23da11a51"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\vsr\\README.md": {
+    "mtime": 1784155611.0,
+    "ast_hash": "f04c8aad652e08e243ec22a7a6add69e",
+    "semantic_hash": "f04c8aad652e08e243ec22a7a6add69e"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\vsr\\README_en.md": {
+    "mtime": 1784155611.0,
+    "ast_hash": "5c3c6c75ea3eb23bd3a102c5a08f88e3",
+    "semantic_hash": "5c3c6c75ea3eb23bd3a102c5a08f88e3"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\vsr\\requirements.txt": {
+    "mtime": 1784155621.0,
+    "ast_hash": "8998f48efa36b8c98c7ab4117069d690",
+    "semantic_hash": "8998f48efa36b8c98c7ab4117069d690"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\vsr\\.github\\workflows\\build-docker.yml": {
+    "mtime": 1784155611.0,
+    "ast_hash": "c97cf0a6ad9fb2a63b48dd93c02ea9fc",
+    "semantic_hash": "c97cf0a6ad9fb2a63b48dd93c02ea9fc"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\vsr\\.github\\workflows\\build-windows-cpu.yml": {
+    "mtime": 1784155611.0,
+    "ast_hash": "2938e2a4b75cd88d635f2739166c81d0",
+    "semantic_hash": "2938e2a4b75cd88d635f2739166c81d0"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\vsr\\.github\\workflows\\build-windows-cuda-11.8.yml": {
+    "mtime": 1784155611.0,
+    "ast_hash": "0ed6a0396174864d26382bc7c8bde4fe",
+    "semantic_hash": "0ed6a0396174864d26382bc7c8bde4fe"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\vsr\\.github\\workflows\\build-windows-cuda-12.6.yml": {
+    "mtime": 1784155611.0,
+    "ast_hash": "3d493ed99e9dcf9bb831b63bd1fd71d9",
+    "semantic_hash": "3d493ed99e9dcf9bb831b63bd1fd71d9"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\vsr\\.github\\workflows\\build-windows-cuda-12.8.yml": {
+    "mtime": 1784155611.0,
+    "ast_hash": "7b00e042e539324e877dc47d1a854ada",
+    "semantic_hash": "7b00e042e539324e877dc47d1a854ada"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\vsr\\.github\\workflows\\build-windows-directml.yml": {
+    "mtime": 1784155611.0,
+    "ast_hash": "e3ee5703296d86c26154d198ba992ef1",
+    "semantic_hash": "e3ee5703296d86c26154d198ba992ef1"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\vsr\\backend\\models\\V5\\ch_det\\inference.yml": {
+    "mtime": 1784155615.0,
+    "ast_hash": "e15de471dcdb9c5b363ac615fe91d673",
+    "semantic_hash": "e15de471dcdb9c5b363ac615fe91d673"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\vsr\\backend\\models\\V5\\ch_det_fast\\inference.yml": {
+    "mtime": 1784155615.0,
+    "ast_hash": "626b02a9a6bf258800ce7b9dd275f7cf",
+    "semantic_hash": "626b02a9a6bf258800ce7b9dd275f7cf"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\Wav2Lip\\README.md": {
+    "mtime": 1784024353.0,
+    "ast_hash": "36a56d7b9cf44849513074b12488abc3",
+    "semantic_hash": "36a56d7b9cf44849513074b12488abc3"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\Wav2Lip\\requirements.txt": {
+    "mtime": 1784024353.0,
+    "ast_hash": "07cd0ff83feac4eed3ea974c8e14a4de",
+    "semantic_hash": "07cd0ff83feac4eed3ea974c8e14a4de"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\Wav2Lip\\evaluation\\README.md": {
+    "mtime": 1784024353.0,
+    "ast_hash": "301d1390948de8a019f438fd00043acd",
+    "semantic_hash": "301d1390948de8a019f438fd00043acd"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\Wav2Lip\\evaluation\\test_filelists\\lrs2.txt": {
+    "mtime": 1784024353.0,
+    "ast_hash": "1f47071f4b9668aaf40291e6e73214d1",
+    "semantic_hash": "1f47071f4b9668aaf40291e6e73214d1"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\Wav2Lip\\evaluation\\test_filelists\\lrs3.txt": {
+    "mtime": 1784024353.0,
+    "ast_hash": "c923e6e746c21340cb775e02c374acac",
+    "semantic_hash": "c923e6e746c21340cb775e02c374acac"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\Wav2Lip\\evaluation\\test_filelists\\lrw.txt": {
+    "mtime": 1784024353.0,
+    "ast_hash": "8872acb6df4e7af57daca1d562c92594",
+    "semantic_hash": "8872acb6df4e7af57daca1d562c92594"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\Wav2Lip\\evaluation\\test_filelists\\README.md": {
+    "mtime": 1784024353.0,
+    "ast_hash": "465c86a876a285f64874086e3195b7c8",
+    "semantic_hash": "465c86a876a285f64874086e3195b7c8"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\Wav2Lip\\evaluation\\test_filelists\\ReSyncED\\random_pairs.txt": {
+    "mtime": 1784024353.0,
+    "ast_hash": "6fe9fbc9412af0c4f4a27637b65ba2cc",
+    "semantic_hash": "6fe9fbc9412af0c4f4a27637b65ba2cc"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\Wav2Lip\\evaluation\\test_filelists\\ReSyncED\\tts_pairs.txt": {
+    "mtime": 1784024353.0,
+    "ast_hash": "3fe771af2b144c7cca0dc3eefbc9048b",
+    "semantic_hash": "3fe771af2b144c7cca0dc3eefbc9048b"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\Wav2Lip\\face_detection\\README.md": {
+    "mtime": 1784024353.0,
+    "ast_hash": "ab1301b90e65452d9e80390657188e52",
+    "semantic_hash": "ab1301b90e65452d9e80390657188e52"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\Wav2Lip\\filelists\\README.md": {
+    "mtime": 1784024353.0,
+    "ast_hash": "f04d10a42184d9a3ebaa14be3a24c12f",
+    "semantic_hash": "f04d10a42184d9a3ebaa14be3a24c12f"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\Wav2Lip\\results\\README.md": {
+    "mtime": 1784024353.0,
+    "ast_hash": "9594129c548b81f5a4a414a583d8ce79",
+    "semantic_hash": "9594129c548b81f5a4a414a583d8ce79"
+  },
+  "D:\\Projects\\Video AI editing\\video-studio\\README.md": {
+    "mtime": 1784182112.0,
+    "ast_hash": "85d0f13f0eff0ea01adbc3883f2d38e0",
+    "semantic_hash": "85d0f13f0eff0ea01adbc3883f2d38e0"
+  },
+  "D:\\Projects\\Video AI editing\\video-studio\\app\\static\\brand-studio.html": {
+    "mtime": 1784193516.0,
+    "ast_hash": "9e2532d0e2373afec05bb2a162ac8580",
+    "semantic_hash": "9e2532d0e2373afec05bb2a162ac8580"
+  },
+  "D:\\Projects\\Video AI editing\\video-studio\\app\\static\\captions.html": {
+    "mtime": 1784181082.0,
+    "ast_hash": "5f56233f171619800994a98185de935e",
+    "semantic_hash": "5f56233f171619800994a98185de935e"
+  },
+  "D:\\Projects\\Video AI editing\\video-studio\\app\\static\\clone.html": {
+    "mtime": 1784347632.0,
+    "ast_hash": "d06b89418dec2162987d1c7934cebae3",
+    "semantic_hash": "d06b89418dec2162987d1c7934cebae3"
+  },
+  "D:\\Projects\\Video AI editing\\video-studio\\app\\static\\creator.html": {
+    "mtime": 1784179974.0,
+    "ast_hash": "abdb1920f7f76b1f3dbbf7a6bffa3e51",
+    "semantic_hash": "abdb1920f7f76b1f3dbbf7a6bffa3e51"
+  },
+  "D:\\Projects\\Video AI editing\\video-studio\\app\\static\\dubbing.html": {
+    "mtime": 1784179974.0,
+    "ast_hash": "35962bdc24f12f5433836c3808eee6ad",
+    "semantic_hash": "35962bdc24f12f5433836c3808eee6ad"
+  },
+  "D:\\Projects\\Video AI editing\\video-studio\\app\\static\\dubsync.html": {
+    "mtime": 1784225309.0,
+    "ast_hash": "8224aa5c519c9eb2f755ad1d5e0cc253",
+    "semantic_hash": "8224aa5c519c9eb2f755ad1d5e0cc253"
+  },
+  "D:\\Projects\\Video AI editing\\video-studio\\app\\static\\eraser.html": {
+    "mtime": 1784179974.0,
+    "ast_hash": "16bad8633337f54099b1a81d0b4f020f",
+    "semantic_hash": "16bad8633337f54099b1a81d0b4f020f"
+  },
+  "D:\\Projects\\Video AI editing\\video-studio\\app\\static\\exports.html": {
+    "mtime": 1784181770.0,
+    "ast_hash": "9e855b8f62441e200b38fa51483c33c1",
+    "semantic_hash": "9e855b8f62441e200b38fa51483c33c1"
+  },
+  "D:\\Projects\\Video AI editing\\video-studio\\app\\static\\index.html": {
+    "mtime": 1784179974.0,
+    "ast_hash": "bd211ef004c7c52995a3144e2f1c0c4e",
+    "semantic_hash": "bd211ef004c7c52995a3144e2f1c0c4e"
+  },
+  "D:\\Projects\\Video AI editing\\video-studio\\app\\static\\library.html": {
+    "mtime": 1784179888.0,
+    "ast_hash": "42cabdb28d154252d50e30abbe4d59b5",
+    "semantic_hash": "42cabdb28d154252d50e30abbe4d59b5"
+  },
+  "D:\\Projects\\Video AI editing\\video-studio\\app\\static\\login.html": {
+    "mtime": 1784205958.0,
+    "ast_hash": "05878663097ab3d1cb8f70bd5ee0a8d8",
+    "semantic_hash": "05878663097ab3d1cb8f70bd5ee0a8d8"
+  },
+  "D:\\Projects\\Video AI editing\\video-studio\\app\\static\\new-project.html": {
+    "mtime": 1784179936.0,
+    "ast_hash": "77b2076f905f224b4e822139351bf8d3",
+    "semantic_hash": "77b2076f905f224b4e822139351bf8d3"
+  },
+  "D:\\Projects\\Video AI editing\\video-studio\\app\\static\\qc.html": {
+    "mtime": 1784179974.0,
+    "ast_hash": "95c93f3e5d511d6520bb512fe4ccfbb9",
+    "semantic_hash": "95c93f3e5d511d6520bb512fe4ccfbb9"
+  },
+  "D:\\Projects\\Video AI editing\\video-studio\\app\\static\\remote.html": {
+    "mtime": 1784206007.0,
+    "ast_hash": "cc16c2b122f15db3cdd88980018d7178",
+    "semantic_hash": "cc16c2b122f15db3cdd88980018d7178"
+  },
+  "D:\\Projects\\Video AI editing\\video-studio\\app\\static\\studio.html": {
+    "mtime": 1784179974.0,
+    "ast_hash": "f2f9455c83cf6d4a8bde7add263c241e",
+    "semantic_hash": "f2f9455c83cf6d4a8bde7add263c241e"
+  },
+  "D:\\Projects\\Video AI editing\\video-studio\\app\\static\\subtitles.html": {
+    "mtime": 1784179974.0,
+    "ast_hash": "b58e1f61e3e483af3fb7edccdc440108",
+    "semantic_hash": "b58e1f61e3e483af3fb7edccdc440108"
+  },
+  "D:\\Projects\\Video AI editing\\video-studio\\app\\static\\tools.html": {
+    "mtime": 1784179915.0,
+    "ast_hash": "1c550afdac48e39a353db73058a44d0a",
+    "semantic_hash": "1c550afdac48e39a353db73058a44d0a"
+  },
+  "D:\\Projects\\Video AI editing\\video-studio\\app\\static\\transcript.html": {
+    "mtime": 1784180631.0,
+    "ast_hash": "87a9443e000899f3781c00c9e97da29d",
+    "semantic_hash": "87a9443e000899f3781c00c9e97da29d"
+  },
+  "D:\\Projects\\Video AI editing\\video-studio\\docs\\ARCHITECTURE.md": {
+    "mtime": 1784174182.0,
+    "ast_hash": "45c9211101d8dc5efb31b14909c065c5",
+    "semantic_hash": "45c9211101d8dc5efb31b14909c065c5"
+  },
+  "D:\\Projects\\Video AI editing\\video-studio\\docs\\MIGRATION-PLAN.md": {
+    "mtime": 1784347899.0,
+    "ast_hash": "66b2de3213c0da9e821a06a5c61e5300",
+    "semantic_hash": "66b2de3213c0da9e821a06a5c61e5300"
+  },
+  "D:\\Projects\\Video AI editing\\video-studio\\docs\\PROJECT-INVENTORY.md": {
+    "mtime": 1784174090.0,
+    "ast_hash": "59169d509181cc1173445cf2651d49d7",
+    "semantic_hash": "59169d509181cc1173445cf2651d49d7"
+  },
+  "D:\\Projects\\Video AI editing\\video-studio\\docs\\VIDEO-STUDIO-UNIFIED-BRIEF.md": {
+    "mtime": 1784173993.0,
+    "ast_hash": "413bc49982d1f8d7165ee4255d1fb206",
+    "semantic_hash": "413bc49982d1f8d7165ee4255d1fb206"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\vsr\\design\\paper_intro.pdf": {
+    "mtime": 1784155621.0,
+    "ast_hash": "7b917f39921da9f635f51179ae53e1e3",
+    "semantic_hash": "7b917f39921da9f635f51179ae53e1e3"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\vsr\\design\\paper_sttn.pdf": {
+    "mtime": 1784155621.0,
+    "ast_hash": "5343fc62b72f83a2e45eea0c86a11578",
+    "semantic_hash": "5343fc62b72f83a2e45eea0c86a11578"
+  },
+  "D:\\Projects\\Video AI editing\\autoVSL\\assets\\broll\\ff-broll-3am-ceiling.jpg": {
+    "mtime": 1783518157.0,
+    "ast_hash": "e95aaa27f2d5af246882b695e4b56834",
+    "semantic_hash": "e95aaa27f2d5af246882b695e4b56834"
+  },
+  "D:\\Projects\\Video AI editing\\autoVSL\\assets\\broll\\ff-broll-calm-kitchen.jpg": {
+    "mtime": 1783518157.0,
+    "ast_hash": "34d7f0b8fe8b3e34dbd6b7dd7a7ee417",
+    "semantic_hash": "34d7f0b8fe8b3e34dbd6b7dd7a7ee417"
+  },
+  "D:\\Projects\\Video AI editing\\autoVSL\\assets\\broll\\ff-broll-calm-porch.jpg": {
+    "mtime": 1783518157.0,
+    "ast_hash": "b528412a8d2159124fd1f3ccbfb85431",
+    "semantic_hash": "b528412a8d2159124fd1f3ccbfb85431"
+  },
+  "D:\\Projects\\Video AI editing\\autoVSL\\assets\\broll\\ff-broll-fog-desk.jpg": {
+    "mtime": 1783518157.0,
+    "ast_hash": "cc3ba6fa2e574f69b5feb70452a6aaf6",
+    "semantic_hash": "cc3ba6fa2e574f69b5feb70452a6aaf6"
+  },
+  "D:\\Projects\\Video AI editing\\autoVSL\\assets\\broll\\ff-broll-pill-flat.jpg": {
+    "mtime": 1783518157.0,
+    "ast_hash": "f2a2015dda161de41b7b0c54567afe95",
+    "semantic_hash": "f2a2015dda161de41b7b0c54567afe95"
+  },
+  "D:\\Projects\\Video AI editing\\autoVSL\\assets\\broll\\ff-broll-waitlist.jpg": {
+    "mtime": 1783518157.0,
+    "ast_hash": "6282d6421852970cf4cbb68f8ba21dab",
+    "semantic_hash": "6282d6421852970cf4cbb68f8ba21dab"
+  },
+  "D:\\Projects\\Video AI editing\\autoVSL\\banks\\brand-assets\\wordmark\\liitt-gold-on-dark.png": {
+    "mtime": 1784205281.0,
+    "ast_hash": "eaf0f4a7808ccf21b42d28e6072a4274",
+    "semantic_hash": "eaf0f4a7808ccf21b42d28e6072a4274"
+  },
+  "D:\\Projects\\Video AI editing\\autoVSL\\banks\\brand-assets\\wordmark\\liitt-light.png": {
+    "mtime": 1784191552.0,
+    "ast_hash": "49f4af47a58ba59b025586315010a590",
+    "semantic_hash": "49f4af47a58ba59b025586315010a590"
+  },
+  "D:\\Projects\\Video AI editing\\autoVSL\\banks\\brand-assets\\wordmark\\official-logo.png": {
+    "mtime": 1784205281.0,
+    "ast_hash": "eaf0f4a7808ccf21b42d28e6072a4274",
+    "semantic_hash": "eaf0f4a7808ccf21b42d28e6072a4274"
+  },
+  "D:\\Projects\\Video AI editing\\autoVSL\\vsls\\fairy-flame\\media\\stills\\shot-01.png": {
+    "mtime": 1784041128.0,
+    "ast_hash": "93dd33c5ca79429f90895dff37681d4c",
+    "semantic_hash": "93dd33c5ca79429f90895dff37681d4c"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\vsr\\design\\bg.png": {
+    "mtime": 1784155621.0,
+    "ast_hash": "2576d9b14a02846e83f5629c6ee5de4e",
+    "semantic_hash": "2576d9b14a02846e83f5629c6ee5de4e"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\vsr\\design\\demo.gif": {
+    "mtime": 1784155621.0,
+    "ast_hash": "10ca05a72dc6414aa5642154307de27b",
+    "semantic_hash": "10ca05a72dc6414aa5642154307de27b"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\vsr\\design\\demo.png": {
+    "mtime": 1784155621.0,
+    "ast_hash": "48100fffcda2599c74c728e10b3e83ee",
+    "semantic_hash": "48100fffcda2599c74c728e10b3e83ee"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\vsr\\design\\demo2.gif": {
+    "mtime": 1784155621.0,
+    "ast_hash": "184a059e51068f29baabcf19c0a86477",
+    "semantic_hash": "184a059e51068f29baabcf19c0a86477"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\vsr\\design\\icon_1024.PNG": {
+    "mtime": 1784155621.0,
+    "ast_hash": "1cdcea5b2c627e5bcbf30ef4fb7ee545",
+    "semantic_hash": "1cdcea5b2c627e5bcbf30ef4fb7ee545"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\vsr\\design\\sponsor.png": {
+    "mtime": 1784155621.0,
+    "ast_hash": "19ca3f0543b02dc0ea0a5ef9c8c2a477",
+    "semantic_hash": "19ca3f0543b02dc0ea0a5ef9c8c2a477"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\vsr\\test\\test.png": {
+    "mtime": 1784155621.0,
+    "ast_hash": "026ec2f12ec288dc2092a1a5073050b0",
+    "semantic_hash": "026ec2f12ec288dc2092a1a5073050b0"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\vsr\\ui\\icon\\stop_black.svg": {
+    "mtime": 1784155622.0,
+    "ast_hash": "c706c937862f72dd28a67769f0587e88",
+    "semantic_hash": "c706c937862f72dd28a67769f0587e88"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\vsr\\ui\\icon\\stop_white.svg": {
+    "mtime": 1784155622.0,
+    "ast_hash": "7eab8240b4aafff6356946fbd504c8fa",
+    "semantic_hash": "7eab8240b4aafff6356946fbd504c8fa"
+  },
+  "D:\\Projects\\Video AI editing\\goldy-to-liitt_voice-sample.mp3": {
+    "mtime": 1783154177.0,
+    "ast_hash": "76c72aace93706338f9c0863b59ceb9b",
+    "semantic_hash": "76c72aace93706338f9c0863b59ceb9b"
+  },
+  "D:\\Projects\\Video AI editing\\speaker0_voice-sample.mp3": {
+    "mtime": 1783155768.0,
+    "ast_hash": "019cf4eafe8513bbf47c3a5d125d57e9",
+    "semantic_hash": "019cf4eafe8513bbf47c3a5d125d57e9"
+  },
+  "D:\\Projects\\Video AI editing\\speaker1_voice-sample.mp3": {
+    "mtime": 1783155768.0,
+    "ast_hash": "440dab83406307d5cf198d837396a269",
+    "semantic_hash": "440dab83406307d5cf198d837396a269"
+  },
+  "D:\\Projects\\Video AI editing\\autoVSL\\vsls\\fairy-flame\\media\\audio\\vo-01.mp3": {
+    "mtime": 1783667633.0,
+    "ast_hash": "c9f0e89eed81c25c87900124b89cd1db",
+    "semantic_hash": "c9f0e89eed81c25c87900124b89cd1db"
+  },
+  "D:\\Projects\\Video AI editing\\autoVSL\\vsls\\fairy-flame\\media\\audio\\vo-02.mp3": {
+    "mtime": 1783667634.0,
+    "ast_hash": "b6a3cc28bb4e802973bbf3010483908a",
+    "semantic_hash": "b6a3cc28bb4e802973bbf3010483908a"
+  },
+  "D:\\Projects\\Video AI editing\\autoVSL\\vsls\\fairy-flame\\media\\audio\\vo-03.mp3": {
+    "mtime": 1783667634.0,
+    "ast_hash": "75cddcab4eefd258f6f88df9ad17322d",
+    "semantic_hash": "75cddcab4eefd258f6f88df9ad17322d"
+  },
+  "D:\\Projects\\Video AI editing\\autoVSL\\vsls\\fairy-flame\\media\\audio\\vo-04.mp3": {
+    "mtime": 1783667635.0,
+    "ast_hash": "3867b9332dd149bc448f8e79234007e5",
+    "semantic_hash": "3867b9332dd149bc448f8e79234007e5"
+  },
+  "D:\\Projects\\Video AI editing\\autoVSL\\vsls\\fairy-flame\\media\\audio\\vo-05.mp3": {
+    "mtime": 1783667636.0,
+    "ast_hash": "bce3f7043980d92457036a97191debae",
+    "semantic_hash": "bce3f7043980d92457036a97191debae"
+  },
+  "D:\\Projects\\Video AI editing\\autoVSL\\vsls\\fairy-flame\\media\\audio\\vo-06.mp3": {
+    "mtime": 1783667636.0,
+    "ast_hash": "512f9485a4786d8f56295588cfc1128c",
+    "semantic_hash": "512f9485a4786d8f56295588cfc1128c"
+  },
+  "D:\\Projects\\Video AI editing\\autoVSL\\vsls\\fairy-flame\\media\\audio\\vo-07.mp3": {
+    "mtime": 1783667637.0,
+    "ast_hash": "99ba8c649b3a3b61fede27763d7ad5cd",
+    "semantic_hash": "99ba8c649b3a3b61fede27763d7ad5cd"
+  },
+  "D:\\Projects\\Video AI editing\\autoVSL\\vsls\\fairy-flame\\media\\audio\\vo-08.mp3": {
+    "mtime": 1783667638.0,
+    "ast_hash": "c0936234b70335e505391b3103aeecfe",
+    "semantic_hash": "c0936234b70335e505391b3103aeecfe"
+  },
+  "D:\\Projects\\Video AI editing\\autoVSL\\vsls\\fairy-flame\\media\\video\\shot-01.mp4": {
+    "mtime": 1783600504.0,
+    "ast_hash": "772c354b5dc2b939ae86c197356a3354",
+    "semantic_hash": "772c354b5dc2b939ae86c197356a3354"
+  },
+  "D:\\Projects\\Video AI editing\\autoVSL\\vsls\\fairy-flame\\media\\video\\shot-01.wan-backup.mp4": {
+    "mtime": 1783518157.0,
+    "ast_hash": "e09a2cf81a111f205e2baaf5beef8256",
+    "semantic_hash": "e09a2cf81a111f205e2baaf5beef8256"
+  },
+  "D:\\Projects\\Video AI editing\\autoVSL\\vsls\\fairy-flame\\media\\video\\shot-02.mp4": {
+    "mtime": 1783518157.0,
+    "ast_hash": "ec6178787c9b1c3cb56f5339ab451376",
+    "semantic_hash": "ec6178787c9b1c3cb56f5339ab451376"
+  },
+  "D:\\Projects\\Video AI editing\\autoVSL\\vsls\\fairy-flame\\media\\video\\shot-03.mp4": {
+    "mtime": 1783518157.0,
+    "ast_hash": "4d5977acd90e297462969c5b87d852c7",
+    "semantic_hash": "4d5977acd90e297462969c5b87d852c7"
+  },
+  "D:\\Projects\\Video AI editing\\autoVSL\\vsls\\fairy-flame\\media\\video\\shot-04.mp4": {
+    "mtime": 1783518157.0,
+    "ast_hash": "3077975c3e266abdf0980ab74b4ef927",
+    "semantic_hash": "3077975c3e266abdf0980ab74b4ef927"
+  },
+  "D:\\Projects\\Video AI editing\\autoVSL\\vsls\\fairy-flame\\media\\video\\shot-05.mp4": {
+    "mtime": 1783518157.0,
+    "ast_hash": "4e85b9ebde4ea1979fc261e61c6df755",
+    "semantic_hash": "4e85b9ebde4ea1979fc261e61c6df755"
+  },
+  "D:\\Projects\\Video AI editing\\autoVSL\\vsls\\fairy-flame\\media\\video\\shot-06.mp4": {
+    "mtime": 1783518157.0,
+    "ast_hash": "b7cc07c1afb7b228199afcaa0abf787a",
+    "semantic_hash": "b7cc07c1afb7b228199afcaa0abf787a"
+  },
+  "D:\\Projects\\Video AI editing\\autoVSL\\vsls\\fairy-flame\\media\\video\\shot-07.mp4": {
+    "mtime": 1783518157.0,
+    "ast_hash": "c5ee4089e4d738f2253183ac96379165",
+    "semantic_hash": "c5ee4089e4d738f2253183ac96379165"
+  },
+  "D:\\Projects\\Video AI editing\\autoVSL\\vsls\\fairy-flame\\media\\video\\shot-08.mp4": {
+    "mtime": 1783518157.0,
+    "ast_hash": "f3b01019de63e123427bd3147b319868",
+    "semantic_hash": "f3b01019de63e123427bd3147b319868"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\vsr\\test-clean.mp4": {
+    "mtime": 1784160654.0,
+    "ast_hash": "81a77e16f41307867849104ce51ec1a7",
+    "semantic_hash": "81a77e16f41307867849104ce51ec1a7"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\vsr\\test-clip.mp4": {
+    "mtime": 1784160256.0,
+    "ast_hash": "8f5c5e95319a1b4905da5f721686e925",
+    "semantic_hash": "8f5c5e95319a1b4905da5f721686e925"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\vsr\\test\\test.mp4": {
+    "mtime": 1784155621.0,
+    "ast_hash": "b578a39d2544e1747b83930750a6d78b",
+    "semantic_hash": "b578a39d2544e1747b83930750a6d78b"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\vsr\\test\\test1.mp4": {
+    "mtime": 1784155621.0,
+    "ast_hash": "79b32909316c92724953ba58c826a544",
+    "semantic_hash": "79b32909316c92724953ba58c826a544"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\vsr\\test\\test2.mp4": {
+    "mtime": 1784155621.0,
+    "ast_hash": "0c601ee90dd21d4f921ed8cfbf16db7f",
+    "semantic_hash": "0c601ee90dd21d4f921ed8cfbf16db7f"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\vsr\\test\\test3.mp4": {
+    "mtime": 1784155621.0,
+    "ast_hash": "c342c5c307b30165f780e5e0aa635d82",
+    "semantic_hash": "c342c5c307b30165f780e5e0aa635d82"
+  },
+  "D:\\Projects\\Video AI editing\\tools\\vsr\\test\\test4.mp4": {
+    "mtime": 1784155622.0,
+    "ast_hash": "6c9928467b68e1df9c01f04672e92ecd",
+    "semantic_hash": "6c9928467b68e1df9c01f04672e92ecd"
+  }
+}

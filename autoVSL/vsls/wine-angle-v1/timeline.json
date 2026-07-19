@@ -1,0 +1,78 @@
+{
+  "name": "The Wine \u2014 Change What's in the Glass",
+  "aspect_ratio": "9:16",
+  "fps": 30,
+  "target_duration_seconds": 64,
+  "media_root": "vsls/wine-angle-v1/media",
+  "tracks": {
+    "video": 0,
+    "voiceover": 1,
+    "music": 2
+  },
+  "music": {
+    "file": "music/background.mp3",
+    "volume": 0.15,
+    "fade_in_seconds": 2,
+    "fade_out_seconds": 3,
+    "duck_under_vo": true,
+    "duck_volume": 0.08
+  },
+  "segments": [
+    {
+      "shot": 1,
+      "video": "video/shot-01.mp4",
+      "vo": "audio/vo-01.mp3",
+      "vo_text": "That glass of wine? It isn't calming you down. I know \u2014 I didn't want to hear it either. But stay with me, because this explains a lot.",
+      "notes": "Cold open, no music sting \u2014 dry room tone to sell the 'stay with me' honesty. Hold her eye contact."
+    },
+    {
+      "shot": 2,
+      "video": "video/shot-02.mp4",
+      "vo": "audio/vo-02.mp3",
+      "vo_text": "Here's what's actually happening. Wine quiets your brain for about two hours. Then, while you sleep, it bounces back the other way \u2014 harder.",
+      "notes": "B-roll over VO. The cooling light foreshadows the 'bounce back.' Cut on 'harder.'"
+    },
+    {
+      "shot": 3,
+      "video": "video/shot-03.mp4",
+      "vo": "audio/vo-03.mp3",
+      "vo_text": "That's why you're wide awake at 3am, heart pounding about nothing. The nightly glass that takes the edge off is the thing sharpening it.",
+      "notes": "The emotional low point. Match-cut hand-on-chest to imply heartbeat. Keep it sympathetic, not scary."
+    },
+    {
+      "shot": 4,
+      "video": "video/shot-04.mp4",
+      "vo": "audio/vo-04.mp3",
+      "vo_text": "And I'm not going to tell you to just quit and white-knuckle your evenings. I tried that. It didn't work.",
+      "notes": "Tone shift to relief/permission. The pushed-away empty glass sets up the swap."
+    },
+    {
+      "shot": 5,
+      "video": "video/shot-05.mp4",
+      "vo": "audio/vo-05.mp3",
+      "vo_text": "What worked was keeping my ritual \u2014 and changing what's in it. Another mom put me onto these microdose gummies.",
+      "notes": "Hero product reveal \u2014 flame gummy + swapped glass. Pouch must be unbranded/blank. This is the pivot shot."
+    },
+    {
+      "shot": 6,
+      "video": "video/shot-06.mp4",
+      "vo": "audio/vo-06.mp3",
+      "vo_text": "One gummy in the evening instead of the pour. The calm shows up \u2014 but it doesn't bounce back on you. And there's a lab report in every pouch, so I knew exactly what I was taking.",
+      "notes": "Lab-sheet = the trust beat. Keep the document generic (rows of values, no readable brand). Steady, unhurried."
+    },
+    {
+      "shot": 7,
+      "video": "video/shot-07.mp4",
+      "vo": "audio/vo-07.mp3",
+      "vo_text": "That first week, I slept through the night for the first time in months. By week three, the edge just\u2026 wasn't there to take off anymore.",
+      "notes": "The 'Glow' rendered as behavior \u2014 laughter, ease, presence, NOT a medical claim. Warm-vs-cool contrast with shot 3 does the storytelling."
+    },
+    {
+      "shot": 8,
+      "video": "video/shot-08.mp4",
+      "vo": "audio/vo-08.mp3",
+      "vo_text": "So keep the ritual. The couch. The exhale. The end of the day, marked. Just change what's in the glass. 60-day guarantee \u2014 full refund, no hoops. Link below.",
+      "notes": "Bookend the ritual. End on her settled expression for the CTA. Pouch/sheet visible but blank for lower-third graphics in edit."
+    }
+  ]
+}

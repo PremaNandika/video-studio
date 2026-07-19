@@ -1,0 +1,47 @@
+{
+  "voice": "Daniel",
+  "voice_alternate": "Adam",
+  "voice_notes": "Deep, calm delivery. Paste each line as a separate generation.",
+  "lines": [
+    {
+      "id": 1,
+      "filename": "vo-01.mp3",
+      "text": "This is what would happen if you microdosed for 30 days."
+    },
+    {
+      "id": 2,
+      "filename": "vo-02.mp3",
+      "text": "About 5 days in, you're driving and a song comes on and you actually feel it. Not just hear it. Feel it."
+    },
+    {
+      "id": 3,
+      "filename": "vo-03.mp3",
+      "text": "You're at dinner and you catch yourself laughing — really laughing — for the first time in months. Nobody else notices yet. But you do. Something turned back on."
+    },
+    {
+      "id": 4,
+      "filename": "vo-04.mp3",
+      "text": "By week two, your wife says you seem lighter. Your buddy at work asks what happened. Nothing happened. You just woke up and didn't have to force yourself through the morning."
+    },
+    {
+      "id": 5,
+      "filename": "vo-05.mp3",
+      "text": "The fog you didn't even know was there starts to lift. You're not running on coffee and willpower anymore. You're actually present."
+    },
+    {
+      "id": 6,
+      "filename": "vo-06.mp3",
+      "text": "After 30 days, it hits you. You haven't felt like this in years. The flat, gray, going-through-the-motions version of you — that wasn't you. That was your brain running on fumes."
+    },
+    {
+      "id": 7,
+      "filename": "vo-07.mp3",
+      "text": "Your daughter looks at you and says, Dad, you're being fun again. And that one sentence makes everything worth it."
+    },
+    {
+      "id": 8,
+      "filename": "vo-08.mp3",
+      "text": "Fairy Flame microdose gummies. Precisely dosed. Lab tested. No tripping. Just one gummy on your dose days. Go to fairyflame.com. This might be how you start feeling like yourself again."
+    }
+  ]
+}

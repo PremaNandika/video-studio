@@ -1,0 +1,1 @@
+{"nodes": [{"id": "wav2lip_requirements", "label": "Wav2Lip requirements.txt (librosa, torch 1.1, opencv, numba)", "file_type": "document", "source_file": "tools/Wav2Lip/requirements.txt", "source_location": null, "source_url": null, "captured_at": null, "author": null, "contributor": null}], "edges": [], "hyperedges": []}

@@ -1,0 +1,46 @@
+{
+  "voice": "en-US-ChristopherNeural",
+  "voice_alternate": "en-US-GuyNeural",
+  "lines": [
+    {
+      "id": 1,
+      "filename": "vo-01.mp3",
+      "text": "That glass of wine? It isn't calming you down. I know \u2014 I didn't want to hear it either. But stay with me, because this explains a lot."
+    },
+    {
+      "id": 2,
+      "filename": "vo-02.mp3",
+      "text": "Here's what's actually happening. Wine quiets your brain for about two hours. Then, while you sleep, it bounces back the other way \u2014 harder."
+    },
+    {
+      "id": 3,
+      "filename": "vo-03.mp3",
+      "text": "That's why you're wide awake at 3am, heart pounding about nothing. The nightly glass that takes the edge off is the thing sharpening it."
+    },
+    {
+      "id": 4,
+      "filename": "vo-04.mp3",
+      "text": "And I'm not going to tell you to just quit and white-knuckle your evenings. I tried that. It didn't work."
+    },
+    {
+      "id": 5,
+      "filename": "vo-05.mp3",
+      "text": "What worked was keeping my ritual \u2014 and changing what's in it. Another mom put me onto these microdose gummies."
+    },
+    {
+      "id": 6,
+      "filename": "vo-06.mp3",
+      "text": "One gummy in the evening instead of the pour. The calm shows up \u2014 but it doesn't bounce back on you. And there's a lab report in every pouch, so I knew exactly what I was taking."
+    },
+    {
+      "id": 7,
+      "filename": "vo-07.mp3",
+      "text": "That first week, I slept through the night for the first time in months. By week three, the edge just\u2026 wasn't there to take off anymore."
+    },
+    {
+      "id": 8,
+      "filename": "vo-08.mp3",
+      "text": "So keep the ritual. The couch. The exhale. The end of the day, marked. Just change what's in the glass. 60-day guarantee \u2014 full refund, no hoops. Link below."
+    }
+  ]
+}
