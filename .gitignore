@@ -14,6 +14,28 @@ tools/ProPainter/
 CodeFormer/
 ComfyUI_windows_portable/
 
+# Model weights by extension — never belong in git (download/generate locally)
+*.pth
+*.pt
+*.ckpt
+*.safetensors
+*.onnx
+*.pdiparams
+*.pdmodel
+
+# vsr bundled binaries & assets (third-party tool ships its own ffmpeg/models/media)
+tools/vsr/backend/ffmpeg/
+tools/vsr/backend/models/
+tools/vsr/design/*.gif
+tools/vsr/test/
+tools/vsr/test*.mp4
+tools/vsr/*.mp4
+
+# Test / sample media
+*.mp4
+*.mov
+*.gif
+
 # User data & runtime outputs (not source code)
 autoVSL/uploads/
 autoVSL/output/
@@ -54,3 +76,6 @@ dubbing-studio/outputs/
 subtitle-studio/files/
 subtitle-studio/output/
 video-studio/config.json
+
+# vsr third-party design/marketing assets (not code)
+tools/vsr/design/
