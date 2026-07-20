@@ -9,13 +9,15 @@ cover" — that fired here.
 PATTERN:
   ``register_api_errors(app)`` is called once from
   ``create_app()`` after all blueprints are registered. It
-  installs four ``app_errorhandler`` callbacks:
+  installs five ``app_errorhandler`` callbacks:
 
     - 400: JSON ``{"error": <msg>}`` for /api/*
     - 401: JSON for /api/* (used by the auth gate)
     - 403: JSON for /api/* (used by the auth gate + login route)
     - 404: JSON for /api/* (used by routes that look up a
       resource by id, e.g. /api/job/<id> when missing)
+    - 500: JSON for /api/* (uncaught exception in a route —
+      server.py defaults to HTML, we always return JSON)
 
   Non-/api/* paths fall through to Flask's default HTML error
   pages. Today there are no page routes in the new app (B2 was
@@ -28,6 +30,12 @@ PATTERN:
   exist" case. The "URL itself doesn't match any route" case
   also returns 404 — and the 404 handler fires for that too,
   which is the correct behavior for /api/* paths.
+
+  The 500 handler is the last-resort safety net. The original
+  server.py returns HTML on uncaught exceptions; we return JSON.
+  This is the only way a client can distinguish "your request
+  broke the server" from "the server gave you HTML by accident"
+  (e.g. when the autovsl_root config string isn't a Path).
 
 WHY A FUNCTION, NOT A CLASS:
   Stateless. Rule 17 says class only when state persists across
@@ -82,4 +90,13 @@ def register_api_errors(app: Flask) -> None:
     def _api_404(err):
         if _is_api_path():
             return _json_error(404, getattr(err, "description", "not found"))
+        return err
+
+    @app.errorhandler(500)
+    def _api_500(err):
+        if _is_api_path():
+            # Don't leak the original exception message to clients
+            # (it can contain file paths, SQL, etc). Log it server-side
+            # via Flask's default handler; return a generic message.
+            return _json_error(500, "internal server error")
         return err
