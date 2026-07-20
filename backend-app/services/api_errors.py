@@ -9,13 +9,15 @@ cover" — that fired here.
 PATTERN:
   ``register_api_errors(app)`` is called once from
   ``create_app()`` after all blueprints are registered. It
-  installs five ``app_errorhandler`` callbacks:
+  installs six ``app_errorhandler`` callbacks:
 
     - 400: JSON ``{"error": <msg>}`` for /api/*
     - 401: JSON for /api/* (used by the auth gate)
     - 403: JSON for /api/* (used by the auth gate + login route)
     - 404: JSON for /api/* (used by routes that look up a
       resource by id, e.g. /api/job/<id> when missing)
+    - 409: JSON for /api/* (used by /api/run/dub's "a dub
+      is already running" check; B7 trigger)
     - 500: JSON for /api/* (uncaught exception in a route —
       server.py defaults to HTML, we always return JSON)
 
@@ -39,7 +41,7 @@ PATTERN:
 
 WHY A FUNCTION, NOT A CLASS:
   Stateless. Rule 17 says class only when state persists across
-  calls, or there are variants. Three handlers + one helper
+  calls, or there are variants. Five handlers + one helper
   doesn't qualify. The ``register_*()`` pattern matches
   ``register_auth()`` and the future per-blueprint registers.
 """
@@ -90,6 +92,12 @@ def register_api_errors(app: Flask) -> None:
     def _api_404(err):
         if _is_api_path():
             return _json_error(404, getattr(err, "description", "not found"))
+        return err
+
+    @app.errorhandler(409)
+    def _api_409(err):
+        if _is_api_path():
+            return _json_error(409, getattr(err, "description", "conflict"))
         return err
 
     @app.errorhandler(500)
