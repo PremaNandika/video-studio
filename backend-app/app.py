@@ -1,7 +1,7 @@
-"""Flask app factory — Phase 1 scaffold with SpendLedger wired.
+"""Flask app factory — Phase 1 + Phase 2 scaffold.
 
 Single boot route returns 'Server Online.' as plain text. This is
-the boot checkpoint before any blueprint is registered.
+the boot checkpoint before any route module is registered.
 
 PATTERN (per BACKEND-REFACTOR-RULES.md Rule 17):
   spend is a SpendLedger class (state: fal_spend.json, in-memory
@@ -11,6 +11,18 @@ PATTERN (per BACKEND-REFACTOR-RULES.md Rule 17):
   - Route handlers: current_app.config["SPEND_LEDGER"]
   - Worker threads: receive the ledger via cost_ctx (Rule 8.5)
   - Tests: construct directly with paths to a temp dir
+
+DIRECTORY NAMING:
+  Routes live in backend-app/routes/ (NOT blueprints/) — the app
+  is API-only and "routes" is the clearer term.
+
+REGISTRATION ORDER (matters!):
+  1. register_auth() — installs the before_request PIN gate, which
+     must be in place before any route can be protected.
+  2. register_jobs() — the route module whose routes need the gate.
+  3. register_api_errors() — installs the app-level error handlers;
+     MUST be called AFTER all route modules so it's the outermost
+     layer (handlers don't get shadowed by route-level errors).
 """
 from __future__ import annotations
 
@@ -20,6 +32,9 @@ from pathlib import Path
 
 from flask import Flask
 
+from routes.auth import register_auth
+from routes.jobs import register_jobs
+from services.api_errors import register_api_errors
 from services.spend import SpendLedger
 
 
@@ -44,10 +59,12 @@ def _load_config_json() -> dict:
 def create_app() -> Flask:
     """Build and return the Flask app.
 
-    Order matters:
+    Order matters (see module docstring):
     1. Load config.json → app.config.
     2. Construct SpendLedger and stash on app.config["SPEND_LEDGER"].
-    3. Register blueprints (added one at a time in subsequent commits).
+    3. register_auth() — installs the PIN gate before_request.
+    4. register_jobs() — registers the 4 jobs routes.
+    5. register_api_errors() — JSON error handlers, outermost layer.
     """
     app = Flask(__name__)
 
@@ -71,6 +88,23 @@ def create_app() -> Flask:
         autovsl_root=autovsl_root,
     )
 
+    # Wire the auth subsystem (B1: PIN gate + login/logout/ping).
+    # Register BEFORE the index route so the before_request guard
+    # fires for every request, including ones the gate rejects.
+    register_auth(
+        app,
+        remote_pin=str(cfg.get("remote_pin", "") or ""),
+        secret_key=str(cfg.get("secret_key", "dev-only-change-me")),
+    )
+
+    # Wire the jobs route module (B3: list/get/stop/resume).
+    register_jobs(app)
+
+    # Wire JSON error handlers (extracted from auth.py in B2.5).
+    # Must be called AFTER all route modules are registered so the
+    # handlers are the outermost layer.
+    register_api_errors(app)
+
     @app.get("/")
     def index() -> tuple[str, int]:
         return "Server Online.\n", 200
@@ -78,7 +112,7 @@ def create_app() -> Flask:
     return app
 
 
-# Example blueprint that uses the SpendLedger from app.config:
+# Example route that uses the SpendLedger from app.config:
 #
 #     from flask import Blueprint, current_app, jsonify
 #
