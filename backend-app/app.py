@@ -20,7 +20,8 @@ REGISTRATION ORDER (matters!):
   1. register_auth() — installs the before_request PIN gate, which
      must be in place before any route can be protected.
   2. register_jobs() — the route module whose routes need the gate.
-  3. register_api_errors() — installs the app-level error handlers;
+  3. register_library() — the /api/overview route.
+  4. register_api_errors() — installs the app-level error handlers;
      MUST be called AFTER all route modules so it's the outermost
      layer (handlers don't get shadowed by route-level errors).
 """
@@ -34,6 +35,7 @@ from flask import Flask
 
 from routes.auth import register_auth
 from routes.jobs import register_jobs
+from routes.library import register_library
 from services.api_errors import register_api_errors
 from services.spend import SpendLedger
 
@@ -62,9 +64,12 @@ def create_app() -> Flask:
     Order matters (see module docstring):
     1. Load config.json → app.config.
     2. Construct SpendLedger and stash on app.config["SPEND_LEDGER"].
-    3. register_auth() — installs the PIN gate before_request.
-    4. register_jobs() — registers the 4 jobs routes.
-    5. register_api_errors() — JSON error handlers, outermost layer.
+    3. Compute derived paths (UPLOADS, TRANSCRIPTS, DESKTOP_VSLS,
+       READY_DIR) and stash on app.config.
+    4. register_auth() — installs the PIN gate before_request.
+    5. register_jobs() — registers the 4 jobs routes.
+    6. register_library() — registers the /api/overview route.
+    7. register_api_errors() — JSON error handlers, outermost layer.
     """
     app = Flask(__name__)
 
@@ -74,19 +79,31 @@ def create_app() -> Flask:
 
     # Load config.json into app.config (Rule 8.1: only source of paths).
     cfg = _load_config_json()
-    app.config["AUTOVSL_ROOT"] = cfg["autovsl_root"]
-    app.config["ENGINES_DIR"] = cfg["engines_dir"]
-    app.config["EXPORTS_DIR"] = cfg["exports_dir"]
+    # Every path stored on app.config is a Path, never a raw string.
+    # This lets helpers and route handlers do `cfg["FOO"] / "subdir"`
+    # without per-call conversion. The JSON loader returns strings.
+    app.config["AUTOVSL_ROOT"] = Path(cfg["autovsl_root"])
+    app.config["ENGINES_DIR"] = Path(cfg["engines_dir"])
+    app.config["EXPORTS_DIR"] = Path(cfg["exports_dir"])
     # ... other config.json keys would go here as the app grows.
 
     # Construct the spend service (Rule 17: class for stateful services).
     # All three path constants come from app.config — no hardcoded paths.
-    autovsl_root = Path(app.config["AUTOVSL_ROOT"])
+    autovsl_root = app.config["AUTOVSL_ROOT"]
     ledger_file = autovsl_root / "output" / "ledger.json"
     app.config["SPEND_LEDGER"] = SpendLedger(
         spend_ledger_file=ledger_file,
         autovsl_root=autovsl_root,
     )
+
+    # Derived paths (B4): every constant server.py computes from
+    # CONFIG/ROOT in lines 50-90 + 172-187. Computed once here so
+    # route handlers and helpers read them via current_app.config
+    # (Rule 8.1: paths come from app.config, not module globals).
+    app.config["UPLOADS"] = autovsl_root / "uploads"
+    app.config["TRANSCRIPTS"] = app.config["UPLOADS"] / "transcripts"
+    app.config["DESKTOP_VSLS"] = Path.home() / "Desktop" / "litt VSL's"
+    app.config["READY_DIR"] = Path(cfg["exports_dir"]) / "liitt testimonial Ready"
 
     # Wire the auth subsystem (B1: PIN gate + login/logout/ping).
     # Register BEFORE the index route so the before_request guard
@@ -99,6 +116,9 @@ def create_app() -> Flask:
 
     # Wire the jobs route module (B3: list/get/stop/resume).
     register_jobs(app)
+
+    # Wire the library route module (B4: /api/overview).
+    register_library(app)
 
     # Wire JSON error handlers (extracted from auth.py in B2.5).
     # Must be called AFTER all route modules are registered so the
