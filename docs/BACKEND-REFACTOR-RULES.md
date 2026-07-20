@@ -299,6 +299,60 @@ The agent does not ask for confirmation on:
 
 ---
 
+## 16. Old-code immutability during refactor (the hard "do not touch" rule)
+
+**During a refactor phase, the agent may only write/modify/delete files in the *new* (refactor-side) tree. The *old* (monolith) tree is fully off-limits — no edits, no deletions, no path shims, no scaffolding, no "I-just-need-to-add-3-lines-to-make-the-import-work."**
+
+### Definitions
+
+- **Old / monolith side** — the code that's being replaced. In Phase 1, that is `video-studio/app/` (the existing `server.py`, `jobs.py`, `engines/`, etc.) and anything else the refactor is moving away from.
+- **New / refactor side** — the destination of the move. In Phase 1, that is `backend-app/` (the new `services/`, `routes/`, `engines/`, `app.py`).
+
+### What this means in practice
+
+| Action | Old side | New side |
+|---|---|---|
+| Write a new file | ❌ never (use new side instead) | ✅ allowed |
+| Modify an existing file | ❌ never | ✅ allowed (only files that landed in the new side as part of the refactor) |
+| Delete a file | ❌ never (old files stay until the user removes them) | ✅ allowed (refactor can clean up its own tree) |
+| Move bytes old → new | ✅ via copy on the new side; old file is left in place | ✅ allowed |
+| Add a sys.path shim, env-var injection, or any other "make the import work" scaffolding | ❌ never (this is a modification of the old side by another name) | ✅ if the shim lives in the new side and the old side is untouched |
+| Touch `server.py` to update an import path | ❌ never — even 1 line counts as a modification | n/a |
+
+### Why this rule exists
+
+The refactor's correctness comes from being able to compare old and new at every commit. If the agent edits the old side (even to "just add a sys.path shim"), the diff is no longer "old unchanged, new added" — it's "old changed, new added" — and `git bisect` can no longer tell which side introduced a regression.
+
+The cost of following this rule: a few "the plan said swap the import but I can't without modifying the old side" moments. The cost of not following it: an unrecoverable change to the live monolith that may take the running app down.
+
+### The "old code" itself doesn't move
+
+When the refactor replaces a file (e.g. `video-studio/app/jobs.py` → `backend-app/services/jobs.py`):
+
+1. The new file is **copied** to the new side (byte-identical).
+2. The old file **stays on disk** in its original location.
+3. Imports in the old code **continue to point at the old file** until the user (not the agent) decides to do the swap.
+4. The old file is removed **only by the user**, as part of a commit the user writes.
+
+This is true even if the agent is 100% sure the old file is dead code. "Dead code" is the user's call to clean up, not the agent's.
+
+### What the agent does when blocked by this rule
+
+If the plan calls for an action that requires modifying the old side (e.g. "swap the import in `server.py` to point at the new file"), the agent:
+
+1. **Stops** before touching the old side.
+2. **Reports the blocker** to the user: "the plan says X, but X requires editing `server.py`; the old-side-immutability rule forbids that; here are N ways to resolve it."
+3. **Writes a decision-log entry** at `.hermes/decisions/phase-N-<date>-<topic>.md` describing the blocker.
+4. **Waits** for the user to either (a) re-authorize the old-side edit explicitly, (b) approve a plan amendment, or (c) pick a different path.
+
+The agent does **not** proceed with the old-side edit and "explain later." The agent does **not** split the edit into smaller old-side edits to make each one feel trivial.
+
+### Out of scope
+
+This rule applies to the refactor phase only. Outside an active refactor phase, normal development (new features, bug fixes) follows the project's normal git workflow — old code is modifiable as usual.
+
+---
+
 ## 17. OOP discipline
 
 The goal is **scalable and maintainable**, which means clear, scannable, single-concern code. OOP is a tool, not a default. Use classes only when one of the following is true:
@@ -342,10 +396,11 @@ The principle in one sentence: **class for stateful services and variant workdir
 
 ---
 
-## Summary — the 11 rules that matter most
+## Summary — the 12 rules that matter most
 
-If you only remember eleven things:
+If you only remember twelve things:
 
+0. **Old code is immutable during refactor.** All changes happen on the new side; old files stay intact (no edits, no deletions, no shims). The user decides when to remove the old files.
 1. **Scope is `/video-studio/` and `/backend-app/` only.** Sibling trees are read-only.
 2. **The plan is the source of truth.** Deviations need a written note + confirmation.
 3. **Git is yours.** Agent writes code; you commit.
