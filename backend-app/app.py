@@ -21,7 +21,9 @@ REGISTRATION ORDER (matters!):
      must be in place before any route can be protected.
   2. register_jobs() — the route module whose routes need the gate.
   3. register_library() — the /api/overview route.
-  4. register_api_errors() — installs the app-level error handlers;
+  4. register_exports() — 5 output-manipulation routes (B5).
+  5. register_scripts() — 2 script get/save routes (B6).
+  6. register_api_errors() — installs the app-level error handlers;
      MUST be called AFTER all route modules so it's the outermost
      layer (handlers don't get shadowed by route-level errors).
 """
@@ -34,8 +36,10 @@ from pathlib import Path
 from flask import Flask
 
 from routes.auth import register_auth
+from routes.exports import register_exports
 from routes.jobs import register_jobs
 from routes.library import register_library
+from routes.scripts import register_scripts
 from services.api_errors import register_api_errors
 from services.spend import SpendLedger
 
@@ -65,11 +69,13 @@ def create_app() -> Flask:
     1. Load config.json → app.config.
     2. Construct SpendLedger and stash on app.config["SPEND_LEDGER"].
     3. Compute derived paths (UPLOADS, TRANSCRIPTS, DESKTOP_VSLS,
-       READY_DIR) and stash on app.config.
+       READY_DIR, SUBSTUDIO_OUT) and stash on app.config.
     4. register_auth() — installs the PIN gate before_request.
     5. register_jobs() — registers the 4 jobs routes.
     6. register_library() — registers the /api/overview route.
-    7. register_api_errors() — JSON error handlers, outermost layer.
+    7. register_exports() — registers the 5 output routes.
+    8. register_scripts() — registers the 2 script get/save routes.
+    9. register_api_errors() — JSON error handlers, outermost layer.
     """
     app = Flask(__name__)
 
@@ -96,7 +102,7 @@ def create_app() -> Flask:
         autovsl_root=autovsl_root,
     )
 
-    # Derived paths (B4): every constant server.py computes from
+    # Derived paths (B4 + B5): every constant server.py computes from
     # CONFIG/ROOT in lines 50-90 + 172-187. Computed once here so
     # route handlers and helpers read them via current_app.config
     # (Rule 8.1: paths come from app.config, not module globals).
@@ -104,6 +110,7 @@ def create_app() -> Flask:
     app.config["TRANSCRIPTS"] = app.config["UPLOADS"] / "transcripts"
     app.config["DESKTOP_VSLS"] = Path.home() / "Desktop" / "litt VSL's"
     app.config["READY_DIR"] = Path(cfg["exports_dir"]) / "liitt testimonial Ready"
+    app.config["SUBSTUDIO_OUT"] = autovsl_root / "output" / "subtitle-studio"  # B5
 
     # Wire the auth subsystem (B1: PIN gate + login/logout/ping).
     # Register BEFORE the index route so the before_request guard
@@ -119,6 +126,13 @@ def create_app() -> Flask:
 
     # Wire the library route module (B4: /api/overview).
     register_library(app)
+
+    # Wire the exports route module (B5: 5 routes + DubWorkdir).
+    register_exports(app)
+
+    # Wire the scripts route module (B6: 2 routes, tight — script
+    # get/save only; the rest of the Ads Factory cluster is B13).
+    register_scripts(app)
 
     # Wire JSON error handlers (extracted from auth.py in B2.5).
     # Must be called AFTER all route modules are registered so the
