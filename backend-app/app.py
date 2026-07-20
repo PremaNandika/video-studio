@@ -32,7 +32,8 @@ REGISTRATION ORDER (matters!):
   4. register_exports() — 5 output-manipulation routes (B5).
   5. register_scripts() — 2 script get/save routes (B6).
   6. register_dubbing() — the dub action of /api/run (B7).
-  7. register_api_errors() — installs the app-level error handlers;
+  7. register_captions() — caption + recaption + lines routes (B8).
+  8. register_api_errors() — installs the app-level error handlers;
      MUST be called AFTER all route modules so it's the outermost
      layer (handlers don't get shadowed by route-level errors).
 """
@@ -45,6 +46,7 @@ from pathlib import Path
 from flask import Flask
 
 from routes.auth import register_auth
+from routes.captions import register_captions
 from routes.dubbing import register_dubbing
 from routes.exports import register_exports
 from routes.jobs import register_jobs
@@ -87,7 +89,8 @@ def create_app() -> Flask:
     7. register_exports() — registers the 5 output routes.
     8. register_scripts() — registers the 2 script get/save routes.
     9. register_dubbing() — registers the dub action of /api/run (B7).
-   10. register_api_errors() — JSON error handlers, outermost layer.
+   10. register_captions() — registers 5 caption routes (B8).
+   11. register_api_errors() — JSON error handlers, outermost layer.
     """
     app = Flask(__name__)
 
@@ -185,6 +188,11 @@ def create_app() -> Flask:
     # for the dub action — the legacy POST /api/run on server.py is
     # untouched (Rule 16) and still works for the old app.
     register_dubbing(app)
+
+    # Wire the captions route module (B8: 5 routes —
+    # POST /api/run/caption, POST /api/run/recaption,
+    # POST /api/recaption, GET/POST /api/captions/<stem>).
+    register_captions(app)
 
     # Wire JSON error handlers (extracted from auth.py in B2.5).
     # Must be called AFTER all route modules are registered so the
