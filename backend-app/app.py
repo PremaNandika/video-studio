@@ -12,6 +12,14 @@ PATTERN (per BACKEND-REFACTOR-RULES.md Rule 17):
   - Worker threads: receive the ledger via cost_ctx (Rule 8.5)
   - Tests: construct directly with paths to a temp dir
 
+  job_runner is a JobRunner class (state: cwd, job_env factory).
+  The app factory constructs ONE instance and stashes it on
+  app.config["JOB_RUNNER"].
+
+  - Route handlers: current_app.config["JOB_RUNNER"]
+  - Worker threads: receive the runner via cost_ctx (Rule 8.5)
+  - Tests: construct directly with paths to a temp dir
+
 DIRECTORY NAMING:
   Routes live in backend-app/routes/ (NOT blueprints/) — the app
   is API-only and "routes" is the clearer term.
@@ -23,7 +31,8 @@ REGISTRATION ORDER (matters!):
   3. register_library() — the /api/overview route.
   4. register_exports() — 5 output-manipulation routes (B5).
   5. register_scripts() — 2 script get/save routes (B6).
-  6. register_api_errors() — installs the app-level error handlers;
+  6. register_dubbing() — the dub action of /api/run (B7).
+  7. register_api_errors() — installs the app-level error handlers;
      MUST be called AFTER all route modules so it's the outermost
      layer (handlers don't get shadowed by route-level errors).
 """
@@ -36,11 +45,13 @@ from pathlib import Path
 from flask import Flask
 
 from routes.auth import register_auth
+from routes.dubbing import register_dubbing
 from routes.exports import register_exports
 from routes.jobs import register_jobs
 from routes.library import register_library
 from routes.scripts import register_scripts
 from services.api_errors import register_api_errors
+from services.job_runner import JobRunner
 from services.spend import SpendLedger
 
 
@@ -75,7 +86,8 @@ def create_app() -> Flask:
     6. register_library() — registers the /api/overview route.
     7. register_exports() — registers the 5 output routes.
     8. register_scripts() — registers the 2 script get/save routes.
-    9. register_api_errors() — JSON error handlers, outermost layer.
+    9. register_dubbing() — registers the dub action of /api/run (B7).
+   10. register_api_errors() — JSON error handlers, outermost layer.
     """
     app = Flask(__name__)
 
@@ -100,6 +112,40 @@ def create_app() -> Flask:
     app.config["SPEND_LEDGER"] = SpendLedger(
         spend_ledger_file=ledger_file,
         autovsl_root=autovsl_root,
+    )
+
+    # Construct the job runner (Rule 17: class for stateful services).
+    # The JobRunner holds the cwd (the autoVSL repo root, where
+    # every engine subprocess is launched from) and the job_env
+    # factory. B7a moved this from server.py's module-level
+    # ``run_job`` function. Every route module that spawns an
+    # engine subprocess will receive this instance via
+    # ``current_app.config["JOB_RUNNER"]`` (or as a cost_ctx
+    # arg in worker threads per Rule 8.5).
+    def _default_job_env() -> dict:
+        """Default factory for the subprocess env (B7a).
+
+        Mirrors server.py's module-level ``job_env()``: prepends
+        the Gyan ffmpeg bin dir to PATH and sets PYTHONUTF8=1.
+        Centralized here so every engine subprocess sees the
+        same env (faster-whisper needs ffmpeg on PATH;
+        the UTF-8 flag protects non-ASCII filenames on Windows).
+        """
+        env = dict(os.environ)
+        ffmpeg_bin = (
+            Path(os.environ.get("LOCALAPPDATA", ""))
+            / "Microsoft/WinGet/Packages"
+            / "Gyan.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe"
+            / "ffmpeg-8.1.2-full_build/bin"
+        )
+        if ffmpeg_bin.is_dir():
+            env["PATH"] = str(ffmpeg_bin) + os.pathsep + env.get("PATH", "")
+        env["PYTHONUTF8"] = "1"
+        return env
+
+    app.config["JOB_RUNNER"] = JobRunner(
+        cwd=autovsl_root,
+        job_env_factory=_default_job_env,
     )
 
     # Derived paths (B4 + B5): every constant server.py computes from
@@ -134,6 +180,12 @@ def create_app() -> Flask:
     # get/save only; the rest of the Ads Factory cluster is B13).
     register_scripts(app)
 
+    # Wire the dubbing route module (B7: POST /api/run/dub + dub_worker
+    # thread target). The new app gets its own self-documenting URL
+    # for the dub action — the legacy POST /api/run on server.py is
+    # untouched (Rule 16) and still works for the old app.
+    register_dubbing(app)
+
     # Wire JSON error handlers (extracted from auth.py in B2.5).
     # Must be called AFTER all route modules are registered so the
     # handlers are the outermost layer.
@@ -159,9 +211,15 @@ def create_app() -> Flask:
 #             "fal_spend": round(float(ledger.load().get("total", 0.0)), 2)
 #         })
 #
-# Worker thread (e.g. run_dub_job) receives the ledger via cost_ctx:
+# Worker thread (dub_worker in routes/dubbing.py) receives runner + ledger
+# via explicit args, NOT via app.config (per Rule 8.5 — no cross-tree
+# imports in worker threads, pass dependencies explicitly):
 #
-#     def run_dub_job(job_id, cmd, cost_ctx):
-#         ledger: SpendLedger = cost_ctx["spend_ledger"]
-#         info = ledger.estimate_dub_cost(...)
-#         ledger.record(...)
+#     from routes.dubbing import dub_worker
+#
+#     def start_dub(job_id, cmd, cost_ctx):
+#         threading.Thread(
+#             target=dub_worker,
+#             args=(job_id, cmd, cost_ctx, runner, ledger),
+#             daemon=True,
+#         ).start()
