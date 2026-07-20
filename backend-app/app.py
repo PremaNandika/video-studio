@@ -159,7 +159,14 @@ def create_app() -> Flask:
     app.config["TRANSCRIPTS"] = app.config["UPLOADS"] / "transcripts"
     app.config["DESKTOP_VSLS"] = Path.home() / "Desktop" / "litt VSL's"
     app.config["READY_DIR"] = Path(cfg["exports_dir"]) / "liitt testimonial Ready"
-    app.config["SUBSTUDIO_OUT"] = autovsl_root / "output" / "subtitle-studio"  # B5
+    # SUBSTUDIO_OUT is the recaption engine's output dir. The B5
+    # commit set it to ``autovsl_root / "output" / "subtitle-studio"`` —
+    # that's wrong. server.py L59 sets it to ``RECAPTION_PY.parent /
+    # "output"``, which resolves to ``<subtitle-studio>/output``
+    # (the recaption engine lives in a sibling subtitle-studio repo,
+    # not inside autoVSL). Fixing this matches server.py exactly.
+    # See .hermes/decisions/phase-2-2026-07-20-b8-captions.md.
+    app.config["SUBSTUDIO_OUT"] = autovsl_root / ".." / "subtitle-studio" / "output"
 
     # Wire the auth subsystem (B1: PIN gate + login/logout/ping).
     # Register BEFORE the index route so the before_request guard
