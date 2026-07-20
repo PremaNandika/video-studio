@@ -1,0 +1,10 @@
+# Backend orchestrator (Phase 1 scaffold)
+#
+# Per docs/BACKEND-REFACTOR-RULES.md §8.4, the only new top-level deps
+# allowed during the refactor are:
+#   - pydantic (added late in Phase 1, after all blueprints are extracted)
+#   - pytest  (added in Phase 4)
+# Engines (XTTS, Wav2Lip, ProPainter, faster-whisper) live in their own
+# venvs and are called via subprocess — they are NOT in this requirements file.
+
+Flask==3.0.3
