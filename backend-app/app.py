@@ -37,7 +37,9 @@ REGISTRATION ORDER (matters!):
      on app.config. Must register BEFORE captions() because
      the captions recaption route uses the same engines.
   8. register_captions() — caption + recaption + lines routes (B8).
-  9. register_api_errors() — installs the app-level error handlers;
+  9. register_clone() — 5 /api/clone/* routes (B10). Stashes CLAUDE_EXE.
+     Must register AFTER dubbing (CV_VENV_PY) + subtitles (FFMPEG_BIN).
+  10. register_api_errors() — installs the app-level error handlers;
      MUST be called AFTER all route modules so it's the outermost
      layer (handlers don't get shadowed by route-level errors).
 """
@@ -51,6 +53,7 @@ from flask import Flask
 
 from routes.auth import register_auth
 from routes.captions import register_captions
+from routes.clone import register_clone
 from routes.dubbing import register_dubbing
 from routes.exports import register_exports
 from routes.jobs import register_jobs
@@ -96,7 +99,8 @@ def create_app() -> Flask:
     9. register_dubbing() — registers the dub action of /api/run (B7).
     10. register_subtitles() — registers the 3 clean-* routes (B9).
     11. register_captions() — registers 5 caption routes (B8).
-    12. register_api_errors() — JSON error handlers, outermost layer.
+    12. register_clone() — registers 5 /api/clone/* routes (B10).
+    13. register_api_errors() — JSON error handlers, outermost layer.
     """
     app = Flask(__name__)
 
@@ -213,6 +217,13 @@ def create_app() -> Flask:
     # POST /api/run/caption, POST /api/run/recaption,
     # POST /api/recaption, GET/POST /api/captions/<stem>).
     register_captions(app)
+
+    # Wire the clone route module (B10: 5 /api/clone/* routes —
+    # winners, actors, script, run, list). Stashes CLAUDE_EXE on
+    # app.config. Registered AFTER dubbing (CV_VENV_PY) and subtitles
+    # (FFMPEG_BIN) so both keys are present. api_clone_run spawns the
+    # dub via dub_worker (routes.dubbing) — finishes the B7c cutover.
+    register_clone(app)
 
     # Wire JSON error handlers (extracted from auth.py in B2.5).
     # Must be called AFTER all route modules are registered so the
