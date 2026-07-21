@@ -48,6 +48,8 @@ the new class and deletes the old path constructions. See
 """
 from __future__ import annotations
 
+import json
+import time
 from pathlib import Path
 
 
@@ -188,3 +190,75 @@ class DubWorkdir:
             ) from e
         # POSIX form so the URL is consistent on Windows and POSIX.
         return rel.as_posix()
+
+    # --- behavior: promote a take to final.mp4 (B11) ----------------------
+    # First behavior method on this class (S5 shipped paths-only). Every
+    # path it touches — final.mp4, final.<stamp>.mp4, versions.json,
+    # dub-config.json — is inside this workdir, so per Rule 8.3 this
+    # operation belongs here, not in the route. The external deliverable
+    # copy (READY_DIR / "<stem>-ready.mp4") stays in the route because
+    # READY_DIR is outside the workdir.
+
+    def _load(self, path: Path) -> dict:
+        """Read one of this workdir's JSON side-cars (versions.json /
+        dub-config.json), returning {} on missing/bad — mirrors the
+        legacy read_json() behavior the promote logic relied on. Kept
+        local (not imported from services.helpers) so the workdir
+        service stays self-contained (Rule 5.1 — services don't depend
+        on each other; spend.py keeps its own reader for the same reason).
+        """
+        try:
+            with open(path, encoding="utf-8") as f:
+                return json.load(f) or {}
+        except Exception:
+            return {}
+
+    def promote(self, fname: str) -> dict:
+        """Crown an archived take (``fname``) as the current ``final.mp4``.
+
+        Byte-faithful relocation of the workdir-internal half of
+        server.py's ``api_dub_promote`` (L1587-1605). The caller
+        (routes/dubsync.py) is responsible for:
+          - validating ``fname`` (exists, is .mp4, not a new-vo /
+            final-captioned derivative) and aborting 404 — HTTP concern.
+          - the external READY_DIR deliverable copy — outside the workdir.
+
+        Behavior (unchanged from the monolith):
+          1. If ``fname`` is already ``final.mp4`` → no-op, return early.
+          2. If a current ``final.mp4`` exists, demote it to
+             ``final.<stamp>.mp4`` and record it in versions.json with
+             the tts/tier from dub-config.json.
+          3. Rename the chosen take → ``final.mp4``.
+          4. Pop the promoted take's metadata from versions.json; if it
+             carried tts/tier, rewrite dub-config.json to it.
+          5. Persist versions.json.
+
+        Args:
+            fname: the take's filename (e.g. ``repair-3.mp4`` or
+                ``final.20260721-101500.mp4``), already validated.
+
+        Returns:
+            ``{"promoted": <fname>, "mtime": <final.mp4 mtime>}`` — the
+            same dict shape the legacy route returned to the client.
+        """
+        final = self.final
+        src = self.dir / fname
+        if fname == self.FINAL:
+            return {"promoted": fname, "mtime": final.stat().st_mtime}
+
+        versions = self._load(self.versions)
+        cfg = self._load(self.dub_config)
+        stamp = time.strftime("%Y%m%d-%H%M%S")
+        if final.is_file():  # demote the current final into the version history
+            arch = self.dir / f"final.{stamp}.mp4"
+            final.rename(arch)
+            versions[arch.name] = {"tts": cfg.get("tts"), "tier": cfg.get("tier"),
+                                   "created": arch.stat().st_mtime}
+        src.rename(final)
+        meta = versions.pop(fname, {})
+        if meta.get("tts") or meta.get("tier"):
+            self.dub_config.write_text(
+                json.dumps({"tts": meta.get("tts", "hd"), "tier": meta.get("tier", "pro")}),
+                encoding="utf-8")
+        self.versions.write_text(json.dumps(versions, indent=1), encoding="utf-8")
+        return {"promoted": fname, "mtime": final.stat().st_mtime}
