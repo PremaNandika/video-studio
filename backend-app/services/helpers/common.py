@@ -6,24 +6,29 @@ layout as ``library.py`` (subsystem-specific helpers), but
 this file is for path validation, soft-delete, and other
 utilities that don't belong to any one tab.
 
-WHAT'S HERE (B5 push, 2026-07-20):
+WHAT'S HERE:
   - safe_output_path  — validate + resolve a repo-relative
                         .mp4 path under output/ (used by
                         api_output_to_desktop, api_output_delete,
                         api_output_rename — all B5)
   - soft_delete       — move a file/folder to .trash with
-                        restore metadata (used by api_output_delete;
-                        will be used by dubsync + clone later)
+                        restore metadata (used by api_output_delete)
+  - read_json         — safe JSON loader (None on missing/bad).
+                        Routes-facing home for the loader that
+                        captions/clone/dubsync all need. (B11 extract:
+                        was a local ``_read_json`` copy in captions.py
+                        and clone.py.) services/spend.py keeps its own
+                        copy — services stay self-contained (Rule 5.1),
+                        so this is the helper for the ROUTE layer.
+  - ffprobe           — resolve the ffprobe exe from an ffmpeg bin dir
+                        (Gyan path if present, else the bare name).
+                        Routes-facing home for the resolver that was
+                        inline in subtitles.py + a local ``_ffprobe``
+                        in clone.py. (B11 extract.) Mirrors server.py's
+                        ``ff_tool`` / ``ffmpeg_exe``.
 
-WHAT IS NOT HERE (deferred to other blueprints / helpers):
-  - generic read_json — already in services/spend.py (inlined
-    during S3; can move here when a 3rd service needs it)
-  - generic file-glob helpers — none yet; will add when a
-    2nd subsystem needs them
-
-server.py is unchanged. The 2 helpers stay at their original
-lines until the entire output-manipulation subsystem is
-retired. Rule 16.
+server.py is unchanged. The helpers stay at their original
+lines until the relevant subsystems are retired. Rule 16.
 """
 from __future__ import annotations
 
@@ -34,7 +39,34 @@ from pathlib import Path
 
 from flask import abort
 
-from services.spend import read_json  # safe JSON loader, no exception on bad/missing
+
+def read_json(path: Path):
+    """Safe JSON loader — returns None on any error (missing/bad).
+
+    The routes-facing copy. Mirrors server.py's read_json() at L1613
+    (the behavior every legacy caller relied on). ``services/spend.py``
+    keeps its own identical loader so the spend service has no
+    dependency on the helpers layer (Rule 5.1).
+    """
+    try:
+        with open(path, encoding="utf-8") as f:
+            return json.load(f)
+    except Exception:
+        return None
+
+
+def ffprobe(ffmpeg_bin: Path) -> str:
+    """Resolve the ffprobe executable from an ffmpeg bin directory.
+
+    Returns ``<ffmpeg_bin>/ffprobe.exe`` if that file exists, else the
+    bare ``"ffprobe"`` name (so the call still works when ffprobe is
+    already on PATH). Mirrors server.py's ``ff_tool("ffprobe")`` /
+    ``ffmpeg_exe("ffprobe")`` (L1811 / L770). ``ffmpeg_bin`` is a Path
+    the caller reads from ``app.config["FFMPEG_BIN"]`` in request
+    context (or receives in a worker's paths bundle).
+    """
+    exe = Path(ffmpeg_bin) / "ffprobe.exe"
+    return str(exe) if exe.is_file() else "ffprobe"
 
 
 def safe_output_path(rel: str) -> Path:

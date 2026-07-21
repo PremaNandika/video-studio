@@ -93,6 +93,7 @@ from pathlib import Path
 
 from flask import Blueprint, abort, current_app, jsonify, request
 
+from services.helpers.common import read_json
 from services.jobs import jobs, jobs_lock
 from services.workdir import DubWorkdir
 
@@ -110,25 +111,6 @@ _RECAPTION_MODES = {
     "cover":        None,  # special: see api_recaption_action (needs --cover-style)
     "no-captions":  ["--no-captions"],
 }
-
-
-# ---------------------------------------------------------------- module helpers
-
-def _read_json(path: Path):
-    """Safe JSON loader — returns None on any error (missing/bad).
-
-    Mirrors server.py's read_json() at L1613. We don't import
-    the spend-service copy (Rule 5.1: services don't depend
-    on each other) and don't promote this to a shared
-    services/helpers/common.py helper until a 3rd call site
-    needs it (per the "wait for 3rd use" rule in common.py's
-    docstring).
-    """
-    try:
-        with open(path, encoding="utf-8") as f:
-            return json.load(f)
-    except Exception:
-        return None
 
 
 # ---------------------------------------------------------------- HTTP routes
@@ -303,7 +285,7 @@ def api_captions_get(stem):
     substudio_out = current_app.config["SUBSTUDIO_OUT"]
     work = substudio_out / stem
     cap = work / "captioned.mp4"
-    return jsonify({"lines": _read_json(work / "lines.json") or [],
+    return jsonify({"lines": read_json(work / "lines.json") or [],
                     "captioned": cap.is_file(),
                     "captioned_mtime": cap.stat().st_mtime if cap.is_file() else None})
 

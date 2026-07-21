@@ -86,6 +86,7 @@ from pathlib import Path
 
 from flask import Blueprint, abort, current_app, jsonify, request, send_file
 
+from services.helpers.common import ffprobe
 from services.jobs import jobs, jobs_lock
 from services.workdir import DubWorkdir
 
@@ -291,12 +292,11 @@ def clean_subs_worker(job_id: str, fname: str, box, mode: str, runner, paths) ->
         autovsl = paths["autovsl"]
         src = uploads / fname
         # ffprobe the source for the video dims (needed to clamp the box).
-        # Mirrors the legacy ffmpeg_exe("ffprobe") behavior: use the Gyan
-        # path if present, else fall back to the bare "ffprobe" name.
-        ffprobe_exe = paths["ffmpeg_bin"] / "ffprobe.exe"
-        ffprobe = (str(ffprobe_exe) if ffprobe_exe.is_file() else "ffprobe")
+        # ffprobe() resolves the Gyan path if present, else the bare name
+        # (mirrors the legacy ffmpeg_exe("ffprobe") behavior).
+        ffprobe_cmd = ffprobe(paths["ffmpeg_bin"])
         probe = subprocess.run(
-            [ffprobe, "-v", "error", "-select_streams", "v:0",
+            [ffprobe_cmd, "-v", "error", "-select_streams", "v:0",
              "-show_entries", "stream=width,height", "-of", "csv=p=0", str(src)],
             capture_output=True, text=True, check=True)
         vw, vh = (int(n) for n in probe.stdout.strip().split(",")[:2])

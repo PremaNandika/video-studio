@@ -25,11 +25,13 @@ Plus 4 helpers moved / adapted from server.py:
   - ``_clone_actor_video(wd, actor, uploads)`` (L2990-3003) — resolve
     the actor choice ("same" → the winner's source.txt footage) to a
     video path.
-  - ``_probe_seconds(path, ffprobe, env)`` (L2929-2936) — ffprobe the
-    duration in seconds (0.0 on any error).
-  - ``_ffprobe(ffmpeg_bin)`` — resolve the ffprobe exe (mirrors
-    server.py's ``ff_tool``/``ffmpeg_exe``: Gyan path if present, else
-    the bare "ffprobe" name).
+  - ``_probe_seconds(path, ffprobe_cmd, env)`` (L2929-2936) — ffprobe
+    the duration in seconds (0.0 on any error).
+
+  The JSON loader and the ffprobe-exe resolver that were local to this
+  module are now shared helpers: ``read_json`` + ``ffprobe`` from
+  ``services.helpers.common`` (extracted in B11's commit 2, their 3rd
+  consumer).
 
 URL CHOICE — SAME URLS AS LEGACY
   All five routes keep their original URLs. There is no ``/api/run``
@@ -98,6 +100,7 @@ from pathlib import Path
 from flask import Blueprint, abort, current_app, jsonify, request
 
 from routes.dubbing import dub_worker
+from services.helpers.common import ffprobe, read_json
 from services.jobs import jobs, jobs_lock
 from services.llm import resolve_claude_exe
 from services.prompts import CLONE_PROMPT
@@ -106,43 +109,18 @@ from services.workdir import DubWorkdir
 
 # ---------------------------------------------------------------- module helpers
 
-def _read_json(path: Path):
-    """Safe JSON loader — returns None on any error (missing/bad).
-
-    Mirrors server.py's read_json() at L1613 (same behavior the
-    legacy clone routes relied on). Each route module keeps its own
-    copy until a shared services/helpers/common.py loader earns its
-    third consumer (the established "wait for 3rd use" rule).
-    """
-    try:
-        with open(path, encoding="utf-8") as f:
-            return json.load(f)
-    except Exception:
-        return None
-
-
-def _ffprobe(ffmpeg_bin: Path) -> str:
-    """Resolve the ffprobe executable.
-
-    Mirrors server.py's ``ff_tool("ffprobe")`` / ``ffmpeg_exe`` (L1811
-    / L770): the Gyan WinGet path if present, else the bare name so the
-    call still works when ffprobe is already on PATH.
-    """
-    exe = ffmpeg_bin / "ffprobe.exe"
-    return str(exe) if exe.is_file() else "ffprobe"
-
-
-def _probe_seconds(path: Path, ffprobe: str, env: dict) -> float:
+def _probe_seconds(path: Path, ffprobe_cmd: str, env: dict) -> float:
     """Duration of ``path`` in seconds via ffprobe (0.0 on any error).
 
     Byte-faithful move of server.py L2929-2936. The legacy code used
     ``ff_tool("ffprobe")`` + ``env=job_env()``; here the resolved
-    ffprobe string and the env dict are passed in by the route (which
-    reads them from app.config in the request context).
+    ffprobe command (from ``common.ffprobe``) and the env dict are
+    passed in by the route (which reads them from app.config in the
+    request context).
     """
     try:
         r = subprocess.run(
-            [ffprobe, "-v", "error", "-show_entries", "format=duration",
+            [ffprobe_cmd, "-v", "error", "-show_entries", "format=duration",
              "-of", "csv=p=0", str(path)],
             capture_output=True, text=True, env=env, timeout=30)
         return float((r.stdout or "0").strip() or 0)
@@ -215,7 +193,7 @@ def api_clone_winners():
             if not script:
                 continue
             source = wd.source.read_text(encoding="utf-8").strip() if wd.source.is_file() else ""
-            info = _read_json(wd.clone_info) or {}
+            info = read_json(wd.clone_info) or {}
             out.append({
                 "stem": d.name, "mtime": final.stat().st_mtime,
                 "script": script, "words": len(script.split()),
@@ -275,10 +253,10 @@ def api_clone_script():
 
     uploads = current_app.config["UPLOADS"]
     video = _clone_actor_video(wd, body.get("actor") or "same", uploads)
-    ffprobe = _ffprobe(current_app.config["FFMPEG_BIN"])
+    ffprobe_cmd = ffprobe(current_app.config["FFMPEG_BIN"])
     env_factory = current_app.config["JOB_RUNNER"]._job_env_factory
-    secs = _probe_seconds(video, ffprobe, env_factory())
-    win_secs = _probe_seconds(wd.final, ffprobe, env_factory())
+    secs = _probe_seconds(video, ffprobe_cmd, env_factory())
+    win_secs = _probe_seconds(wd.final, ffprobe_cmd, env_factory())
     rate = (len(text.split()) / win_secs) if win_secs > 2 else 2.5
     rate = rate if 1.0 <= rate <= 5.0 else 2.5
     if secs > 2:
@@ -409,7 +387,7 @@ def api_clone_list():
             if not d.is_dir():
                 continue
             wd = DubWorkdir(autovsl, d.name)
-            info = _read_json(wd.clone_info)
+            info = read_json(wd.clone_info)
             if not info:
                 continue
             final = wd.final
