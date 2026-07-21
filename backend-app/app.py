@@ -39,7 +39,9 @@ REGISTRATION ORDER (matters!):
   8. register_captions() — caption + recaption + lines routes (B8).
   9. register_clone() — 5 /api/clone/* routes (B10). Stashes CLAUDE_EXE.
      Must register AFTER dubbing (CV_VENV_PY) + subtitles (FFMPEG_BIN).
-  10. register_api_errors() — installs the app-level error handlers;
+  10. register_dubsync() — repair suite + dub-promote + /api/dubs (B11).
+     Stashes REPAIR_ENGINES_DIR + DUB_VENV_PY + LIPSYNC_PY. AFTER dubbing.
+  11. register_api_errors() — installs the app-level error handlers;
      MUST be called AFTER all route modules so it's the outermost
      layer (handlers don't get shadowed by route-level errors).
 """
@@ -55,6 +57,7 @@ from routes.auth import register_auth
 from routes.captions import register_captions
 from routes.clone import register_clone
 from routes.dubbing import register_dubbing
+from routes.dubsync import register_dubsync
 from routes.exports import register_exports
 from routes.jobs import register_jobs
 from routes.library import register_library
@@ -100,7 +103,8 @@ def create_app() -> Flask:
     10. register_subtitles() — registers the 3 clean-* routes (B9).
     11. register_captions() — registers 5 caption routes (B8).
     12. register_clone() — registers 5 /api/clone/* routes (B10).
-    13. register_api_errors() — JSON error handlers, outermost layer.
+    13. register_dubsync() — repair suite + dub-promote + /api/dubs (B11).
+    14. register_api_errors() — JSON error handlers, outermost layer.
     """
     app = Flask(__name__)
 
@@ -224,6 +228,12 @@ def create_app() -> Flask:
     # (FFMPEG_BIN) so both keys are present. api_clone_run spawns the
     # dub via dub_worker (routes.dubbing) — finishes the B7c cutover.
     register_clone(app)
+
+    # Wire the dubsync route module (B11: repair suite + dub-promote +
+    # /api/dubs). Stashes REPAIR_ENGINES_DIR (backend-app/engines) +
+    # DUB_VENV_PY + LIPSYNC_PY. Registered AFTER dubbing (CV_VENV_PY).
+    # The repair job spawns runner.run; dub-promote uses DubWorkdir.promote.
+    register_dubsync(app)
 
     # Wire JSON error handlers (extracted from auth.py in B2.5).
     # Must be called AFTER all route modules are registered so the
