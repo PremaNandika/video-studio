@@ -43,7 +43,9 @@ REGISTRATION ORDER (matters!):
      Stashes REPAIR_ENGINES_DIR + DUB_VENV_PY + LIPSYNC_PY. AFTER dubbing.
   11. register_chat() — /api/chat + copywrite + agent-note + aifix (B12).
      First CLAUDE_RUNNER consumer; no config keys of its own.
-  12. register_api_errors() — installs the app-level error handlers;
+  12. register_qc() — /api/qc/* QA-review routes (B14). Helpers in
+     services/helpers/qc.py; no config keys of its own.
+  13. register_api_errors() — installs the app-level error handlers;
      MUST be called AFTER all route modules so it's the outermost
      layer (handlers don't get shadowed by route-level errors).
 """
@@ -61,6 +63,7 @@ from routes.chat import register_chat
 from routes.clone import register_clone
 from routes.dubbing import register_dubbing
 from routes.dubsync import register_dubsync
+from routes.qc import register_qc
 from routes.exports import register_exports
 from routes.jobs import register_jobs
 from routes.library import register_library
@@ -110,7 +113,8 @@ def create_app() -> Flask:
     12. register_clone() — registers 5 /api/clone/* routes (B10).
     13. register_dubsync() — repair suite + dub-promote + /api/dubs (B11).
     14. register_chat() — /api/chat + copywrite + agent-note + aifix (B12).
-    15. register_api_errors() — JSON error handlers, outermost layer.
+    15. register_qc() — /api/qc/* QA-review routes (B14).
+    16. register_api_errors() — JSON error handlers, outermost layer.
     """
     app = Flask(__name__)
 
@@ -261,6 +265,12 @@ def create_app() -> Flask:
     # /api/copywrite, /api/agent-note, /api/aifix/<stem>). First consumer of
     # the CLAUDE_RUNNER constructed above. No config keys of its own.
     register_chat(app)
+
+    # Wire the QC route module (B14: /api/qc/{videos,models,probe,frames,
+    # review,ai-review,remove-subs}). Helpers live in services/helpers/qc.py;
+    # ai-review + remove-subs use CLAUDE_RUNNER / JOB_RUNNER + the erase path
+    # (CV_VENV_PY, ERASE_PY) — all set by earlier register_* / app.py.
+    register_qc(app)
 
     # Wire JSON error handlers (extracted from auth.py in B2.5).
     # Must be called AFTER all route modules are registered so the

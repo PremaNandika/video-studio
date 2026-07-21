@@ -69,6 +69,18 @@ def ffprobe(ffmpeg_bin: Path) -> str:
     return str(exe) if exe.is_file() else "ffprobe"
 
 
+def ffmpeg(ffmpeg_bin: Path) -> str:
+    """Resolve the ffmpeg executable from an ffmpeg bin directory.
+
+    Sibling of ``ffprobe`` above: ``<ffmpeg_bin>/ffmpeg.exe`` if present,
+    else the bare ``"ffmpeg"`` name. Mirrors server.py's
+    ``ff_tool("ffmpeg")`` / ``ffmpeg_exe("ffmpeg")``. Added in B14 (QC
+    extracts frames with ffmpeg); shares the resolver with ffprobe.
+    """
+    exe = Path(ffmpeg_bin) / "ffmpeg.exe"
+    return str(exe) if exe.is_file() else "ffmpeg"
+
+
 def safe_output_path(rel: str) -> Path:
     """Resolve a repo-relative path, requiring an .mp4 inside output/.
 
