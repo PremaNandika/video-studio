@@ -32,8 +32,12 @@ REGISTRATION ORDER (matters!):
   4. register_exports() — 5 output-manipulation routes (B5).
   5. register_scripts() — 2 script get/save routes (B6).
   6. register_dubbing() — the dub action of /api/run (B7).
-  7. register_captions() — caption + recaption + lines routes (B8).
-  8. register_api_errors() — installs the app-level error handlers;
+  7. register_subtitles() — the clean-preview / clean-subs /
+     clean-restore routes (B9). Stashes FFMPEG_BIN + ERASE_PY
+     on app.config. Must register BEFORE captions() because
+     the captions recaption route uses the same engines.
+  8. register_captions() — caption + recaption + lines routes (B8).
+  9. register_api_errors() — installs the app-level error handlers;
      MUST be called AFTER all route modules so it's the outermost
      layer (handlers don't get shadowed by route-level errors).
 """
@@ -52,6 +56,7 @@ from routes.exports import register_exports
 from routes.jobs import register_jobs
 from routes.library import register_library
 from routes.scripts import register_scripts
+from routes.subtitles import register_subtitles
 from services.api_errors import register_api_errors
 from services.job_runner import JobRunner
 from services.spend import SpendLedger
@@ -89,8 +94,9 @@ def create_app() -> Flask:
     7. register_exports() — registers the 5 output routes.
     8. register_scripts() — registers the 2 script get/save routes.
     9. register_dubbing() — registers the dub action of /api/run (B7).
-   10. register_captions() — registers 5 caption routes (B8).
-   11. register_api_errors() — JSON error handlers, outermost layer.
+    10. register_subtitles() — registers the 3 clean-* routes (B9).
+    11. register_captions() — registers 5 caption routes (B8).
+    12. register_api_errors() — JSON error handlers, outermost layer.
     """
     app = Flask(__name__)
 
@@ -195,6 +201,13 @@ def create_app() -> Flask:
     # for the dub action — the legacy POST /api/run on server.py is
     # untouched (Rule 16) and still works for the old app.
     register_dubbing(app)
+
+    # Wire the subtitles route module (B9: 3 clean-* routes +
+    # clean_subs_worker thread target). Stashes FFMPEG_BIN + ERASE_PY
+    # on app.config so the worker can call ffprobe and the engine
+    # scripts can find the ProPainter-backed erase_subs.py. The
+    # legacy POST /api/clean-* on server.py is untouched (Rule 16).
+    register_subtitles(app)
 
     # Wire the captions route module (B8: 5 routes —
     # POST /api/run/caption, POST /api/run/recaption,
