@@ -41,7 +41,9 @@ REGISTRATION ORDER (matters!):
      Must register AFTER dubbing (CV_VENV_PY) + subtitles (FFMPEG_BIN).
   10. register_dubsync() — repair suite + dub-promote + /api/dubs (B11).
      Stashes REPAIR_ENGINES_DIR + DUB_VENV_PY + LIPSYNC_PY. AFTER dubbing.
-  11. register_api_errors() — installs the app-level error handlers;
+  11. register_chat() — /api/chat + copywrite + agent-note + aifix (B12).
+     First CLAUDE_RUNNER consumer; no config keys of its own.
+  12. register_api_errors() — installs the app-level error handlers;
      MUST be called AFTER all route modules so it's the outermost
      layer (handlers don't get shadowed by route-level errors).
 """
@@ -55,6 +57,7 @@ from flask import Flask
 
 from routes.auth import register_auth
 from routes.captions import register_captions
+from routes.chat import register_chat
 from routes.clone import register_clone
 from routes.dubbing import register_dubbing
 from routes.dubsync import register_dubsync
@@ -65,6 +68,8 @@ from routes.scripts import register_scripts
 from routes.subtitles import register_subtitles
 from services.api_errors import register_api_errors
 from services.job_runner import JobRunner
+from services.llm import ClaudeRunner, resolve_claude_exe
+from services.prompts import CHAT_SYSTEM, RESEARCH_SYSTEM
 from services.spend import SpendLedger
 
 
@@ -104,7 +109,8 @@ def create_app() -> Flask:
     11. register_captions() — registers 5 caption routes (B8).
     12. register_clone() — registers 5 /api/clone/* routes (B10).
     13. register_dubsync() — repair suite + dub-promote + /api/dubs (B11).
-    14. register_api_errors() — JSON error handlers, outermost layer.
+    14. register_chat() — /api/chat + copywrite + agent-note + aifix (B12).
+    15. register_api_errors() — JSON error handlers, outermost layer.
     """
     app = Flask(__name__)
 
@@ -162,6 +168,22 @@ def create_app() -> Flask:
 
     app.config["JOB_RUNNER"] = JobRunner(
         cwd=autovsl_root,
+        job_env_factory=_default_job_env,
+    )
+
+    # Construct the LLM runner (Rule 17: class for stateful services — it
+    # owns the in-memory chat turns + the shared CLI flags / CLAUDECODE-pop).
+    # B12 (routes/chat.py) is its FIRST consumer. claude_exe is resolved
+    # here independently via the stateless resolve_claude_exe(); this does
+    # NOT read or depend on register_clone's CLAUDE_EXE stash (idempotent
+    # resolution, no ordering coupling, register_clone left untouched).
+    # chat_system / research_system come from services.prompts (moved there
+    # in this commit); job_env_factory is the same factory the JobRunner uses.
+    app.config["CLAUDE_RUNNER"] = ClaudeRunner(
+        claude_exe=resolve_claude_exe(),
+        autovsl_root=autovsl_root,
+        chat_system=CHAT_SYSTEM,
+        research_system=RESEARCH_SYSTEM,
         job_env_factory=_default_job_env,
     )
 
@@ -234,6 +256,11 @@ def create_app() -> Flask:
     # DUB_VENV_PY + LIPSYNC_PY. Registered AFTER dubbing (CV_VENV_PY).
     # The repair job spawns runner.run; dub-promote uses DubWorkdir.promote.
     register_dubsync(app)
+
+    # Wire the chat/LLM route module (B12: /api/chat, /api/chat/<turn_id>,
+    # /api/copywrite, /api/agent-note, /api/aifix/<stem>). First consumer of
+    # the CLAUDE_RUNNER constructed above. No config keys of its own.
+    register_chat(app)
 
     # Wire JSON error handlers (extracted from auth.py in B2.5).
     # Must be called AFTER all route modules are registered so the
