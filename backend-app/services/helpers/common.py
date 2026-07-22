@@ -30,6 +30,7 @@ WHAT'S HERE:
 server.py is unchanged. The helpers stay at their original
 lines until the relevant subsystems are retired. Rule 16.
 """
+
 from __future__ import annotations
 
 import json
@@ -38,7 +39,6 @@ import time
 from pathlib import Path
 
 from flask import abort
-
 
 # Video extensions accepted by safe_video_path (server.py's QC_VIDEO_EXTS).
 VIDEO_EXTS = {".mp4", ".mov", ".mkv", ".webm", ".m4v", ".avi"}
@@ -54,7 +54,10 @@ def safe_video_path(rel: str, autovsl_root: Path) -> Path:
     explicitly rather than reading the module-level ROOT).
     """
     target = (autovsl_root / rel.replace("\\", "/")).resolve()
-    if not str(target).startswith(str(autovsl_root)) or target.suffix.lower() not in VIDEO_EXTS:
+    if (
+        not str(target).startswith(str(autovsl_root))
+        or target.suffix.lower() not in VIDEO_EXTS
+    ):
         abort(400, "path must be a video inside the repo")
     if not target.is_file():
         abort(404, "video not found")
@@ -113,6 +116,7 @@ def safe_output_path(rel: str) -> Path:
     Reads AUTOVSL_ROOT from app.config at call time.
     """
     from flask import current_app  # lazy: only needed when called
+
     autovsl = current_app.config["AUTOVSL_ROOT"]
     target = (autovsl / rel.replace("\\", "/")).resolve()
     if not str(target).startswith(str(autovsl / "output")) or target.suffix != ".mp4":
@@ -131,6 +135,7 @@ def soft_delete(target: Path, label: str) -> str:
     and its index are derived from that root.
     """
     from flask import current_app  # lazy
+
     autovsl = current_app.config["AUTOVSL_ROOT"]
     trash = autovsl / ".trash"
     trash.mkdir(exist_ok=True)
