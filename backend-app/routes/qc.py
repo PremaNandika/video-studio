@@ -59,10 +59,10 @@ from pathlib import Path
 
 from flask import Blueprint, abort, current_app, jsonify, request
 
-from services.helpers.common import ffmpeg, ffprobe, read_json
+from services.helpers.common import ffmpeg, ffprobe, read_json, safe_video_path
 from services.helpers.qc import (
     QC_VIDEO_EXTS, extract_burst_frames, extract_spread_frames, ffprobe_json,
-    qc_lock, qc_save, qc_store, safe_video_path, video_duration,
+    qc_lock, qc_save, qc_store, video_duration,
 )
 from services.jobs import jobs, jobs_lock
 from services.prompts import QC_PROMPT

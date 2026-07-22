@@ -40,6 +40,27 @@ from pathlib import Path
 from flask import abort
 
 
+# Video extensions accepted by safe_video_path (server.py's QC_VIDEO_EXTS).
+VIDEO_EXTS = {".mp4", ".mov", ".mkv", ".webm", ".m4v", ".avi"}
+
+
+def safe_video_path(rel: str, autovsl_root: Path) -> Path:
+    """Resolve a repo-relative path, requiring a video inside the data root.
+
+    Promoted here from services/helpers/qc.py in B13 S2 — QC was its 1st
+    consumer, routes/files.py's /api/edit is the 2nd (a different
+    subsystem), which is the cross-subsystem promotion trigger. Route-only
+    (uses ``abort``). Mirrors server.py L1816-1822 (takes ``autovsl_root``
+    explicitly rather than reading the module-level ROOT).
+    """
+    target = (autovsl_root / rel.replace("\\", "/")).resolve()
+    if not str(target).startswith(str(autovsl_root)) or target.suffix.lower() not in VIDEO_EXTS:
+        abort(400, "path must be a video inside the repo")
+    if not target.is_file():
+        abort(404, "video not found")
+    return target
+
+
 def read_json(path: Path):
     """Safe JSON loader — returns None on any error (missing/bad).
 

@@ -25,10 +25,9 @@ CONFIG-AS-ARGS (the key difference from library.py):
       "env":          dict,   # subprocess env (job-env factory output)
     }
 
-safe_video_path lives here FOR NOW — QC is its only new-side consumer.
-When B13d's /api/edit lands (a 2nd, different subsystem), promote it to
-services/helpers/common.py (the cross-subsystem home), same as
-read_json / ffprobe / safe_output_path.
+``safe_video_path`` USED to live here (B14) but was promoted to
+services/helpers/common.py in B13 S2, when routes/files.py's /api/edit
+became its 2nd, cross-subsystem consumer. QC now imports it from common.
 
 server.py is unchanged. These helpers stay at their original lines until
 the QC subsystem is retired. Rule 16.
@@ -41,8 +40,6 @@ import subprocess
 import threading
 from pathlib import Path
 
-from flask import abort
-
 from services.helpers.common import read_json
 
 
@@ -53,21 +50,6 @@ QC_VIDEO_EXTS = {".mp4", ".mov", ".mkv", ".webm", ".m4v", ".avi"}
 # store I/O it protects (qc_store / qc_save) so both the review route and
 # the ai-review worker import one lock.
 qc_lock = threading.Lock()
-
-
-def safe_video_path(rel: str, autovsl_root: Path) -> Path:
-    """Resolve a repo-relative path, requiring a video inside the data root.
-
-    Pure relocation of server.py L1816-1822. Takes ``autovsl_root``
-    explicitly (server.py read the module-level ROOT). Route-only helper
-    (all callers are request handlers), so ``abort`` is safe here.
-    """
-    target = (autovsl_root / rel.replace("\\", "/")).resolve()
-    if not str(target).startswith(str(autovsl_root)) or target.suffix.lower() not in QC_VIDEO_EXTS:
-        abort(400, "path must be a video inside the repo")
-    if not target.is_file():
-        abort(404, "video not found")
-    return target
 
 
 def ffprobe_json(path: Path, cfg: dict) -> dict:
