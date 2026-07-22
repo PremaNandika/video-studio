@@ -47,7 +47,8 @@ REGISTRATION ORDER (matters!):
      services/helpers/qc.py; no config keys of its own.
   13. register_spend() — GET /api/spend (B13 S1). Reads SpendLedger.
   14. register_files() — file/thumb/edit/upload/trash utilities (B13 S2).
-  15. register_api_errors() — installs the app-level error handlers;
+  15. register_ads_factory() — /api/run/<action> residual actions (B13 S3).
+  16. register_api_errors() — installs the app-level error handlers;
      MUST be called AFTER all route modules so it's the outermost
      layer (handlers don't get shadowed by route-level errors).
 """
@@ -65,6 +66,7 @@ from routes.chat import register_chat
 from routes.clone import register_clone
 from routes.dubbing import register_dubbing
 from routes.dubsync import register_dubsync
+from routes.ads_factory import register_ads_factory
 from routes.qc import register_qc
 from routes.spend import register_spend
 from routes.exports import register_exports
@@ -120,7 +122,8 @@ def create_app() -> Flask:
     15. register_qc() — /api/qc/* QA-review routes (B14).
     16. register_spend() — GET /api/spend (B13 S1).
     17. register_files() — file/thumb/edit/upload/trash utilities (B13 S2).
-    18. register_api_errors() — JSON error handlers, outermost layer.
+    18. register_ads_factory() — /api/run/<action> residual actions (B13 S3).
+    19. register_api_errors() — JSON error handlers, outermost layer.
     """
     app = Flask(__name__)
 
@@ -136,6 +139,12 @@ def create_app() -> Flask:
     app.config["AUTOVSL_ROOT"] = Path(cfg["autovsl_root"])
     app.config["ENGINES_DIR"] = Path(cfg["engines_dir"])
     app.config["EXPORTS_DIR"] = Path(cfg["exports_dir"])
+    # BASH: the bash executable path (Git Bash on Windows). Mirrors
+    # server.py's CONFIG["bash"]. Machine-specific — the one path that
+    # CANNOT be derived from AUTOVSL_ROOT, so B13 S3 reads it from
+    # config.json (default "bash" = assume on PATH). The /api/run/<action>
+    # shell-script routes read it via app.config["BASH"].
+    app.config["BASH"] = str(cfg.get("bash", "bash"))
     # ... other config.json keys would go here as the app grows.
 
     # Construct the spend service (Rule 17: class for stateful services).
@@ -286,6 +295,12 @@ def create_app() -> Flask:
     # POST/DELETE, trash restore/purge). safe_video_path (used by edit) was
     # promoted qc.py -> common.py in this slice. No config keys of its own.
     register_files(app)
+
+    # Wire the ads-factory route module (B13 S3: /api/run/<action> — the
+    # residual dispatcher actions, the VSL/ad production pipeline, split into
+    # per-action URLs). Stashes TRANSCRIBE_PY; uses BASH (app.py) +
+    # WHISPER_VENV_PY (register_captions), so it registers after captions.
+    register_ads_factory(app)
 
     # Wire JSON error handlers (extracted from auth.py in B2.5).
     # Must be called AFTER all route modules are registered so the
