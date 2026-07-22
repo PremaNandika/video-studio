@@ -47,8 +47,9 @@ REGISTRATION ORDER (matters!):
      services/helpers/qc.py; no config keys of its own.
   13. register_spend() — GET /api/spend (B13 S1). Reads SpendLedger.
   14. register_files() — file/thumb/edit/upload/trash utilities (B13 S2).
-  15. register_ads_factory() — /api/run/<action> residual actions (B13 S3).
-  16. register_api_errors() — installs the app-level error handlers;
+  15. register_ads_factory() — /api/run/<action> + creator/VSL (B13 S3+S4).
+  16. register_brand() — /api/brand/* + /api/studio/* Brand Studio (B13 S5).
+  17. register_api_errors() — installs the app-level error handlers;
      MUST be called AFTER all route modules so it's the outermost
      layer (handlers don't get shadowed by route-level errors).
 """
@@ -67,6 +68,7 @@ from routes.clone import register_clone
 from routes.dubbing import register_dubbing
 from routes.dubsync import register_dubsync
 from routes.ads_factory import register_ads_factory
+from routes.brand import register_brand
 from routes.qc import register_qc
 from routes.spend import register_spend
 from routes.exports import register_exports
@@ -122,8 +124,9 @@ def create_app() -> Flask:
     15. register_qc() — /api/qc/* QA-review routes (B14).
     16. register_spend() — GET /api/spend (B13 S1).
     17. register_files() — file/thumb/edit/upload/trash utilities (B13 S2).
-    18. register_ads_factory() — /api/run/<action> residual actions (B13 S3).
-    19. register_api_errors() — JSON error handlers, outermost layer.
+    18. register_ads_factory() — /api/run/<action> + creator/VSL (B13 S3+S4).
+    19. register_brand() — /api/brand/* + /api/studio/* Brand Studio (B13 S5).
+    20. register_api_errors() — JSON error handlers, outermost layer.
     """
     app = Flask(__name__)
 
@@ -145,6 +148,11 @@ def create_app() -> Flask:
     # config.json (default "bash" = assume on PATH). The /api/run/<action>
     # shell-script routes read it via app.config["BASH"].
     app.config["BASH"] = str(cfg.get("bash", "bash"))
+    # COMFY_URL: the ComfyUI host:port (server.py's CONFIG["comfyui"]).
+    # Machine value, not derivable from AUTOVSL_ROOT — read from config.json
+    # (default 127.0.0.1:8188), same pattern as BASH. Used by Brand Studio
+    # (B13 S5): brand/health pings it, brand/generate passes it to the engine.
+    app.config["COMFY_URL"] = str(cfg.get("comfyui", "127.0.0.1:8188"))
     # ... other config.json keys would go here as the app grows.
 
     # Construct the spend service (Rule 17: class for stateful services).
@@ -301,6 +309,12 @@ def create_app() -> Flask:
     # per-action URLs). Stashes TRANSCRIBE_PY; uses BASH (app.py) +
     # WHISPER_VENV_PY (register_captions), so it registers after captions.
     register_ads_factory(app)
+
+    # Wire the Brand Studio route module (B13 S5: 8 /api/brand/* + 3
+    # /api/studio/*). Stashes BRAND_TEMPLATES (backend-app/brand_templates) +
+    # BRAND_CONTENT_PY (backend-app/engines) + BRAND_KIT_PATH + BRAND_OUT;
+    # uses COMFY_URL (app.py) + CV_VENV_PY + CLAUDE_RUNNER + JOB_RUNNER.
+    register_brand(app)
 
     # Wire JSON error handlers (extracted from auth.py in B2.5).
     # Must be called AFTER all route modules are registered so the
