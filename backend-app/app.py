@@ -45,7 +45,8 @@ REGISTRATION ORDER (matters!):
      First CLAUDE_RUNNER consumer; no config keys of its own.
   12. register_qc() — /api/qc/* QA-review routes (B14). Helpers in
      services/helpers/qc.py; no config keys of its own.
-  13. register_api_errors() — installs the app-level error handlers;
+  13. register_spend() — GET /api/spend (B13 S1). Reads SpendLedger.
+  14. register_api_errors() — installs the app-level error handlers;
      MUST be called AFTER all route modules so it's the outermost
      layer (handlers don't get shadowed by route-level errors).
 """
@@ -64,6 +65,7 @@ from routes.clone import register_clone
 from routes.dubbing import register_dubbing
 from routes.dubsync import register_dubsync
 from routes.qc import register_qc
+from routes.spend import register_spend
 from routes.exports import register_exports
 from routes.jobs import register_jobs
 from routes.library import register_library
@@ -114,7 +116,8 @@ def create_app() -> Flask:
     13. register_dubsync() — repair suite + dub-promote + /api/dubs (B11).
     14. register_chat() — /api/chat + copywrite + agent-note + aifix (B12).
     15. register_qc() — /api/qc/* QA-review routes (B14).
-    16. register_api_errors() — JSON error handlers, outermost layer.
+    16. register_spend() — GET /api/spend (B13 S1).
+    17. register_api_errors() — JSON error handlers, outermost layer.
     """
     app = Flask(__name__)
 
@@ -271,6 +274,10 @@ def create_app() -> Flask:
     # ai-review + remove-subs use CLAUDE_RUNNER / JOB_RUNNER + the erase path
     # (CV_VENV_PY, ERASE_PY) — all set by earlier register_* / app.py.
     register_qc(app)
+
+    # Wire the spend route module (B13 S1: GET /api/spend). Reads the
+    # SpendLedger constructed above; no config keys of its own.
+    register_spend(app)
 
     # Wire JSON error handlers (extracted from auth.py in B2.5).
     # Must be called AFTER all route modules are registered so the
