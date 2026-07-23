@@ -37,7 +37,7 @@ CONFIG:
     AUTOVSL_ROOT (register_brand / route call-sites).
 
 DEPENDENCIES:
-  - services.helpers.brand:  load_brand_kit, brand_compliance_errors
+  - services.helpers.brand_helpers:  load_brand_kit, brand_compliance_errors
   - services.llm:            inspiration_block (brand/copy bank refs)
   - services.prompts:        BRAND_COPY_PROMPT
   - services.jobs:           jobs (brand/generate job record)
@@ -65,7 +65,7 @@ from pathlib import Path
 from flask import Blueprint, abort, current_app, jsonify, request, send_file
 from werkzeug.utils import secure_filename
 
-from services.helpers.brand import brand_compliance_errors, load_brand_kit
+from services.helpers.brand_helpers import brand_compliance_errors, load_brand_kit
 from services.jobs import jobs
 from services.llm import inspiration_block
 from services.prompts import BRAND_COPY_PROMPT

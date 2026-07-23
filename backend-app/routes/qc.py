@@ -38,7 +38,7 @@ remove-subs spawns the engine via ``runner.run`` (all 5 methods); the
 erase method is a GPU job (erase_subs.py) with the legacy 409 guard.
 
 DEPENDENCIES:
-  - services.helpers.qc:     the 8 helpers + qc_lock + QC_VIDEO_EXTS
+  - services.helpers.qc_helpers:     the 8 helpers + qc_lock + QC_VIDEO_EXTS
   - services.helpers.common: ffmpeg + ffprobe (command resolvers)
   - services.jobs:           jobs + jobs_lock (ai-review + remove-subs jobs)
   - services.prompts:        QC_PROMPT (the vision-review prompt)
@@ -60,7 +60,7 @@ from pathlib import Path
 from flask import Blueprint, abort, current_app, jsonify, request
 
 from services.helpers.common import ffmpeg, ffprobe, read_json, safe_video_path
-from services.helpers.qc import (
+from services.helpers.qc_helpers import (
     QC_VIDEO_EXTS, extract_burst_frames, extract_spread_frames, ffprobe_json,
     qc_lock, qc_save, qc_store, video_duration,
 )

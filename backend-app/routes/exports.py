@@ -13,7 +13,7 @@ The HTML page route ``GET /exports`` is frontend and is NOT in this
 module (B2 was skipped — frontend is out of scope per the user).
 
 DEPENDENCIES:
-  - services.helpers.exports:    _export_item (per-item dict builder)
+  - services.helpers.exports_helpers:    _export_item (per-item dict builder)
   - services.helpers.common:     safe_output_path, soft_delete
   - services.workdir:            DubWorkdir (first real consumer — S5
                                  class; reads final.mp4 + final-captioned.mp4)
@@ -41,7 +41,7 @@ from flask import Blueprint, abort, current_app, jsonify, request
 from werkzeug.utils import secure_filename
 
 from services.helpers.common import safe_output_path, soft_delete
-from services.helpers.exports import _export_item
+from services.helpers.exports_helpers import _export_item
 from services.workdir import DubWorkdir
 
 

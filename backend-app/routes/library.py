@@ -16,7 +16,7 @@ wrapper that calls them and combines the result with the spend
 ledger.
 
 DEPENDENCIES:
-  - services.helpers.library: uploads_state, vsl_state, trash_state
+  - services.helpers.library_helpers: uploads_state, vsl_state, trash_state
   - services.spend: SpendLedger (for fal_spend total)
   - services.spend: read_json (used by helpers, not directly here)
 
@@ -39,7 +39,7 @@ from __future__ import annotations
 
 from flask import Blueprint, current_app, jsonify
 
-from services.helpers.library import trash_state, uploads_state, vsl_state
+from services.helpers.library_helpers import trash_state, uploads_state, vsl_state
 from services.spend import SpendLedger, read_json
 
 

@@ -47,13 +47,13 @@ from pathlib import Path
 
 from flask import Blueprint, abort, current_app, jsonify, request
 
-from services.helpers.ads_factory import (
+from services.helpers.ads_factory_helpers import (
     CREATOR_VIDEO_EXTS, MANIFEST_STAGES, PRODUCT_DIRS, VIDEO_MODELS,
     _RUN_ACTIONS, _check_slug, _spawn, _spawn_shell, library_lock,
     library_meta, valid_slug,
 )
 from services.helpers.common import soft_delete
-from services.helpers.transcripts import transcript_plain_text
+from services.helpers.transcripts_helpers import transcript_plain_text
 from services.jobs import jobs, jobs_lock
 from services.prompts import BUILD_PROMPT
 

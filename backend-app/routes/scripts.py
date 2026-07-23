@@ -9,7 +9,7 @@ Routes owned by this module:
                                  missing)
 
 DEPENDENCIES:
-  - services.helpers.transcripts:  transcript_plain_text (fallback
+  - services.helpers.transcripts_helpers:  transcript_plain_text (fallback
                                     reader for the .json sidecar)
   - services.workdir:              DubWorkdir (path properties for
                                     the workdir + script_edited.txt)
@@ -35,7 +35,7 @@ from pathlib import Path
 
 from flask import Blueprint, abort, current_app, jsonify, request
 
-from services.helpers.transcripts import transcript_plain_text
+from services.helpers.transcripts_helpers import transcript_plain_text
 from services.workdir import DubWorkdir
 
 
