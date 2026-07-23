@@ -43,6 +43,9 @@ from flask import (
     session,
 )
 
+from schemas.auth_request import LoginRequest
+from schemas.base import parse_body
+
 # Same set the monolith uses. /login is included for defense in
 # depth — the page itself is served by a future pages blueprint
 # (B2), but the gate should never block it pre-auth either. The
@@ -96,8 +99,7 @@ auth_bp = Blueprint("auth", __name__)
 def api_login():
     """Validates the PIN and sets the vs_auth session flag."""
     pin = current_app.config.get("REMOTE_PIN", "")
-    body = (request.get_json(force=True) or {})
-    supplied = body.get("pin", "")
+    supplied = parse_body(LoginRequest).pin
     if pin and str(supplied) == pin:
         session.permanent = True
         session[_SESSION_KEY] = True

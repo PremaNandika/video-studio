@@ -8,3 +8,11 @@
 # venvs and are called via subprocess — they are NOT in this requirements file.
 
 Flask==3.0.3
+
+# pydantic — request-body validation for /api/* blueprints. Introduced in
+# the Phase-1 pydantic pass (piloted on routes/auth.py, then rolled out
+# blueprint-by-blueprint). Used directly (BaseModel.model_validate) via the
+# schemas/ package; validation errors are funneled through Flask's existing
+# abort(400) -> services/api_errors.py -> {"error": <msg>} format, so no
+# second dependency (flask-pydantic) and no new error shape is introduced.
+pydantic==2.13.4
