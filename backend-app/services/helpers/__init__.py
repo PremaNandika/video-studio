@@ -10,8 +10,10 @@ Pattern: helpers are read-only query functions. They read
 files / the jobs dict / app.config and return dicts or lists
 of dicts. No mutation, no subprocess, no class state.
 
-Each module in here is named by the subsystem it serves
-(library.py for the Library tab, future exports.py for the
-Exports tab, etc.). Helpers that are reused across
-subsystems can live in ``common.py``.
+Each module in here is named by the subsystem it serves,
+with a ``_helpers`` suffix: ``library_helpers.py`` for the
+Library tab, ``exports_helpers.py`` for the Exports tab, etc.
+Helpers that are reused across subsystems live in
+``common.py`` (the one module that keeps its bare name — it
+is not tied to a single service/route).
 """
