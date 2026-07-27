@@ -1,18 +1,46 @@
 # ============================================================================
 # Local Voice-Clone Dubbing Tool — pinned requirements (Windows + CUDA)
 # ============================================================================
-# PyTorch is NOT listed here on purpose. Install it FIRST with the CUDA wheel:
+# PyTorch is NOT listed here on purpose. Install it FIRST with the CUDA wheel
+# that matches YOUR GPU, then:  pip install -r requirements.txt
 #
+#   # Ampere / Ada (RTX 20-40 series, sm_75-sm_89):
 #   pip install torch==2.5.1 torchaudio==2.5.1 --index-url https://download.pytorch.org/whl/cu121
 #
-# Then:  pip install -r requirements.txt
+#   # Blackwell (RTX 50-series, sm_120) -- cu121/cu126 have NO kernels for it.
+#   # Pin 2.8.0/cu128: it is the newest combination that is BOTH sm_120-capable
+#   # and still ships a native torchaudio.load (see the torchcodec note below).
+#   pip install torch==2.8.0 torchaudio==2.8.0 torchvision==0.23.0 \
+#       --index-url https://download.pytorch.org/whl/cu128
+#
+# Run `python doctor.py` from the repo root afterwards: it launches a real CUDA
+# kernel, which is the only reliable check (torch.cuda.is_available() returns
+# True on a card whose arch the wheels do not cover -- it only fails later).
 #
 # Notes:
 #  * We use `coqui-tts`, the actively-maintained drop-in fork of the abandoned
-#    `TTS` package. Same `from TTS.api import TTS` import, same xtts_v2 model,
-#    but it installs cleanly on Python 3.10 + modern torch/transformers.
-#  * torch 2.5.1 is chosen on purpose: torch >= 2.6 flips torch.load to
-#    weights_only=True which breaks XTTS checkpoint loading.
+#    `TTS` package. Same `from TTS.api import TTS` import, same xtts_v2 model.
+#  * The old note here said torch must stay <2.6 because torch.load flipped to
+#    weights_only=True and broke XTTS checkpoint loading. That applied to the
+#    abandoned `TTS` package; coqui-tts 0.25.1 handles it. VERIFIED on
+#    torch 2.8.0+cu128 / Python 3.12: XTTS v2 loads and synthesizes on cuda
+#    with no patching. This matters because Blackwell needs cu128+, which has
+#    no torch < 2.6 at all -- the old pin was unsatisfiable on those cards.
+#  * Do NOT jump to torchaudio >= 2.9. From 2.9 on, torchaudio.load delegates
+#    to torchcodec, which XTTS calls via TTS/tts/models/xtts.py::load_audio.
+#    torchcodec needs FFmpeg *shared* libraries (avcodec-*.dll etc.); the
+#    Gyan "full_build" this project installs is static (3 exes, no DLLs), so
+#    torchcodec raises "Could not load libtorchcodec" and the voice stage dies
+#    mid-synthesis. 2.8.0 keeps the native loader and sidesteps it entirely.
+#  * Python: use 3.12. numpy<2.0 (below) and the coqui-tts stack have no
+#    wheels for 3.13/3.14.
+#  * After installing, patch one line in basicsr (gfpgan's dependency) --
+#    torchvision >= 0.17 removed the module it imports:
+#      site-packages/basicsr/data/degradations.py
+#      -from torchvision.transforms.functional_tensor import rgb_to_grayscale
+#      +from torchvision.transforms.functional import rgb_to_grayscale
+#    Without it, `from gfpgan import GFPGANer` raises ModuleNotFoundError and
+#    the lip-sync HD stage cannot start.
 # ----------------------------------------------------------------------------
 
 coqui-tts==0.25.1          # XTTS v2 voice cloning + synthesis

@@ -264,6 +264,61 @@ def check_venvs(cfg: dict) -> None:
                 torch_fix_hint(dev_cc, archs))
 
 
+# ── 4b. dub stack runtime traps ───────────────────────────────────────────────
+# These only surface once a dub is already running (minutes in, mid-synthesis),
+# so they are worth catching up front.
+DUB_STACK_PROBE = r"""
+import numpy as np, tempfile, os
+print("VERSIONS", "")
+import torch, torchaudio
+print("TORCHAUDIO", torchaudio.__version__)
+
+# XTTS loads its voice reference through torchaudio.load. From torchaudio 2.9 on
+# that delegates to torchcodec, which needs FFmpeg *shared* libs -- the Gyan
+# static build has none, so this raises deep inside the voice stage.
+try:
+    import soundfile as sf
+    p = os.path.join(tempfile.gettempdir(), "_doctor_probe.wav")
+    sf.write(p, np.zeros(2205, dtype="float32"), 22050)
+    torchaudio.load(p)
+    print("AUDIOLOAD", "ok")
+except Exception as e:
+    print("AUDIOLOAD", f"FAILED {type(e).__name__}")
+
+# gfpgan -> basicsr imports torchvision.transforms.functional_tensor, removed in
+# torchvision >= 0.17. Breaks the HD lip-sync stage only.
+try:
+    from gfpgan import GFPGANer
+    print("GFPGAN", "ok")
+except Exception as e:
+    print("GFPGAN", f"FAILED {type(e).__name__}")
+"""
+
+
+def check_dub_stack(cfg: dict) -> None:
+    raw = (cfg.get("venvs") or {}).get("dub")
+    if not raw or not Path(raw).is_file():
+        return
+    rc, out = py_snippet(Path(raw), DUB_STACK_PROBE, timeout=300)
+    t = dict((ln.split(" ", 1) + [""])[:2] for ln in out.splitlines() if " " in ln)
+    if "TORCHAUDIO" not in t:
+        return      # import-level failure already reported by check_venvs
+
+    ta = t.get("TORCHAUDIO", "?")
+    if t.get("AUDIOLOAD") == "ok":
+        add(OK, "dub:torchaudio.load", f"torchaudio {ta} -- loads audio natively")
+    else:
+        add(FAIL, "dub:torchaudio.load", f"torchaudio {ta} cannot load audio ({t.get('AUDIOLOAD')})",
+            "pin torch==2.8.0 torchaudio==2.8.0 torchvision==0.23.0 (cu128) -- "
+            "torchaudio >= 2.9 needs torchcodec, which needs ffmpeg shared libs")
+    if t.get("GFPGAN") == "ok":
+        add(OK, "dub:gfpgan", "imports OK (HD lip-sync available)")
+    else:
+        add(FAIL, "dub:gfpgan", f"import failed ({t.get('GFPGAN')})",
+            "patch site-packages/basicsr/data/degradations.py: import rgb_to_grayscale "
+            "from torchvision.transforms.functional (not .functional_tensor)")
+
+
 # ── 5. model weights ──────────────────────────────────────────────────────────
 # (relative path, required?, what needs it, where to get it)
 WEIGHTS = [
@@ -323,6 +378,7 @@ def main() -> int:
     check_gpu()
     if cfg:
         check_venvs(cfg)
+        check_dub_stack(cfg)
     check_weights()
     if cfg:
         check_data(cfg)
