@@ -325,8 +325,10 @@ def render_template(kit: BrandKit, template: dict, content: dict,
 if __name__ == "__main__":
     # self-test: render the wordmark + a dummy card so the module can be exercised standalone
     import sys
-    kit = BrandKit(sys.argv[1] if len(sys.argv) > 1 else
-                   r"C:/Users/guyas/Claude/Projects/Video AI editing/autoVSL/banks/liitt-brand-kit.json")
+    # default kit path is derived from this file's location (…/video-studio/app/engines/),
+    # so the self-test works from any checkout — pass an explicit path to override
+    _default_kit = Path(__file__).resolve().parents[3] / "autoVSL/banks/liitt-brand-kit.json"
+    kit = BrandKit(sys.argv[1] if len(sys.argv) > 1 else str(_default_kit))
     probs = kit.preflight()
     print("preflight:", "OK" if not probs else probs)
     wm = make_wordmark(kit, kit.root / "brand-assets" / "wordmark")
