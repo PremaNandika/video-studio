@@ -131,12 +131,17 @@ def check_gpu() -> str | None:
 
 
 # ── 4. venvs ──────────────────────────────────────────────────────────────────
-# name -> (config key, required?, modules that must import, what it powers)
-VENVS: dict[str, tuple[str, bool, list[str], str]] = {
-    "cv":      ("cv",      True,  ["flask", "cv2", "numpy", "scipy", "PIL"], "Flask server + repair engines"),
-    "whisper": ("whisper", True,  ["faster_whisper", "torch"],               "transcription + caption timing"),
-    "dub":     ("dub",     True,  ["torch", "TTS"],                          "XTTS voice clone + Wav2Lip"),
-    "vsr":     ("vsr",     False, ["torch"],                                 "video super-resolution (Power Tools)"),
+# name -> (config key, required?, modules that must import, gpu probe, what it powers)
+#
+# The gpu probe differs per venv because the compute backends differ:
+#   "ct2"   -> faster-whisper runs on CTranslate2, NOT torch. torch may be present
+#              in that venv but nothing imports it, so its CUDA build is irrelevant.
+#   "torch" -> XTTS/Wav2Lip/VSR do their maths in torch, so torch kernels must exist.
+VENVS: dict[str, tuple[str, bool, list[str], str | None, str]] = {
+    "cv":      ("cv",      True,  ["flask", "cv2", "numpy", "scipy", "PIL"], None,    "Flask server + repair engines"),
+    "whisper": ("whisper", True,  ["faster_whisper", "ctranslate2"],         "ct2",   "transcription + caption timing"),
+    "dub":     ("dub",     True,  ["torch", "TTS"],                          "torch", "XTTS voice clone + Wav2Lip"),
+    "vsr":     ("vsr",     False, ["torch"],                                 "torch", "video super-resolution (Power Tools)"),
 }
 
 IMPORT_PROBE = r"""
@@ -150,6 +155,22 @@ for m in mods:
         bad.append(f"{{m}}({{type(e).__name__}})")
 print("PYTHON", sys.version.split()[0])
 print("MISSING", ",".join(bad) if bad else "-")
+"""
+
+# CTranslate2 carries its own CUDA kernels; the real question is whether it can
+# both see the device and load its cuBLAS/cuDNN DLLs, so actually run inference.
+CT2_PROBE = r"""
+import ctranslate2
+print("CT2", ctranslate2.__version__)
+print("DEVICES", ctranslate2.get_cuda_device_count())
+try:
+    from faster_whisper import WhisperModel
+    import numpy as np
+    m = WhisperModel("tiny", device="cuda", compute_type="int8_float16")
+    list(m.transcribe(np.zeros(16000, dtype=np.float32))[0])
+    print("INFER", "ok")
+except Exception as e:
+    print("INFER", f"FAILED {type(e).__name__} {str(e)[:120]}")
 """
 
 # The check that matters: is_available() lies on an unsupported card, so launch a kernel.
@@ -180,7 +201,7 @@ def torch_fix_hint(dev_cc: str, archs: str) -> str:
 
 def check_venvs(cfg: dict) -> None:
     venvs = cfg.get("venvs") or {}
-    for name, (key, required, mods, purpose) in VENVS.items():
+    for name, (key, required, mods, probe, purpose) in VENVS.items():
         label = f"venv:{name}"
         raw = venvs.get(key)
         if not raw:
@@ -210,21 +231,37 @@ def check_venvs(cfg: dict) -> None:
         else:
             add(OK, label, f"py{pyver} -- all imports OK ({purpose})")
 
-        # torch-bearing venvs get the real kernel test
-        if "torch" in mods and missing == "-" or (("torch" in mods) and "torch(" not in missing):
-            rc2, out2 = py_snippet(venv_py, CUDA_PROBE, timeout=240)
+        if missing != "-" or not probe:
+            continue      # can't probe the GPU through a venv that's missing its deps
+
+        if probe == "ct2":
+            rc2, out2 = py_snippet(venv_py, CT2_PROBE, timeout=600)
             t = dict((ln.split(" ", 1) + [""])[:2] for ln in out2.splitlines() if " " in ln)
-            tver, avail = t.get("TORCH", "?"), t.get("AVAIL", "?")
-            kernel, dev_cc, archs = t.get("KERNEL"), t.get("DEVCC", "?"), t.get("ARCHS", "?")
-            if avail != "True":
-                add(WARN, f"{label}:cuda", f"torch {tver} -- CUDA unavailable (CPU mode)",
-                    "install a CUDA build of torch if you have an NVIDIA GPU")
-            elif kernel == "ok":
-                add(OK, f"{label}:cuda", f"torch {tver} -- {dev_cc} kernel launch OK")
+            ver, devs, infer = t.get("CT2", "?"), t.get("DEVICES", "0"), t.get("INFER", "?")
+            if devs == "0":
+                add(WARN, f"{label}:cuda", f"ctranslate2 {ver} sees no CUDA device (CPU fallback)",
+                    "transcription still works, just slower")
+            elif infer == "ok":
+                add(OK, f"{label}:cuda", f"ctranslate2 {ver} -- GPU inference OK")
             else:
-                add(FAIL, f"{label}:cuda",
-                    f"torch {tver} has NO kernels for {dev_cc} (built for {archs})",
-                    torch_fix_hint(dev_cc, archs))
+                add(FAIL, f"{label}:cuda", f"ctranslate2 {ver} GPU inference {infer}",
+                    "upgrade ctranslate2 (needs a build with kernels for this GPU), "
+                    "or force --device cpu")
+            continue
+
+        rc2, out2 = py_snippet(venv_py, CUDA_PROBE, timeout=240)
+        t = dict((ln.split(" ", 1) + [""])[:2] for ln in out2.splitlines() if " " in ln)
+        tver, avail = t.get("TORCH", "?"), t.get("AVAIL", "?")
+        kernel, dev_cc, archs = t.get("KERNEL"), t.get("DEVCC", "?"), t.get("ARCHS", "?")
+        if avail != "True":
+            add(WARN, f"{label}:cuda", f"torch {tver} -- CUDA unavailable (CPU mode)",
+                "install a CUDA build of torch if you have an NVIDIA GPU")
+        elif kernel == "ok":
+            add(OK, f"{label}:cuda", f"torch {tver} -- {dev_cc} kernel launch OK")
+        else:
+            add(FAIL, f"{label}:cuda",
+                f"torch {tver} has NO kernels for {dev_cc} (built for {archs})",
+                torch_fix_hint(dev_cc, archs))
 
 
 # ── 5. model weights ──────────────────────────────────────────────────────────
