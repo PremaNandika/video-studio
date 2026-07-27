@@ -89,10 +89,31 @@ TRANSCRIBE_PY = COURSE_PIPELINE / "transcribe.py"
 TRANSCRIBE_VENV_PY = Path(CONFIG["venvs"]["whisper"])
 MEDIA_UPLOAD_EXTS = {".mp4", ".mov", ".mkv", ".webm", ".m4v", ".avi", ".mp3", ".m4a", ".wav"}
 BASH = CONFIG["bash"]
-FFMPEG_BIN = (
-    Path(os.environ.get("LOCALAPPDATA", ""))
-    / "Microsoft/WinGet/Packages/Gyan.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe/ffmpeg-8.1.2-full_build/bin"
-)
+def _discover_ffmpeg_bin() -> Path | None:
+    """Locate the ffmpeg bin dir, or None to fall back to a bare `ffmpeg` on PATH.
+
+    Order: explicit config override → PATH → any WinGet Gyan.FFmpeg build (the
+    version is NOT pinned: WinGet upgrades rename the folder) → common manual
+    install spots. Every engine subprocess gets this dir prepended by job_env().
+    """
+    def usable(d: Path | None) -> bool:
+        # both binaries must live together: engines shell out to ffmpeg AND ffprobe,
+        # and some shim dirs (WinGet Links) expose only a subset
+        return bool(d) and (d / "ffmpeg.exe").is_file() and (d / "ffprobe.exe").is_file()
+
+    override = CONFIG.get("ffmpeg_bin")
+    if override and usable(Path(override)):
+        return Path(override)
+    on_path = shutil.which("ffmpeg")
+    if on_path and usable(Path(on_path).parent):
+        return Path(on_path).parent
+    winget = Path(os.environ.get("LOCALAPPDATA", "")) / "Microsoft/WinGet/Packages"
+    candidates = sorted(winget.glob("Gyan.FFmpeg*/ffmpeg-*/bin"), reverse=True)
+    candidates += [Path("C:/ffmpeg/bin"), Path(os.environ.get("ProgramFiles", "")) / "ffmpeg/bin"]
+    return next((c for c in candidates if usable(c)), None)
+
+
+FFMPEG_BIN = _discover_ffmpeg_bin()
 
 app = Flask(__name__, static_folder=None)
 app.secret_key = CONFIG.get("secret_key", "dev-only-change-me")
@@ -287,7 +308,7 @@ def safe_output_path(rel: str) -> Path:
 
 def job_env() -> dict:
     env = dict(os.environ)
-    if FFMPEG_BIN.is_dir():
+    if FFMPEG_BIN and FFMPEG_BIN.is_dir():
         env["PATH"] = str(FFMPEG_BIN) + os.pathsep + env.get("PATH", "")
     env["PYTHONUTF8"] = "1"
     return env
@@ -768,8 +789,8 @@ def api_script_save(stem):
 # ---------------------------------------------------------------- subtitle cleaner
 
 def ffmpeg_exe(name: str) -> str:
-    p = FFMPEG_BIN / f"{name}.exe"
-    return str(p) if p.is_file() else name
+    p = (FFMPEG_BIN / f"{name}.exe") if FFMPEG_BIN else None
+    return str(p) if p and p.is_file() else name
 
 
 def clean_subs_worker(job_id: str, fname: str, box: dict, mode: str) -> None:
@@ -1809,8 +1830,8 @@ Note: you cannot hear audio, so judge lip-sync from visual mouth artifacts only 
 
 
 def ff_tool(name: str) -> str:
-    exe = FFMPEG_BIN / f"{name}.exe"
-    return str(exe) if exe.is_file() else name
+    exe = (FFMPEG_BIN / f"{name}.exe") if FFMPEG_BIN else None
+    return str(exe) if exe and exe.is_file() else name
 
 
 def safe_video_path(rel: str) -> Path:
