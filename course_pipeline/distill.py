@@ -26,76 +26,13 @@ import subprocess
 import sys
 from pathlib import Path
 
+# both prompts live in the workspace-level prompts.json (see prompts.py)
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+from prompts import prompts                                    # noqa: E402
+
 # Transcripts up to this many characters are distilled in one pass; longer
 # courses get a map-reduce: per-video notes first, then one synthesis call.
 SINGLE_PASS_MAX_CHARS = 300_000
-
-SKILL_PROMPT = """You are distilling a paid course transcript into a structured knowledge document \
-that AI agents will load as a skill. Extract the substance, not the filler.
-
-Course name: {course}
-Videos included: {video_list}
-
-Respond with ONLY the markdown document itself as plain text (no preamble, no commentary,
-no tool use, no file writing — the document is your response), in exactly this shape:
-
----
-name: {slug}
-description: <one sentence: what capability this knowledge gives an agent and when to use it>
-source: course transcript ("{course}")
----
-
-# {course} — Distilled Knowledge
-
-## Overview
-2-4 sentences: what this course teaches, who it's for, the core promise.
-
-## Key Frameworks
-Every named framework, model, formula, or system taught. For each: its name, a
-compact explanation, and the steps/components. Preserve the instructor's naming.
-
-## Core Principles
-The underlying rules and mental models, each as a bolded one-liner followed by
-1-2 sentences of explanation. Include the reasoning WHY, not just the what.
-
-## Actionable Playbooks
-Concrete step-by-step procedures an agent could execute or guide a user through.
-Numbered steps, specific numbers/thresholds/templates the instructor gives
-(prices, percentages, word counts, timelines — keep them exact).
-
-## Notable Quotes
-5-12 verbatim quotes that capture the instructor's sharpest insights. Format:
-> "quote" — [video name, HH:MM:SS]
-
-## Gotchas & Contrarian Takes
-Where the instructor says common advice is wrong, warns about mistakes, or gives
-non-obvious caveats.
-
-## When an Agent Should Use This
-3-6 bullet points describing tasks/queries where this knowledge applies.
-
-Rules:
-- Be exhaustive on frameworks and playbooks; this document replaces reading the transcript.
-- Keep every concrete number, template, script, and example the instructor gives.
-- No invented content: everything must come from the transcript.
-- Timestamps in quotes must come from the transcript's [HH:MM:SS] markers.
-
-TRANSCRIPTS:
-
-{content}
-"""
-
-CONDENSE_PROMPT = """Condense this single course-video transcript into dense study notes for a later \
-synthesis pass. Keep: every framework, principle, step-by-step process, concrete number, template, \
-script and example; 3-5 sharp verbatim quotes with their [HH:MM:SS] timestamps and this video's name. \
-Drop: greetings, filler, repetition. Output only markdown notes, max ~1500 words.
-
-Video: {video}
-
-TRANSCRIPT:
-
-{content}
-"""
 
 
 def find_claude() -> str:
@@ -108,13 +45,19 @@ def find_claude() -> str:
     sys.exit("`claude` CLI not found. Install Claude Code or add it to PATH.")
 
 
-def run_claude(claude: str, prompt: str, model: str) -> str:
+def resolve_model(name: str, model: str | None) -> str:
+    """--model wins; otherwise whatever prompts.json sets for this prompt."""
+    return model or prompts.model(name) or "sonnet"
+
+
+def run_claude(claude: str, name: str, model: str | None, **fields) -> str:
     # Text-generation only: forbid tools so headless claude never tries to
     # write files itself (which stalls on permissions and corrupts output).
     result = subprocess.run(
-        [claude, "-p", "--model", model,
+        [claude, "-p", "--model", resolve_model(name, model),
          "--disallowedTools", "Write,Edit,Bash,NotebookEdit,WebFetch,WebSearch"],
-        input=prompt, capture_output=True, text=True, encoding="utf-8", timeout=1800,
+        input=prompts.render(name, **fields), capture_output=True, text=True,
+        encoding="utf-8", timeout=prompts.timeout(name, 1800),
     )
     out = result.stdout.strip()
     if result.returncode != 0 or not out:
@@ -149,7 +92,7 @@ def needs_distill(skill_path: Path, transcripts: list[Path]) -> bool:
 
 
 def distill_course(claude: str, course: str, transcripts: list[Path],
-                   skills_dir: Path, model: str) -> None:
+                   skills_dir: Path, model: str | None) -> None:
     course_dir = skills_dir / course
     course_dir.mkdir(parents=True, exist_ok=True)
     skill_path = course_dir / "SKILL.md"
@@ -172,14 +115,14 @@ def distill_course(claude: str, course: str, transcripts: list[Path],
                 print(f"  [{i}/{len(texts)}] notes cached: {t.stem}")
             else:
                 print(f"  [{i}/{len(texts)}] condensing: {t.stem}")
-                note = run_claude(claude, CONDENSE_PROMPT.format(video=t.stem, content=v), model)
+                note = run_claude(claude, "course_condense", model, video=t.stem, content=v)
                 note_path.write_text(note, encoding="utf-8")
             notes.append(f"===== VIDEO NOTES: {t.stem} =====\n\n{note_path.read_text(encoding='utf-8')}")
         content = "\n\n".join(notes)
 
-    print(f"  synthesizing SKILL.md ({model})...")
-    skill = run_claude(claude, SKILL_PROMPT.format(
-        course=course, slug=slugify(course), video_list=video_list, content=content), model)
+    print(f"  synthesizing SKILL.md ({resolve_model('course_skill', model)})...")
+    skill = run_claude(claude, "course_skill", model, course=course, slug=slugify(course),
+                       video_list=video_list, content=content)
     skill_path.write_text(skill + "\n", encoding="utf-8")
     print(f"  -> {skill_path}")
 
@@ -192,7 +135,8 @@ def main() -> None:
     ap = argparse.ArgumentParser(description="Distill course transcripts into SKILL.md documents via the claude CLI.")
     ap.add_argument("--transcripts", default=str(default_root / "transcripts"))
     ap.add_argument("--out", default=str(default_root / "skills"))
-    ap.add_argument("--model", default="sonnet", help="claude CLI model alias (sonnet, opus, haiku)")
+    ap.add_argument("--model", default=None,
+                    help="claude CLI model alias (sonnet, opus, haiku); default: prompts.json")
     ap.add_argument("--course", default=None, help="Only distill this course (folder name)")
     ap.add_argument("--force", action="store_true", help="Redo even if SKILL.md is up to date")
     args = ap.parse_args()

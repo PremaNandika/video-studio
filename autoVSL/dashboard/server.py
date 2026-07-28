@@ -16,25 +16,15 @@ import time
 import uuid
 from pathlib import Path
 
+# prompts come from the workspace-level prompts.json — the same file video-studio
+# reads, so the two apps can never drift apart on wording (see prompts.py)
+sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
+from prompts import prompts                                    # noqa: E402
+
 CLAUDE_EXE = shutil.which("claude") or next(
     (str(p) for p in (Path.home() / ".local/bin/claude.exe", Path.home() / ".local/bin/claude") if p.exists()),
     None,
 )
-
-COPY_PROMPT = """You are a direct-response copywriter for short-form video ads (VSLs and UGC-style testimonials).
-
-Rewrite the script below according to the instruction. This is SPOKEN dialogue that will be \
-voice-cloned and lip-synced onto existing footage, so:
-- Write natural spoken language: contractions, short sentences. No headings, emojis, hashtags, stage directions, or quotation marks.
-- LENGTH IS A HARD CONSTRAINT (the video length is fixed and the voice must fit it or the lip-sync breaks): {length_rule} Count your words and land inside the range — do not go over.
-- Compliance: this is a wellness/supplement product. No disease or medical claims, no cure/treat/heal language, no guaranteed outcomes. Personal experience framing ("I felt...") is fine.
-{context_block}{inspiration_block}
-INSTRUCTION: {instruction}
-
-SCRIPT TO REWRITE:
-{text}
-
-Respond with ONLY the rewritten script text — no preamble, no explanation, no markdown."""
 
 from flask import Flask, Response, abort, jsonify, request, send_file, send_from_directory
 from werkzeug.utils import secure_filename
@@ -832,29 +822,6 @@ def api_clean_restore():
 
 # ---------------------------------------------------------------- VSL builder
 
-BUILD_PROMPT = """You are the VSL production designer for a direct-response ad factory. \
-Turn the approved script below into a production package for a 9:16 vertical video ad.
-
-Rules:
-- Break the script into 6-10 sequential shots. Each shot gets ONE voiceover line (verbatim from \
-the script where possible, lightly smoothed for speech) and ONE text-to-video prompt.
-- Video prompts: cinematic, concrete, filmable moments matching the VO emotionally. Describe subject, \
-setting, camera, light, mood. Vertical 9:16. Real-people UGC/documentary feel unless the script implies otherwise. \
-No text overlays, no brand names, no logos in the prompts.
-- Compliance: wellness product — prompts and VO must not show or claim medical outcomes.
-- Ground tone and audience in the product/research context provided.
-
-{context}
-
-SCRIPT ({script_name}):
-{script}
-
-Respond with ONLY a JSON object (no markdown fences, no commentary):
-{{"name": "<short vsl title>",
- "concept": "<2-3 sentence creative rationale>",
- "negative_prompt": "<comma-separated things to avoid in video gen>",
- "shots": [{{"id": 1, "vo_text": "<spoken line>", "prompt": "<video generation prompt>", "notes": "<edit note>"}}]}}"""
-
 
 def build_vsl_worker(job_id: str, vsl_slug: str, product: str, script_rel: str,
                      doc_rels: list[str]) -> None:
@@ -883,11 +850,11 @@ def build_vsl_worker(job_id: str, vsl_slug: str, product: str, script_rel: str,
         env = job_env()
         env.pop("CLAUDECODE", None)
         result = subprocess.run(
-            [CLAUDE_EXE, "-p", "--model", "opus",
+            [CLAUDE_EXE, "-p", "--model", prompts.model("vsl_build"),
              "--disallowedTools", "Write,Edit,Bash,NotebookEdit,WebFetch,WebSearch,Task"],
-            input=BUILD_PROMPT.format(context=context, script_name=script_rel, script=script),
+            input=prompts.render("vsl_build", context=context, script_name=script_rel, script=script),
             capture_output=True, text=True, encoding="utf-8", errors="replace",
-            timeout=600, cwd=str(ROOT), env=env,
+            timeout=prompts.timeout("vsl_build"), cwd=str(ROOT), env=env,
         )
         out = (result.stdout or "").strip()
         if result.returncode != 0 or not out:
@@ -1137,33 +1104,7 @@ def api_trash_purge():
 
 # ---------------------------------------------------------------- dev chat
 
-CHAT_SYSTEM = (
-    "You are the dev assistant embedded in the autoVSL dashboard, chatting with the project owner. "
-    "The working directory is the autoVSL repo: a multi-agent VSL ad factory (research banks in banks/, "
-    "product pipeline in products/, scripts+VSLs in vsls/, fal.ai+ffmpeg production engine in scripts/, "
-    "dashboard in dashboard/, uploads+transcripts in uploads/). "
-    "You have read-only access (Read/Grep/Glob) — you cannot edit files or run commands, so when asked to "
-    "change something, explain exactly what to change or suggest doing it in a Claude Code session. "
-    "Be concise and concrete; this renders in a small chat panel."
-)
-
 AGENT_NOTES = ROOT / "research" / "agent-notes.md"
-
-RESEARCH_SYSTEM = (
-    "You are the RESEARCH & BRAND STRATEGIST for a direct-response ad operation selling functional-mushroom "
-    "wellness products (niches: mental-health healing, microdosing culture, brain fog, mood, focus). "
-    "You chat with the founder, who spends real money on ads — precision matters.\n"
-    "Your knowledge base (read these before answering anything substantive):\n"
-    "- banks/hooks.jsonl and banks/angles.jsonl — every PROVEN hook and angle\n"
-    "- research/ (all .md docs) — niche, avatar and brand research\n"
-    "- products/*/offer.md — the brand offers\n"
-    "- research/agent-notes.md — facts the founder has taught you; treat as ground truth\n"
-    "What you do: find NEW niches, angles and hooks (grounded in the proven ones, never duplicates); "
-    "critique or sharpen script ideas for conversion; answer brand questions precisely. "
-    "When the founder teaches you product facts, restate them cleanly so they can be pinned. "
-    "Always propose concrete, testable hooks/angles (label them H1/H2, A1/A2). Be concise — small chat panel. "
-    "Compliance: wellness supplement — no disease/cure claims."
-)
 
 chats: dict[str, dict] = {}
 chats_lock = threading.Lock()
@@ -1192,7 +1133,7 @@ def run_chat_turn(turn_id: str, message: str, session_id: str | None, model: str
         "--output-format", "stream-json", "--verbose",
         "--allowedTools", "Read,Grep,Glob",
         "--disallowedTools", "Write,Edit,Bash,NotebookEdit,WebFetch,WebSearch,Task",
-        "--append-system-prompt", RESEARCH_SYSTEM if mode == "research" else CHAT_SYSTEM,
+        "--append-system-prompt", prompts.text("chat_research" if mode == "research" else "chat_dev"),
     ]
     if session_id:
         cmd += ["--resume", session_id]
@@ -1335,7 +1276,8 @@ def api_copywrite():
     else:
         lo, hi = round(orig * 0.9), round(orig * 1.1)
         length_rule = f"match the original length: {lo}-{hi} words (original is {orig})."
-    prompt = COPY_PROMPT.format(
+    prompt = prompts.render(
+        "copy_rewrite",
         length_rule=length_rule, context_block=context_block,
         inspiration_block=inspiration_block(refs[:16]),   # enough pattern coverage; keeps rewrites fast
         instruction=instruction, text=text,
@@ -1344,10 +1286,10 @@ def api_copywrite():
     env.pop("CLAUDECODE", None)  # allow nested headless run from inside a Claude Code session
     try:
         result = subprocess.run(
-            [CLAUDE_EXE, "-p", "--model", "opus",
+            [CLAUDE_EXE, "-p", "--model", prompts.model("copy_rewrite"),
              "--disallowedTools", "Write,Edit,Bash,NotebookEdit,WebFetch,WebSearch"],
-            input=prompt, capture_output=True, text=True,
-            encoding="utf-8", errors="replace", timeout=240, cwd=str(ROOT), env=env,
+            input=prompt, capture_output=True, text=True, encoding="utf-8", errors="replace",
+            timeout=prompts.timeout("copy_rewrite"), cwd=str(ROOT), env=env,
         )
     except subprocess.TimeoutExpired:
         abort(504, "Claude took too long — try again")
@@ -1637,42 +1579,6 @@ NOSUBS_DIR = ROOT / "output" / "nosubs"
 QC_VIDEO_EXTS = {".mp4", ".mov", ".mkv", ".webm", ".m4v", ".avi"}
 qc_lock = threading.Lock()
 
-QC_PROMPT = """You are a meticulous QC reviewer for AI-generated and AI-lip-synced direct-response video ads. \
-These videos must look like real people filmed on a phone — a viewer noticing anything fake kills the ad.
-
-Use the Read tool to view EVERY image listed below before answering.
-
-Video: {rel}
-Specs: {specs}
-
-SPREAD frames (chronological, evenly spaced across the whole video):
-{spread}
-
-BURST frames (consecutive, ~0.12s apart, taken mid-speech — compare them to judge mouth articulation \
-and lip-sync artifacts frame-to-frame):
-{burst}
-
-Assess harshly:
-1. mouth — lip-sync artifact check: warped/blurry mouth or teeth, teeth smearing or changing shape, jaw \
-morphing, a soft low-res "patch" around the mouth that mismatches the rest of the face, frozen or \
-repeating mouth shapes across the burst frames, over-articulation.
-2. realism — does the person look real: plastic/over-smooth skin, dead or misaligned eyes, hair edge \
-artifacts, malformed hands/fingers, body proportions, background warping or objects morphing between \
-frames, uncanny AI tells.
-3. quality — technical: sharpness, compression blockiness, banding, ghosting, exposure/color shifts \
-between frames, upscaling softness. Judge against the specs above.
-4. text — burned-in subtitles/captions/watermarks/on-screen text: present or not, where (top/middle/bottom), \
-and any garbled or misspelled AI-generated text.
-
-Respond with ONLY a JSON object (no markdown fences, no commentary):
-{{"mouth": {{"score": <1-10>, "issues": ["<specific issue + which frame>"]}},
- "realism": {{"score": <1-10>, "issues": []}},
- "quality": {{"score": <1-10>, "issues": []}},
- "text": {{"subtitles_present": true/false, "location": "<top|middle|bottom|none>", "issues": []}},
- "overall": {{"verdict": "pass"|"borderline"|"fail", "summary": "<2-3 sentences>", "fix_suggestions": ["<action>"]}}}}
-Scores: 10 flawless · 8-9 minor nits · 6-7 visible on a close look · 4-5 obvious problems · 1-3 unusable. \
-Note: you cannot hear audio, so judge lip-sync from visual mouth artifacts only — audio timing is checked by a human."""
-
 
 def ff_tool(name: str) -> str:
     exe = FFMPEG_BIN / f"{name}.exe"
@@ -1883,8 +1789,8 @@ def qc_ai_worker(job_id: str, rel: str) -> None:
         if not spread:
             raise RuntimeError("could not extract frames (ffmpeg failed or zero duration)")
 
-        prompt = QC_PROMPT.format(
-            rel=rel, specs=specs,
+        prompt = prompts.render(
+            "qc_review", rel=rel, specs=specs,
             spread="\n".join(f"- {f['path']}  (t={f['t']}s)" for f in spread),
             burst="\n".join(f"- {p}" for p in burst) or "(none — video too short)",
         )
@@ -1892,10 +1798,10 @@ def qc_ai_worker(job_id: str, rel: str) -> None:
         env = job_env()
         env.pop("CLAUDECODE", None)
         result = subprocess.run(
-            [CLAUDE_EXE, "-p", "--model", "opus", "--allowedTools", "Read",
+            [CLAUDE_EXE, "-p", "--model", prompts.model("qc_review"), "--allowedTools", "Read",
              "--disallowedTools", "Write,Edit,Bash,NotebookEdit,WebFetch,WebSearch,Task"],
             input=prompt, capture_output=True, text=True, encoding="utf-8", errors="replace",
-            timeout=600, cwd=str(ROOT), env=env,
+            timeout=prompts.timeout("qc_review"), cwd=str(ROOT), env=env,
         )
         out = (result.stdout or "").strip()
         if result.returncode != 0 or not out:

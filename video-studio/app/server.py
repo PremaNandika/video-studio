@@ -4,7 +4,8 @@
 Run:  autoVSL\\.venv\\Scripts\\python.exe video-studio\\app\\server.py
 Then open http://localhost:5181  (dev port; final home is 5180)
 
-All machine paths come from video-studio/config.json. Engines stay in their
+All machine paths come from video-studio/config.json and every LLM prompt from the
+workspace-level prompts.json (edit it live — no restart). Engines stay in their
 original projects (autoVSL/, subtitle-studio/, dubbing-studio/) and are called
 via subprocess — nothing in those folders is modified.
 """
@@ -14,30 +15,21 @@ import os
 import re
 import shutil
 import subprocess
+import sys
 import threading
 import time
 import uuid
 from pathlib import Path
 
+# Every LLM prompt lives in the workspace-level prompts.json; prompts.py is its only
+# reader (text + model + timeout per prompt, hot-reloaded when the file changes).
+sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
+from prompts import prompts                                    # noqa: E402
+
 CLAUDE_EXE = shutil.which("claude") or next(
     (str(p) for p in (Path.home() / ".local/bin/claude.exe", Path.home() / ".local/bin/claude") if p.exists()),
     None,
 )
-
-COPY_PROMPT = """You are a direct-response copywriter for short-form video ads (VSLs and UGC-style testimonials).
-
-Rewrite the script below according to the instruction. This is SPOKEN dialogue that will be \
-voice-cloned and lip-synced onto existing footage, so:
-- Write natural spoken language: contractions, short sentences. No headings, emojis, hashtags, stage directions, or quotation marks.
-- LENGTH IS A HARD CONSTRAINT (the video length is fixed and the voice must fit it or the lip-sync breaks): {length_rule} Count your words and land inside the range — do not go over.
-- Compliance: this is a wellness/supplement product. No disease or medical claims, no cure/treat/heal language, no guaranteed outcomes. Personal experience framing ("I felt...") is fine.
-{context_block}{inspiration_block}
-INSTRUCTION: {instruction}
-
-SCRIPT TO REWRITE:
-{text}
-
-Respond with ONLY the rewritten script text — no preamble, no explanation, no markdown."""
 
 from flask import (Flask, abort, jsonify, request, send_file, send_from_directory,
                    redirect, session)
@@ -89,10 +81,31 @@ TRANSCRIBE_PY = COURSE_PIPELINE / "transcribe.py"
 TRANSCRIBE_VENV_PY = Path(CONFIG["venvs"]["whisper"])
 MEDIA_UPLOAD_EXTS = {".mp4", ".mov", ".mkv", ".webm", ".m4v", ".avi", ".mp3", ".m4a", ".wav"}
 BASH = CONFIG["bash"]
-FFMPEG_BIN = (
-    Path(os.environ.get("LOCALAPPDATA", ""))
-    / "Microsoft/WinGet/Packages/Gyan.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe/ffmpeg-8.1.2-full_build/bin"
-)
+def _discover_ffmpeg_bin() -> Path | None:
+    """Locate the ffmpeg bin dir, or None to fall back to a bare `ffmpeg` on PATH.
+
+    Order: explicit config override → PATH → any WinGet Gyan.FFmpeg build (the
+    version is NOT pinned: WinGet upgrades rename the folder) → common manual
+    install spots. Every engine subprocess gets this dir prepended by job_env().
+    """
+    def usable(d: Path | None) -> bool:
+        # both binaries must live together: engines shell out to ffmpeg AND ffprobe,
+        # and some shim dirs (WinGet Links) expose only a subset
+        return bool(d) and (d / "ffmpeg.exe").is_file() and (d / "ffprobe.exe").is_file()
+
+    override = CONFIG.get("ffmpeg_bin")
+    if override and usable(Path(override)):
+        return Path(override)
+    on_path = shutil.which("ffmpeg")
+    if on_path and usable(Path(on_path).parent):
+        return Path(on_path).parent
+    winget = Path(os.environ.get("LOCALAPPDATA", "")) / "Microsoft/WinGet/Packages"
+    candidates = sorted(winget.glob("Gyan.FFmpeg*/ffmpeg-*/bin"), reverse=True)
+    candidates += [Path("C:/ffmpeg/bin"), Path(os.environ.get("ProgramFiles", "")) / "ffmpeg/bin"]
+    return next((c for c in candidates if usable(c)), None)
+
+
+FFMPEG_BIN = _discover_ffmpeg_bin()
 
 app = Flask(__name__, static_folder=None)
 app.secret_key = CONFIG.get("secret_key", "dev-only-change-me")
@@ -287,7 +300,7 @@ def safe_output_path(rel: str) -> Path:
 
 def job_env() -> dict:
     env = dict(os.environ)
-    if FFMPEG_BIN.is_dir():
+    if FFMPEG_BIN and FFMPEG_BIN.is_dir():
         env["PATH"] = str(FFMPEG_BIN) + os.pathsep + env.get("PATH", "")
     env["PYTHONUTF8"] = "1"
     return env
@@ -768,8 +781,8 @@ def api_script_save(stem):
 # ---------------------------------------------------------------- subtitle cleaner
 
 def ffmpeg_exe(name: str) -> str:
-    p = FFMPEG_BIN / f"{name}.exe"
-    return str(p) if p.is_file() else name
+    p = (FFMPEG_BIN / f"{name}.exe") if FFMPEG_BIN else None
+    return str(p) if p and p.is_file() else name
 
 
 def clean_subs_worker(job_id: str, fname: str, box: dict, mode: str) -> None:
@@ -966,30 +979,6 @@ def api_clean_restore():
 
 # ---------------------------------------------------------------- VSL builder
 
-BUILD_PROMPT = """You are the VSL production designer for a direct-response ad factory. \
-Turn the approved script below into a production package for a 9:16 vertical video ad.
-
-Rules:
-- Break the script into 6-10 sequential shots. Each shot gets ONE voiceover line (verbatim from \
-the script where possible, lightly smoothed for speech) and ONE text-to-video prompt.
-- Video prompts: cinematic, concrete, filmable moments matching the VO emotionally. Describe subject, \
-setting, camera, light, mood. Vertical 9:16. Real-people UGC/documentary feel unless the script implies otherwise. \
-No text overlays, no brand names, no logos in the prompts.
-- Compliance: wellness product — prompts and VO must not show or claim medical outcomes.
-- Ground tone and audience in the product/research context provided.
-
-{context}
-
-SCRIPT ({script_name}):
-{script}
-
-Respond with ONLY a JSON object (no markdown fences, no commentary):
-{{"name": "<short vsl title>",
- "concept": "<2-3 sentence creative rationale>",
- "negative_prompt": "<comma-separated things to avoid in video gen>",
- "shots": [{{"id": 1, "vo_text": "<spoken line>", "prompt": "<video generation prompt>", "notes": "<edit note>"}}]}}"""
-
-
 def build_vsl_worker(job_id: str, vsl_slug: str, product: str, script_rel: str,
                      doc_rels: list[str]) -> None:
     job = jobs[job_id]
@@ -1017,11 +1006,11 @@ def build_vsl_worker(job_id: str, vsl_slug: str, product: str, script_rel: str,
         env = job_env()
         env.pop("CLAUDECODE", None)
         result = subprocess.run(
-            [CLAUDE_EXE, "-p", "--model", "opus",
+            [CLAUDE_EXE, "-p", "--model", prompts.model("vsl_build"),
              "--disallowedTools", "Write,Edit,Bash,NotebookEdit,WebFetch,WebSearch,Task"],
-            input=BUILD_PROMPT.format(context=context, script_name=script_rel, script=script),
+            input=prompts.render("vsl_build", context=context, script_name=script_rel, script=script),
             capture_output=True, text=True, encoding="utf-8", errors="replace",
-            timeout=600, cwd=str(ROOT), env=env,
+            timeout=prompts.timeout("vsl_build"), cwd=str(ROOT), env=env,
         )
         out = (result.stdout or "").strip()
         if result.returncode != 0 or not out:
@@ -1271,33 +1260,7 @@ def api_trash_purge():
 
 # ---------------------------------------------------------------- dev chat
 
-CHAT_SYSTEM = (
-    "You are the dev assistant embedded in the autoVSL dashboard, chatting with the project owner. "
-    "The working directory is the autoVSL repo: a multi-agent VSL ad factory (research banks in banks/, "
-    "product pipeline in products/, scripts+VSLs in vsls/, fal.ai+ffmpeg production engine in scripts/, "
-    "dashboard in dashboard/, uploads+transcripts in uploads/). "
-    "You have read-only access (Read/Grep/Glob) — you cannot edit files or run commands, so when asked to "
-    "change something, explain exactly what to change or suggest doing it in a Claude Code session. "
-    "Be concise and concrete; this renders in a small chat panel."
-)
-
 AGENT_NOTES = ROOT / "research" / "agent-notes.md"
-
-RESEARCH_SYSTEM = (
-    "You are the RESEARCH & BRAND STRATEGIST for a direct-response ad operation selling functional-mushroom "
-    "wellness products (niches: mental-health healing, microdosing culture, brain fog, mood, focus). "
-    "You chat with the founder, who spends real money on ads — precision matters.\n"
-    "Your knowledge base (read these before answering anything substantive):\n"
-    "- banks/hooks.jsonl and banks/angles.jsonl — every PROVEN hook and angle\n"
-    "- research/ (all .md docs) — niche, avatar and brand research\n"
-    "- products/*/offer.md — the brand offers\n"
-    "- research/agent-notes.md — facts the founder has taught you; treat as ground truth\n"
-    "What you do: find NEW niches, angles and hooks (grounded in the proven ones, never duplicates); "
-    "critique or sharpen script ideas for conversion; answer brand questions precisely. "
-    "When the founder teaches you product facts, restate them cleanly so they can be pinned. "
-    "Always propose concrete, testable hooks/angles (label them H1/H2, A1/A2). Be concise — small chat panel. "
-    "Compliance: wellness supplement — no disease/cure claims."
-)
 
 chats: dict[str, dict] = {}
 chats_lock = threading.Lock()
@@ -1326,7 +1289,7 @@ def run_chat_turn(turn_id: str, message: str, session_id: str | None, model: str
         "--output-format", "stream-json", "--verbose",
         "--allowedTools", "Read,Grep,Glob",
         "--disallowedTools", "Write,Edit,Bash,NotebookEdit,WebFetch,WebSearch,Task",
-        "--append-system-prompt", RESEARCH_SYSTEM if mode == "research" else CHAT_SYSTEM,
+        "--append-system-prompt", prompts.text("chat_research" if mode == "research" else "chat_dev"),
     ]
     if session_id:
         cmd += ["--resume", session_id]
@@ -1469,7 +1432,8 @@ def api_copywrite():
     else:
         lo, hi = round(orig * 0.9), round(orig * 1.1)
         length_rule = f"match the original length: {lo}-{hi} words (original is {orig})."
-    prompt = COPY_PROMPT.format(
+    prompt = prompts.render(
+        "copy_rewrite",
         length_rule=length_rule, context_block=context_block,
         inspiration_block=inspiration_block(refs[:16]),   # enough pattern coverage; keeps rewrites fast
         instruction=instruction, text=text,
@@ -1478,10 +1442,10 @@ def api_copywrite():
     env.pop("CLAUDECODE", None)  # allow nested headless run from inside a Claude Code session
     try:
         result = subprocess.run(
-            [CLAUDE_EXE, "-p", "--model", "opus",
+            [CLAUDE_EXE, "-p", "--model", prompts.model("copy_rewrite"),
              "--disallowedTools", "Write,Edit,Bash,NotebookEdit,WebFetch,WebSearch"],
-            input=prompt, capture_output=True, text=True,
-            encoding="utf-8", errors="replace", timeout=240, cwd=str(ROOT), env=env,
+            input=prompt, capture_output=True, text=True, encoding="utf-8", errors="replace",
+            timeout=prompts.timeout("copy_rewrite"), cwd=str(ROOT), env=env,
         )
     except subprocess.TimeoutExpired:
         abort(504, "Claude took too long — try again")
@@ -1771,46 +1735,10 @@ NOSUBS_DIR = ROOT / "output" / "nosubs"
 QC_VIDEO_EXTS = {".mp4", ".mov", ".mkv", ".webm", ".m4v", ".avi"}
 qc_lock = threading.Lock()
 
-QC_PROMPT = """You are a meticulous QC reviewer for AI-generated and AI-lip-synced direct-response video ads. \
-These videos must look like real people filmed on a phone — a viewer noticing anything fake kills the ad.
-
-Use the Read tool to view EVERY image listed below before answering.
-
-Video: {rel}
-Specs: {specs}
-
-SPREAD frames (chronological, evenly spaced across the whole video):
-{spread}
-
-BURST frames (consecutive, ~0.12s apart, taken mid-speech — compare them to judge mouth articulation \
-and lip-sync artifacts frame-to-frame):
-{burst}
-
-Assess harshly:
-1. mouth — lip-sync artifact check: warped/blurry mouth or teeth, teeth smearing or changing shape, jaw \
-morphing, a soft low-res "patch" around the mouth that mismatches the rest of the face, frozen or \
-repeating mouth shapes across the burst frames, over-articulation.
-2. realism — does the person look real: plastic/over-smooth skin, dead or misaligned eyes, hair edge \
-artifacts, malformed hands/fingers, body proportions, background warping or objects morphing between \
-frames, uncanny AI tells.
-3. quality — technical: sharpness, compression blockiness, banding, ghosting, exposure/color shifts \
-between frames, upscaling softness. Judge against the specs above.
-4. text — burned-in subtitles/captions/watermarks/on-screen text: present or not, where (top/middle/bottom), \
-and any garbled or misspelled AI-generated text.
-
-Respond with ONLY a JSON object (no markdown fences, no commentary):
-{{"mouth": {{"score": <1-10>, "issues": ["<specific issue + which frame>"]}},
- "realism": {{"score": <1-10>, "issues": []}},
- "quality": {{"score": <1-10>, "issues": []}},
- "text": {{"subtitles_present": true/false, "location": "<top|middle|bottom|none>", "issues": []}},
- "overall": {{"verdict": "pass"|"borderline"|"fail", "summary": "<2-3 sentences>", "fix_suggestions": ["<action>"]}}}}
-Scores: 10 flawless · 8-9 minor nits · 6-7 visible on a close look · 4-5 obvious problems · 1-3 unusable. \
-Note: you cannot hear audio, so judge lip-sync from visual mouth artifacts only — audio timing is checked by a human."""
-
 
 def ff_tool(name: str) -> str:
-    exe = FFMPEG_BIN / f"{name}.exe"
-    return str(exe) if exe.is_file() else name
+    exe = (FFMPEG_BIN / f"{name}.exe") if FFMPEG_BIN else None
+    return str(exe) if exe and exe.is_file() else name
 
 
 def safe_video_path(rel: str) -> Path:
@@ -2017,8 +1945,8 @@ def qc_ai_worker(job_id: str, rel: str) -> None:
         if not spread:
             raise RuntimeError("could not extract frames (ffmpeg failed or zero duration)")
 
-        prompt = QC_PROMPT.format(
-            rel=rel, specs=specs,
+        prompt = prompts.render(
+            "qc_review", rel=rel, specs=specs,
             spread="\n".join(f"- {f['path']}  (t={f['t']}s)" for f in spread),
             burst="\n".join(f"- {p}" for p in burst) or "(none — video too short)",
         )
@@ -2026,10 +1954,10 @@ def qc_ai_worker(job_id: str, rel: str) -> None:
         env = job_env()
         env.pop("CLAUDECODE", None)
         result = subprocess.run(
-            [CLAUDE_EXE, "-p", "--model", "opus", "--allowedTools", "Read",
+            [CLAUDE_EXE, "-p", "--model", prompts.model("qc_review"), "--allowedTools", "Read",
              "--disallowedTools", "Write,Edit,Bash,NotebookEdit,WebFetch,WebSearch,Task"],
             input=prompt, capture_output=True, text=True, encoding="utf-8", errors="replace",
-            timeout=600, cwd=str(ROOT), env=env,
+            timeout=prompts.timeout("qc_review"), cwd=str(ROOT), env=env,
         )
         out = (result.stdout or "").strip()
         if result.returncode != 0 or not out:
@@ -2354,21 +2282,13 @@ def api_aifix(stem):
     if not CLAUDE_EXE:
         abort(500, "local Claude CLI not found — AI fix unavailable")
     texts = [str(ln.get("text", "")) for ln in lines]
-    prompt = (
-        "You are a subtitle proofreader. Below is a JSON array of subtitle lines from "
-        "speech-to-text; they are short ALL-CAPS lines shown in sequence, so read them as one "
-        "continuous script to infer intended words. Fix ONLY transcription errors: misheard or "
-        "misspelled words, broken punctuation, nonsense fragments. Do NOT rephrase, do NOT "
-        "change style, keep ALL-CAPS, keep the SAME number of lines in the SAME order (each "
-        "line keeps its timing). Reply with ONLY the corrected JSON array — no commentary, no "
-        "code fences.\n\n" + json.dumps(texts, ensure_ascii=False)
-    )
+    prompt = prompts.render("caption_fix", lines_json=json.dumps(texts, ensure_ascii=False))
     env = job_env()
     env.pop("CLAUDECODE", None)   # nested-run guard for the CLI
     try:
-        r = subprocess.run([CLAUDE_EXE, "-p", "--model", "haiku"], input=prompt,
+        r = subprocess.run([CLAUDE_EXE, "-p", "--model", prompts.model("caption_fix")], input=prompt,
                            capture_output=True, text=True, encoding="utf-8",
-                           errors="replace", env=env, timeout=300)
+                           errors="replace", env=env, timeout=prompts.timeout("caption_fix"))
     except subprocess.TimeoutExpired:
         abort(504, "AI took too long — try again")
     out = r.stdout or ""
@@ -2553,43 +2473,6 @@ def api_dubsync_visual_preview():
                     "align": align, "warning": warn, "ts": time.time()})
 
 
-ADVISE_PROMPT = """You are the repair advisor inside a local video tool. A user dubbed a video \
-with AI lip-sync and something looks wrong. You decide which repair to run and locate things \
-in the frames, so the tool can fix the video with zero drawing from the user.
-
-First, Read these {n_frames} image files — frames from the DUBBED video (each {iw}x{ih} pixels):
-{frame_list}
-
-Available repairs:
-- "object"    THE DEFAULT when the complaint names a specific thing that got warped/deformed \
-(a cup, glasses, a hand, jewelry...). Keeps the dub and its lip-sync 100% untouched and restores \
-ONLY that object's damaged pixels from the original video. Needs a box around the OBJECT in \
-every frame where it is visible.
-- "visual"    Restore every pixel from the ORIGINAL video except the lip region. Use only when \
-the damage is broad (background/whole face) — it can disturb the lip-sync elsewhere.
-- "relipsync" Redo the mouth movement with local Wav2Lip (for a bad/unsynced mouth itself). \
-{relipsync_ok}
-- "refit"     Time-stretch the voice to end exactly with the video (audio drift/overrun). {vo_ok}
-- "remux"     Put the voice back onto the untouched original video (no lip animation at all). {vo_ok}
-- "renorm"    Fix loudness (too quiet / too hot).
-
-User's complaint (may be empty → just locate the lips and default to "visual"):
-{complaint}
-
-Reply with ONLY this JSON, no other text:
-{{"action": "object|visual|relipsync|refit|remux|renorm",
-  "boxes": [{{"x":..,"y":..,"w":..,"h":..}} or null, ...one per frame, the LIPS+CHIN...],
-  "object_boxes": [{{"x":..,"y":..,"w":..,"h":..}} or null, ...one per frame, the NAMED OBJECT...],
-  "track": true/false,
-  "explanation": "1-2 friendly sentences telling the user what you found and what you'll do"}}
-
-boxes = a tight pixel box around the speaker's LIPS + CHIN in each frame (mouth area only, not \
-the whole face; null if no face). object_boxes = a tight box around the object the user named \
-(null per frame where it isn't visible; use null for ALL frames if no object was named). \
-All coordinates in the {iw}x{ih} pixels of these images. \
-track = true if the speaker's mouth is at clearly different positions across the frames."""
-
-
 ADVISE_FRACS = (0.08, 0.22, 0.36, 0.50, 0.64, 0.78, 0.92)
 
 
@@ -2643,7 +2526,8 @@ def api_dubsync_advise():
     has_vo = (work / "new-vo.mp3").is_file()
     src_txt = work / "source.txt"
     has_source = src_txt.is_file() and Path(src_txt.read_text(encoding="utf-8").strip()).is_file()
-    prompt = ADVISE_PROMPT.format(
+    prompt = prompts.render(
+        "dubsync_advise",
         iw=iw, ih=ih, n_frames=len(frames),
         frame_list="\n".join(f"  {p}" for p in frames),
         relipsync_ok="" if has_vo and has_source else "(NOT available for this dub)",
@@ -2652,9 +2536,11 @@ def api_dubsync_advise():
     env = job_env()
     env.pop("CLAUDECODE", None)
     try:
-        r = subprocess.run([CLAUDE_EXE, "-p", "--model", "sonnet", "--allowedTools", "Read"],
+        r = subprocess.run([CLAUDE_EXE, "-p", "--model", prompts.model("dubsync_advise"),
+                            "--allowedTools", "Read"],
                            input=prompt, capture_output=True, text=True, encoding="utf-8",
-                           errors="replace", timeout=180, cwd=str(work), env=env)
+                           errors="replace", timeout=prompts.timeout("dubsync_advise"),
+                           cwd=str(work), env=env)
     except subprocess.TimeoutExpired:
         abort(504, "the advisor took too long — try again")
     out = r.stdout or ""
@@ -2901,31 +2787,6 @@ def _export_item(p: Path, kind: str, label: str) -> dict:
 
 # ------------------------------------------------ Clone Winner (scale a proven ad)
 
-CLONE_PROMPT = """You are a direct-response copywriter. Below is a WINNING ad script — a \
-short-form video ad that is already performing (a proven testimonial/VSL). Your job is to \
-write a NEW script that clones what makes it win, so we can produce a fresh variant of the ad.
-
-KEEP (this is why it converts — preserve the underlying machine):
-- The same structure and beats in the same order (hook → problem/story → product intro → benefits → close/CTA).
-- The same angle and emotional logic; the same product and the same kind of claims.
-- The same spoken, first-person UGC style: contractions, short sentences, natural talk.
-
-CHANGE (it must read as a DIFFERENT person telling their own version — never a light paraphrase):
-- Rewrite every sentence with fresh wording; a new opening hook line with the same hook mechanic.
-- New concrete details, sensory specifics, and personal moments (invent plausible ones).
-- Do not reuse distinctive phrases from the original.
-
-HARD RULES:
-- LENGTH IS A HARD CONSTRAINT (the footage length is fixed; the voice must fit or the lip-sync breaks): {length_rule} Count your words and land inside the range — never go over.
-- Compliance: wellness/supplement product — no disease or medical claims, no cure/treat/heal language, no guaranteed outcomes. Personal experience framing ("I felt…") is fine.
-- No headings, emojis, hashtags, stage directions, or quotation marks — spoken dialogue only.
-{steer_block}
-WINNING SCRIPT (the one to clone):
-{text}
-
-Respond with ONLY the new script text — no preamble, no explanation, no markdown."""
-
-
 def _probe_seconds(path: Path) -> float:
     try:
         r = subprocess.run([ff_tool("ffprobe"), "-v", "error", "-show_entries",
@@ -3033,15 +2894,16 @@ def api_clone_script():
 
     steer = (body.get("steer") or "").strip()
     steer_block = f"\nEXTRA DIRECTION FROM THE MARKETER: {steer}\n" if steer else ""
-    prompt = CLONE_PROMPT.format(length_rule=length_rule, steer_block=steer_block, text=text)
+    prompt = prompts.render("clone_winner", length_rule=length_rule,
+                            steer_block=steer_block, text=text)
     env = job_env()
     env.pop("CLAUDECODE", None)
     try:
         result = subprocess.run(
-            [CLAUDE_EXE, "-p", "--model", "opus",
+            [CLAUDE_EXE, "-p", "--model", prompts.model("clone_winner"),
              "--disallowedTools", "Write,Edit,Bash,NotebookEdit,WebFetch,WebSearch"],
-            input=prompt, capture_output=True, text=True,
-            encoding="utf-8", errors="replace", timeout=240, cwd=str(ROOT), env=env)
+            input=prompt, capture_output=True, text=True, encoding="utf-8", errors="replace",
+            timeout=prompts.timeout("clone_winner"), cwd=str(ROOT), env=env)
     except subprocess.TimeoutExpired:
         abort(504, "Claude took too long — try again")
     out = (result.stdout or "").strip()
@@ -3201,26 +3063,6 @@ def api_exports_send():
 
 import urllib.request as _urlreq   # noqa: E402
 
-BRAND_COPY_PROMPT = """You are a senior direct-response brand copywriter for the premium brand \
-described below. Write the ON-IMAGE copy for ONE social ad. Output STRICT JSON only.
-
-BRAND: {brand_name}. PRODUCT (use these names EXACTLY, never invent or alter): brand is "{brand}", \
-product is "{product}". Refer to the active only as "{actives}". Price/offer available: {offer}.
-
-VOICE: premium, intimate, warm (A24 cinematic), restrained — never clinical, never hype, never \
-stoner culture. COMPLIANCE (hard): "supports" framing ONLY; NO medical/disease claims (no cure, \
-treat, heal, prevent, diagnose, guaranteed results); personal-experience framing ("I felt…") is ok. \
-NEVER use these words: {banned}. "glow" means inner light returning, never skin/beauty.
-
-CREATIVE BRIEF for this ad: {brief}
-{inspiration}
-Return ONLY this JSON (no markdown, no commentary):
-{{"eyebrow": "3-6 word symptom/callout, no period",
-  "headline": "the emotional hook, 4-10 words",
-  "subhead": "one sentence, turns toward relief with 'supports' framing, names the product once",
-  "cta": "2-4 word action",
-  "price_line": "short offer line (e.g. '30 gummies · from $69 · 60-day guarantee')"}}"""
-
 
 def _brand_compliance_errors(kit: dict, copy: dict) -> list[str]:
     comp = kit.get("compliance", {})
@@ -3306,7 +3148,8 @@ def api_brand_copy():
         refs.append({"type": "angle", "id": aid})
     insp = inspiration_block(refs) if refs else ""
 
-    prompt = BRAND_COPY_PROMPT.format(
+    prompt = prompts.render(
+        "brand_copy",
         brand_name=kit.get("brand", "liitt"), brand=prod.get("brand", "liitt"),
         product=prod.get("name", "Fairy Flame"), actives=prod.get("actives_phrase", "microdose gummies"),
         offer=", ".join(f"{k} {v}" for k, v in prod.get("prices", {}).items()) or "see site",
@@ -3317,9 +3160,10 @@ def api_brand_copy():
     last_err = ""
     for attempt in range(3):
         try:
-            r = subprocess.run([CLAUDE_EXE, "-p", "--model", "sonnet"], input=prompt,
-                               capture_output=True, text=True, encoding="utf-8",
-                               errors="replace", timeout=180, cwd=str(ROOT), env=env)
+            r = subprocess.run([CLAUDE_EXE, "-p", "--model", prompts.model("brand_copy")],
+                               input=prompt, capture_output=True, text=True, encoding="utf-8",
+                               errors="replace", timeout=prompts.timeout("brand_copy"),
+                               cwd=str(ROOT), env=env)
         except subprocess.TimeoutExpired:
             abort(504, "copywriter took too long — try again")
         out = r.stdout or ""
@@ -3335,7 +3179,7 @@ def api_brand_copy():
         errs = _brand_compliance_errors(kit, copy)
         if errs:
             last_err = "; ".join(errs)
-            prompt = prompt + f"\n\nYour previous attempt violated compliance ({last_err}). Rewrite, fixing it."
+            prompt = prompt + "\n\n" + prompts.render("brand_copy_retry", errors=last_err)
             continue
         return jsonify({"copy": copy, "compliant": True})
     abort(502, f"could not get compliant copy after 3 tries: {last_err}")

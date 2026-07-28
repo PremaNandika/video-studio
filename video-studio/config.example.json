@@ -1,0 +1,48 @@
+{
+  "_comment": [
+    "Copy to config.json (gitignored) and replace <REPO> with the absolute path",
+    "of your checkout, e.g. D:/Projects/Video AI editing. Use forward slashes.",
+    "Run `python doctor.py` from the repo root afterwards -- it verifies every",
+    "path, venv, binary and model weight below and prints a fix for each failure.",
+    "ffmpeg_bin is OPTIONAL: the server auto-discovers ffmpeg (PATH, then WinGet,",
+    "then common install dirs) and only needs this key if discovery fails."
+  ],
+
+  "port": 5180,
+  "lan_access": true,
+  "remote_pin": "<6-DIGIT-PIN>",
+  "secret_key": "<RANDOM-HEX -- python -c \"import secrets;print(secrets.token_hex(32))\">",
+
+  "autovsl_root": "<REPO>/autoVSL",
+  "engines_dir": "<REPO>/autoVSL/dashboard",
+  "subtitle_studio": "<REPO>/subtitle-studio",
+  "dubbing_studio": "<REPO>/dubbing-studio",
+  "course_pipeline": "<REPO>/course_pipeline",
+
+  "engines": {
+    "erase": "<REPO>/subtitle-studio/erase_subs.py",
+    "recaption": "<REPO>/subtitle-studio/recaption.py",
+    "lipsync": "<REPO>/dubbing-studio/lipsync.py"
+  },
+
+  "venvs": {
+    "cv": "<REPO>/autoVSL/.venv/Scripts/python.exe",
+    "whisper": "<REPO>/course_pipeline/.venv/Scripts/python.exe",
+    "vsr": "<REPO>/tools/vsr/.venv/Scripts/python.exe",
+    "dub": "<REPO>/dubbing-studio/venv/Scripts/python.exe"
+  },
+
+  "weights": {
+    "propainter": "<REPO>/tools/ProPainter",
+    "wav2lip": "<REPO>/tools/Wav2Lip",
+    "codeformer": "<REPO>/CodeFormer"
+  },
+
+  "brand_kit": "<REPO>/autoVSL/banks/liitt-brand-kit.json",
+  "banks_dir": "<REPO>/autoVSL/banks",
+  "brand_out": "<REPO>/autoVSL/output/brand-content",
+
+  "exports_dir": "<YOUR-HOME>/Desktop/Video Studio",
+  "bash": "C:/Program Files/Git/bin/bash.exe",
+  "comfyui": "127.0.0.1:8188"
+}

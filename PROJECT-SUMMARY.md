@@ -33,6 +33,18 @@ Design philosophy throughout: **free/local engines by default** (XTTS, Wav2Lip, 
 - `config.json` — **all paths, venvs, ports, PIN live here.** No hardcoded paths in engines.
 - `docs/MIGRATION-PLAN.md` — running changelog of every feature with dates.
 
+### Prompt config (workspace root, shared by every app)
+- `prompts.json` — **every LLM prompt in the workspace**, with the model and timeout each
+  one runs on. Edit the wording or swap a model here; no code change, no restart (the
+  loader re-reads the file when its mtime moves).
+- `prompts.py` — its only reader; also the validator: `python prompts.py` lists all
+  prompts with their `{placeholders}`, `python prompts.py <name>` prints one. `doctor.py`
+  runs it, so a broken prompt fails at setup instead of mid-job.
+- `prompts.local.json` (gitignored) — per-machine overrides, merged key-by-key over
+  `prompts.json`; a patch can change just the `model` and keep the committed text.
+- Consumers: `video-studio/app/server.py` (9 prompts), `autoVSL/dashboard/server.py` (5,
+  the same shared entries), `subtitle-studio/server.py` (1), `course_pipeline/distill.py` (2).
+
 ### External engine helpers (called by the app, live in autoVSL)
 - `autoVSL/dashboard/local_dub.py` — free dub chain: XTTS voice → Wav2Lip/GFPGAN lip-sync.
 - `autoVSL/dashboard/dub.py` — paid fal.ai dub chain (wraps `autoVSL/scripts/script-swap.py`).
