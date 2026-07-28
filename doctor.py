@@ -89,6 +89,18 @@ def check_config() -> dict:
     return cfg
 
 
+def check_prompts() -> None:
+    """prompts.json holds every LLM prompt; a typo there breaks the AI tabs at runtime,
+    not at boot, so validate the whole file (placeholders included) up front."""
+    rc, out = run([sys.executable, str(ROOT / "prompts.py")], timeout=30)
+    tail = (out.strip().splitlines() or ["no output"])[-1]
+    if rc == 0:
+        add(OK, "prompts.json", tail)
+    else:
+        add(FAIL, "prompts.json", tail.removeprefix("ERROR: ") or "validation failed",
+            "fix prompts.json (or prompts.local.json), then re-run `python prompts.py`")
+
+
 # ── 2. external binaries ──────────────────────────────────────────────────────
 def check_binaries() -> None:
     # ffmpeg AND ffprobe must resolve; engines shell out to both by bare name
@@ -374,6 +386,7 @@ def main() -> int:
     print(f"host python {sys.version.split()[0]} on {sys.platform}\n")
 
     cfg = check_config()
+    check_prompts()
     check_binaries()
     check_gpu()
     if cfg:

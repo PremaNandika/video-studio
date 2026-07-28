@@ -15,10 +15,15 @@ import os
 import re
 import shutil
 import subprocess
+import sys
 import threading
 import time
 import uuid
 from pathlib import Path
+
+# the AI spell-fix prompt lives in the workspace-level prompts.json (see prompts.py)
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
+from prompts import prompts                                    # noqa: E402
 
 from flask import Flask, abort, jsonify, request, send_file, send_from_directory
 from werkzeug.utils import secure_filename
@@ -506,21 +511,13 @@ def api_aifix(stem):
     if not exe:
         abort(500, "local Claude CLI not found — AI fix unavailable")
     texts = [str(ln.get("text", "")) for ln in lines]
-    prompt = (
-        "You are a subtitle proofreader. Below is a JSON array of subtitle lines from "
-        "speech-to-text; they are short ALL-CAPS lines shown in sequence, so read them as one "
-        "continuous script to infer intended words. Fix ONLY transcription errors: misheard or "
-        "misspelled words, broken punctuation, nonsense fragments. Do NOT rephrase, do NOT "
-        "change style, keep ALL-CAPS, keep the SAME number of lines in the SAME order (each "
-        "line keeps its timing). Reply with ONLY the corrected JSON array — no commentary, no "
-        "code fences.\n\n" + json.dumps(texts, ensure_ascii=False)
-    )
+    prompt = prompts.render("caption_fix", lines_json=json.dumps(texts, ensure_ascii=False))
     env = job_env()
     env.pop("CLAUDECODE", None)   # nested-run guard for the CLI
     try:
-        r = subprocess.run([str(exe), "-p", "--model", "haiku"], input=prompt,
+        r = subprocess.run([str(exe), "-p", "--model", prompts.model("caption_fix")], input=prompt,
                            capture_output=True, text=True, encoding="utf-8",
-                           errors="replace", env=env, timeout=300)
+                           errors="replace", env=env, timeout=prompts.timeout("caption_fix"))
     except subprocess.TimeoutExpired:
         abort(504, "AI took too long — try again")
     out = r.stdout or ""

@@ -95,7 +95,25 @@ Fit the script to the footage. XTTS speaks slower than most source audio, so a
 verbatim transcript usually overruns the video and Wav2Lip pads frames to match the
 audio. The rewrite in step 3 sizes word count to duration — that is what it is for.
 
-## 5. Before you write any code
+## 5. Tuning the AI prompts
+
+Every LLM prompt — script rewrite, clone, VSL shot list, QC review, DubSync advisor,
+caption spell-fix, brand copy, the chat system prompts, course distillation — lives in
+`prompts.json` at the workspace root, together with the model and timeout each one uses.
+
+```powershell
+python prompts.py                # list all prompts + the {placeholders} they take
+python prompts.py copy_rewrite   # print one in full
+```
+
+Edit the text in place and the next job picks it up — no restart. Keep `{placeholders}`
+intact (the code fills them) and leave `{{doubled}}` braces doubled; they are literal
+JSON braces in a prompt's output spec. `python prompts.py` (and `doctor.py`) fails loudly
+if you break either. For changes you do not want to commit — trying `sonnet` where the
+committed default is `opus`, say — put them in `prompts.local.json` (gitignored), which
+is merged key-by-key over the committed file.
+
+## 6. Before you write any code
 
 1. `PROJECT-SUMMARY.md` — architecture, the workdir data structure, and §8
    **"hard-won gotchas"**. Every rule there (no `-shortest`, one GPU job at a time,

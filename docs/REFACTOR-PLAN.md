@@ -33,12 +33,14 @@ video-studio/
 │   │   ├── spend.py         ← fal.ai cost tracking + confirm_cost gate
 │   │   ├── llm.py           ← claude-CLI wrapper (pops CLAUDECODE once, here)
 │   │   └── workdir.py       ← NEW: owns the workdir file layout
-│   ├── engines/             ← repair engines, moved as-is
-│   └── prompts.py           ← COPY_PROMPT, CLONE_PROMPT
+│   └── engines/             ← repair engines, moved as-is
 ├── frontend/                ← SvelteKit + Tailwind + shadcn-svelte
 └── config.json
 
 data/ (today: autoVSL/)      ← uploads/, workdirs/, banks/ — pure data, no code
+
+prompts.json + prompts.py    ← DONE: every LLM prompt (text + model + timeout) at the
+                               workspace root, shared by all four apps
 ```
 
 ---
@@ -54,7 +56,7 @@ data/ (today: autoVSL/)      ← uploads/, workdirs/, banks/ — pure data, no c
 
 The 3,700-line `server.py` is the biggest maintainability debt.
 
-- [ ] Extract cross-cutting services first: `gpu.py`, `spend.py`, `llm.py`, `prompts.py`
+- [ ] Extract cross-cutting services first: `gpu.py`, `spend.py`, `llm.py` — ~~`prompts.py`~~ (done: workspace-level `prompts.json`)
 - [ ] Write `workdir.py` — the one new abstraction: a class owning the workdir layout (`final.mp4`, `script-edited.txt`, `new-vo.mp3`, `versions.json`, …). Today these filenames are string literals scattered everywhere.
 - [ ] Move routes into blueprints one tab at a time (same order as the UI migration: library/exports first, dubsync last)
 - [ ] Golden run passes → tag `phase-1`

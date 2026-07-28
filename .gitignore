@@ -76,6 +76,7 @@ dubbing-studio/outputs/
 subtitle-studio/files/
 subtitle-studio/output/
 video-studio/config.json
+prompts.local.json
 
 # vsr third-party design/marketing assets (not code)
 tools/vsr/design/
