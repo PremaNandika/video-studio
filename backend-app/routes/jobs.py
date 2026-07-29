@@ -31,9 +31,11 @@ from __future__ import annotations
 
 import re
 import subprocess
+import threading
 import time
+import uuid
 
-from flask import Blueprint, abort, jsonify, request
+from flask import Blueprint, abort, current_app, jsonify, request
 
 # Pure relocation of the 3 job-store symbols from server.py L154-155.
 # The "from jobs import ..." line in server.py becomes this import
@@ -137,24 +139,33 @@ def api_job_resume(job_id):
     command. Engines with checkpoint caches (ProPainter erase,
     whisper words.json) pick up where they left off.
 
-    STATUS (B3, 2026-07-20): STUB. The validation logic (404
-    missing, 400 wrong state, 400 predates resume, 400 cloud-dub
-    blind-resume) is moved and works. The actual subprocess
-    re-spawn — ``threading.Thread(target=run_job, args=(...))``
-    — depends on the shared job runner ``run_job()`` which still
-    lives in server.py. Moving ``run_job`` is B7 Dubbing's job
-    (it requires moving or refactoring the entire job-creation
-    flow used by every action route).
+    Wire format: byte-equivalent to server.py L365-391 — the same
+    4 validation gates (404 missing, 400 wrong state, 400 predates
+    resume, 400 cloud-dub blind-resume), the same ``jobs[new_id]``
+    record shape, and the same ``{job_id, resumed_from}`` response.
 
-    Until B7 lands, /resume returns 400 with an error explaining
-    the situation (using 400 — already covered by api_errors —
-    rather than 501, to keep the error handler set small). The
-    /api/jobs list, /api/job/<id> get, and /api/job/<id>/stop
-    routes all work fully (they don't depend on run_job).
+    Spawn: bare ``JobRunner.run()`` bound method on a daemon thread,
+    no wrapper. This is the same recipe ``routes/captions.py:336``
+    (the first bare caller, B8), ``routes/brand.py:241`` (B13 S5)
+    and ``routes/dubsync.py:213`` (B11) already use. Resume is the
+    one route that does NOT need a worker wrapper because:
+
+      - no cost recording — cloud dubs are blocked above, and local
+        dubs' cost is already booked the first time around
+      - no LLM call — resume is a mechanical subprocess re-spawn
+      - no special pre/post — ``JobRunner.run`` already handles the
+        GPU lock, status mapping, and the fal.ai post-failure hints
+
+    ``runner.run`` is a bound method, so it carries the runner's
+    ``_cwd`` (the autoVSL repo root) and ``_job_env_factory`` (the
+    Gyan ffmpeg PATH + PYTHONUTF8=1) with it — the same way
+    ``services/llm.py:355``'s ``self.run_chat_turn`` does. Rule 8.5
+    is honored: ``current_app`` is read at request time, the worker
+    thread itself never touches it.
 
     The validation block below is byte-equivalent to server.py
-    L370-381 — kept here so the route's external contract is
-    correct (the right error codes fire before the stub 400).
+    L370-381 — preserved exactly so the external contract is
+    unchanged (the same 4xx codes fire before the spawn).
     """
     job = jobs.get(job_id)
     if not job:
@@ -168,8 +179,19 @@ def api_job_resume(job_id):
     # must go back through the Dubbing tab's cost-confirmation flow
     if any(part.endswith("dub.py") and not part.endswith("local_dub.py") for part in cmd):
         abort(400, "cloud dubs can't be blind-resumed — re-run from the Dubbing tab so the cost is confirmed")
-    # B7 will replace this with the actual run_job() thread spawn.
-    abort(400, "resume not yet implemented in the new backend (B7 Dubbing will land it)")
+    new_id = uuid.uuid4().hex[:8]
+    jobs[new_id] = {
+        "id": new_id, "action": job.get("action"), "slug": job.get("slug"),
+        "label": f"{job.get('label') or job.get('action') or 'job'} (resumed)",
+        "status": "running", "lines": [f"▶ resuming job {job_id}"],
+        "returncode": None, "started": time.time(), "ended": None,
+        "resumed_from": job_id,
+    }
+    runner = current_app.config["JOB_RUNNER"]
+    threading.Thread(
+        target=runner.run, args=(new_id, cmd), daemon=True,
+    ).start()
+    return jsonify({"job_id": new_id, "resumed_from": job_id})
 
 
 def register_jobs(app) -> None:
